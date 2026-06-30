@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px; /* Offset for floating sticky navigation bar */
+}
+
+html.dark {
+  background-color: #010307;
+}
+
+html.light {
+  background-color: #f8fafc;
+}
+
+/* Immersive UI Specific Classes */
+.bg-gradient-dark {
+  background-color: #030d16;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 50%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-gradient-light {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(52, 211, 153, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(56, 189, 248, 0.25) 0%, transparent 45%),
+    radial-gradient(circle at 50% 75%, rgba(14, 165, 233, 0.15) 0%, transparent 50%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.green-glow {
+  text-shadow: 0 0 20px rgba(63, 224, 62, 0.5);
+}
+
+.text-gradient-green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .text-gradient-green {
+  background: linear-gradient(135deg, #4ade80 0%, #10b981 50%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Perfect Glassmorphism "Crystal" Utility Classes for 2026 */
+.card-glass {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.dark .card-glass {
+  background: rgba(8, 22, 38, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    0 12px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+html.dark .card-glass:hover {
+  border-color: rgba(74, 222, 128, 0.3);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    0 0 25px rgba(56, 189, 248, 0.12),
+    0 12px 40px -10px rgba(0, 0, 0, 0.85);
+}
+
+html.light .card-glass {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    0 12px 40px -12px rgba(0, 0, 0, 0.06);
+}
+
+html.light .card-glass:hover {
+  border-color: rgba(14, 165, 233, 0.35);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    0 0 25px rgba(16, 185, 129, 0.08),
+    0 12px 40px -12px rgba(0, 0, 0, 0.1);
+}
+
+/* Deep Crystal High Specular glass for focus areas */
+.crystal-panel {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.dark .crystal-panel {
+  background: rgba(10, 31, 54, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.18),
+    0 20px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+html.dark .crystal-panel:hover {
+  border-color: rgba(74, 222, 128, 0.35);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    0 0 35px rgba(74, 222, 128, 0.15),
+    0 20px 50px -12px rgba(0, 0, 0, 0.95);
+}
+
+html.light .crystal-panel {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  box-shadow: 
+    inset 0 1px 3px rgba(255, 255, 255, 0.9),
+    0 20px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+html.light .crystal-panel:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 
+    inset 0 1px 3px rgba(255, 255, 255, 0.95),
+    0 0 35px rgba(14, 165, 233, 0.12),
+    0 20px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom Webkit scrollbars matching the neon-green design theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #020b14;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #f6f8fb;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(63, 224, 62, 0.15);
+  border-radius: 9999px;
+  border: 2px solid #020b14;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 9999px;
+  border: 2px solid #f6f8fb;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 224, 62, 0.35);
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.45);
+}
+
+/* Smooth enter anim helper for older browser fallbacks or custom delays */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* Reveal on Scroll 2026 Immersive Transitions */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.reveal-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
+.reveal-delay-400 { transition-delay: 400ms; }
+.reveal-delay-500 { transition-delay: 500ms; }
+
+/* Modal Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+

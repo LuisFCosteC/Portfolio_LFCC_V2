@@ -1,0 +1,6 @@
+{
+  "name": "LFCC Portafolio",
+  "description": "Portafolio personal bilingüe de Luis F. Coste C., Desarrollador de Software.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

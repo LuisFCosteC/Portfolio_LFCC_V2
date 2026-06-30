@@ -1,0 +1,58 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#071926"/>
+  <rect x="20" y="20" width="760" height="560" rx="12" fill="#0c253a" stroke="#3FE03E" stroke-opacity="0.3" stroke-width="2"/>
+
+  <!-- Left Sidebar (Course Sections) -->
+  <rect x="40" y="40" width="220" height="520" rx="8" fill="#071926" stroke="#3FE03E" stroke-opacity="0.1"/>
+  <text x="60" y="75" fill="#ffffff" font-family="sans-serif" font-size="16" font-weight="bold">Temas del Curso</text>
+  
+  <rect x="50" y="100" width="200" height="35" rx="6" fill="#3FE03E" fill-opacity="0.15" stroke="#3FE03E" stroke-opacity="0.3"/>
+  <text x="65" y="122" fill="#3FE03E" font-family="sans-serif" font-size="12" font-weight="bold">1. React 19 Avanzado</text>
+
+  <rect x="50" y="145" width="200" height="35" rx="6" fill="#071926"/>
+  <text x="65" y="167" fill="#a0aec0" font-family="sans-serif" font-size="12">2. Server Components</text>
+
+  <rect x="50" y="190" width="200" height="35" rx="6" fill="#071926"/>
+  <text x="65" y="212" fill="#a0aec0" font-family="sans-serif" font-size="12">3. Optimización de Estado</text>
+
+  <rect x="50" y="235" width="200" height="35" rx="6" fill="#071926"/>
+  <text x="65" y="257" fill="#a0aec0" font-family="sans-serif" font-size="12">4. Despliegue Cloud</text>
+
+  <line x1="50" y1="300" x2="250" y2="300" stroke="#133c5c" stroke-width="1"/>
+  
+  <!-- Profile info at bottom sidebar -->
+  <circle cx="75" cy="510" r="18" fill="#3FE03E"/>
+  <text x="70" y="515" fill="#071926" font-family="sans-serif" font-size="14" font-weight="bold">LF</text>
+  <text x="105" y="505" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Luis Coste</text>
+  <text x="105" y="522" fill="#3FE03E" font-family="sans-serif" font-size="10">Estudiante Pro</text>
+
+  <!-- Right side content (Video & Info) -->
+  <!-- Main Video Player -->
+  <rect x="280" y="40" width="480" height="310" rx="8" fill="#071926" stroke="#3FE03E" stroke-opacity="0.1"/>
+  
+  <!-- Play Button -->
+  <circle cx="520" cy="195" r="35" fill="#3FE03E" fill-opacity="0.8"/>
+  <polygon points="512,180 538,195 512,210" fill="#071926"/>
+
+  <!-- Controls Bar -->
+  <rect x="295" y="310" width="450" height="30" rx="6" fill="#0c253a"/>
+  <circle cx="315" cy="325" r="6" fill="#3FE03E"/>
+  <rect x="335" y="322" width="260" height="6" rx="3" fill="#133c5c"/>
+  <rect x="335" y="322" width="180" height="6" rx="3" fill="#3FE03E"/>
+  <text x="610" y="329" fill="#ffffff" font-family="monospace" font-size="10">18:42 / 24:15</text>
+  
+  <!-- Course Description -->
+  <rect x="280" y="370" width="480" height="190" rx="8" fill="#071926" stroke="#3FE03E" stroke-opacity="0.1"/>
+  <text x="300" y="405" fill="#ffffff" font-family="sans-serif" font-size="18" font-weight="bold">Clase 1: Suspense y Concurrent Mode</text>
+  <text x="300" y="435" fill="#a0aec0" font-family="sans-serif" font-size="13">En esta lección cubriremos los detalles profundos de Concurrent Mode en React 19, cómo configurar límites de Suspense eficientes y técnicas de hidratación selectiva.</text>
+
+  <!-- Badges -->
+  <rect x="300" y="495" width="80" height="24" rx="12" fill="#133c5c"/>
+  <text x="315" y="511" fill="#3FE03E" font-family="sans-serif" font-size="11" font-weight="bold">React 19</text>
+
+  <rect x="390" y="495" width="95" height="24" rx="12" fill="#133c5c"/>
+  <text x="405" y="511" fill="#3FE03E" font-family="sans-serif" font-size="11" font-weight="bold">Web Dev</text>
+
+  <rect x="495" y="495" width="70" height="24" rx="12" fill="#3FE03E" fill-opacity="0.2"/>
+  <text x="510" y="511" fill="#3FE03E" font-family="sans-serif" font-size="11" font-weight="bold">Nuevo</text>
+</svg>

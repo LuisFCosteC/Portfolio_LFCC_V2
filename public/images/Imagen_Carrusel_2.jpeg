@@ -1,0 +1,32 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#05131f"/>
+  <rect x="15" y="15" width="770" height="470" rx="12" fill="#081f33" stroke="#3FE03E" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- System architecture diagram -->
+  <!-- Box 1: Client App -->
+  <rect x="100" y="160" width="130" height="80" rx="8" fill="#0c2c47" stroke="#3FE03E" stroke-width="2"/>
+  <text x="165" y="195" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">Frontend Client</text>
+  <text x="165" y="215" text-anchor="middle" fill="#3FE03E" font-family="monospace" font-size="10">React / Angular</text>
+
+  <!-- Box 2: API Gateway -->
+  <rect x="335" y="160" width="130" height="80" rx="8" fill="#0c2c47" stroke="#3FE03E" stroke-width="2"/>
+  <text x="400" y="195" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">API Gateway</text>
+  <text x="400" y="215" text-anchor="middle" fill="#3FE03E" font-family="monospace" font-size="10">.NET Core / REST</text>
+
+  <!-- Box 3: Databases -->
+  <rect x="570" y="160" width="130" height="80" rx="8" fill="#0c2c47" stroke="#3FE03E" stroke-width="2"/>
+  <text x="635" y="195" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">Data Layer</text>
+  <text x="635" y="215" text-anchor="middle" fill="#3FE03E" font-family="monospace" font-size="10">SQL Server / PG</text>
+
+  <!-- Connection arrows -->
+  <path d="M 230,200 L 335,200" stroke="#3FE03E" stroke-width="3" stroke-dasharray="8,6" marker-end="url(#arrow)"/>
+  <path d="M 465,200 L 570,200" stroke="#3FE03E" stroke-width="3" stroke-dasharray="8,6"/>
+  
+  <!-- Curved cloud indicator around entire system -->
+  <path d="M 50,280 Q 400,320 750,280" stroke="#31C030" stroke-opacity="0.3" stroke-width="4"/>
+
+  <!-- Texts -->
+  <text x="400" y="360" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="24" font-weight="black">ARQUITECTURA DE SISTEMAS (SYSTEM DESIGN)</text>
+  <text x="400" y="395" text-anchor="middle" fill="#3FE03E" font-family="monospace" font-size="14" font-weight="bold">API_GATEWAY://SECURE_CONNECT</text>
+  <text x="400" y="425" text-anchor="middle" fill="#a0aec0" font-family="sans-serif" font-size="13">Estructura limpia enfocada en alta escalabilidad, seguridad y desacoplamiento.</text>
+</svg>
