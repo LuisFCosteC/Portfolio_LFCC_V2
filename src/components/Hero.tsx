@@ -142,7 +142,7 @@ export default function Hero() {
                     src="/images/Imagen_1.png"
                     alt="Luis F. Coste C. Profile"
                     referrerPolicy="no-referrer"
-                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover rounded-[1.75rem] transition-all duration-500 group-hover:scale-[1.02]"
+                    className="w-72 h-72 sm:w-[22rem] sm:h-[22rem] md:w-[25rem] md:h-[25rem] lg:w-[29rem] lg:h-[29rem] object-cover rounded-[1.75rem] transition-all duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
               </div>

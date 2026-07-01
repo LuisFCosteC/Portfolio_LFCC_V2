@@ -602,7 +602,7 @@ export default function Projects() {
                           <div className="flex items-center gap-3">
                             <button 
                               onClick={togglePlay}
-                              className="text-white hover:text-green-400 transition-colors cursor-pointer"
+                              className={`text-white transition-colors cursor-pointer ${isDark ? 'hover:text-green-400' : 'hover:text-blue-400'}`}
                               title={isPlaying ? 'Pause' : 'Play'}
                             >
                               {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
@@ -610,7 +610,7 @@ export default function Projects() {
 
                             <button 
                               onClick={toggleMute}
-                              className="text-white hover:text-green-400 transition-colors cursor-pointer"
+                              className={`text-white transition-colors cursor-pointer ${isDark ? 'hover:text-green-400' : 'hover:text-blue-400'}`}
                               title={isMuted ? 'Unmute' : 'Mute'}
                             >
                               {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
@@ -881,7 +881,11 @@ export default function Projects() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl aspect-[16/10] bg-black rounded-3xl overflow-hidden border border-green-500/30 shadow-[0_0_50px_rgba(16,185,129,0.15)] flex items-center justify-center"
+              className={`relative w-full max-w-5xl aspect-[16/10] bg-black rounded-3xl overflow-hidden flex items-center justify-center border ${
+                isDark 
+                  ? 'border-green-500/30 shadow-[0_0_50px_rgba(16,185,129,0.15)]' 
+                  : 'border-blue-500/30 shadow-[0_0_50px_rgba(37,99,235,0.15)]'
+              }`}
             >
               {/* Subtle Scanline Overlay */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,_rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] pointer-events-none z-10 opacity-30" />
@@ -899,7 +903,9 @@ export default function Projects() {
               {/* Close / Minimize button */}
               <button
                 onClick={() => setIsMaximized(false)}
-                className="absolute top-4 right-4 z-50 p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-green-500/30 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg flex items-center gap-1.5 text-xs font-mono font-bold"
+                className={`absolute top-4 right-4 z-50 p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-lg flex items-center gap-1.5 text-xs font-mono font-bold border ${
+                  isDark ? 'border-green-500/30' : 'border-blue-500/30'
+                }`}
                 aria-label="Minimize video"
               >
                 <Minimize2 className="w-4 h-4" />
@@ -907,20 +913,28 @@ export default function Projects() {
               </button>
 
               {/* Info Status Indicator overlay */}
-              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-green-500/30">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-[9px] font-mono font-bold text-green-400 uppercase tracking-widest">
-                  {t(selectedProject.titleKey as any)} // MAX PREVIEW
+              <div className={`absolute top-4 left-4 z-20 flex items-center gap-2 bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-xl border ${
+                isDark ? 'border-green-500/30' : 'border-blue-500/30'
+              }`}>
+                <span className={`w-2 h-2 rounded-full animate-pulse ${isDark ? 'bg-green-500' : 'bg-blue-500'}`} />
+                <span className={`text-[9px] font-mono font-bold uppercase tracking-widest ${
+                  isDark ? 'text-green-400' : 'text-blue-400'
+                }`}>
+                  {t(selectedProject.titleKey as any)}
                 </span>
               </div>
 
               {/* Controls overlay */}
-              <div className="absolute bottom-4 left-4 right-4 z-20 p-4 bg-slate-900/90 backdrop-blur-md rounded-2xl border border-green-500/20 flex flex-col gap-2.5">
+              <div className={`absolute bottom-4 left-4 right-4 z-20 p-4 bg-slate-900/90 backdrop-blur-md rounded-2xl border flex flex-col gap-2.5 ${
+                isDark ? 'border-green-500/20' : 'border-blue-500/20'
+              }`}>
                 <div className="flex items-center gap-3 justify-between">
                   <div className="flex items-center gap-4">
                     <button 
                       onClick={togglePlay}
-                      className="text-white hover:text-green-400 transition-colors cursor-pointer flex items-center gap-1 text-xs font-mono"
+                      className={`text-white transition-colors cursor-pointer flex items-center gap-1 text-xs font-mono ${
+                        isDark ? 'hover:text-green-400' : 'hover:text-blue-400'
+                      }`}
                     >
                       {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
                       <span>{isPlaying ? 'PAUSE' : 'PLAY'}</span>
@@ -928,14 +942,16 @@ export default function Projects() {
 
                     <button 
                       onClick={toggleMute}
-                      className="text-white hover:text-green-400 transition-colors cursor-pointer flex items-center gap-1 text-xs font-mono"
+                      className={`text-white transition-colors cursor-pointer flex items-center gap-1 text-xs font-mono ${
+                        isDark ? 'hover:text-green-400' : 'hover:text-blue-400'
+                      }`}
                     >
                       {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                       <span>{isMuted ? 'UNMUTE' : 'MUTE'}</span>
                     </button>
                   </div>
 
-                  <div className="text-[10px] font-mono text-green-400">
+                  <div className={`text-[10px] font-mono ${isDark ? 'text-green-400' : 'text-blue-400'}`}>
                     {language === 'es' ? 'Presione ESC o haga clic afuera para salir' : 'Press ESC or click outside to exit'}
                   </div>
                 </div>

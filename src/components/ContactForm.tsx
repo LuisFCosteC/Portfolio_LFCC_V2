@@ -109,7 +109,7 @@ ${details}`;
                 <label htmlFor="input-name" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
                   isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
-                  {t('contact-name')} <span className="text-green-500">*</span>
+                  {t('contact-name')} <span className={isDark ? 'text-green-500' : 'text-blue-600'}>*</span>
                 </label>
                 <input
                   type="text"
@@ -131,7 +131,7 @@ ${details}`;
                 <label htmlFor="input-email" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
                   isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
-                  {t('contact-email')} <span className="text-green-500">*</span>
+                  {t('contact-email')} <span className={isDark ? 'text-green-500' : 'text-blue-600'}>*</span>
                 </label>
                 <input
                   type="email"
@@ -236,7 +236,7 @@ ${details}`;
                 <label htmlFor="textarea-details" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
                   isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
-                  {t('contact-details')} <span className="text-green-500">*</span>
+                  {t('contact-details')} <span className={isDark ? 'text-green-500' : 'text-blue-600'}>*</span>
                 </label>
                 <textarea
                   id="textarea-details"

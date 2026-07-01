@@ -35,7 +35,7 @@ export default function CVButton({ className = '', id }: CVButtonProps) {
         className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 shadow-md active:scale-95 cursor-pointer ${
           isDark
             ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-[#051A2F] hover:shadow-green-500/20'
-            : 'bg-gradient-to-r from-emerald-600 to-green-600 hover:brightness-105 text-white hover:shadow-emerald-600/20'
+            : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-105 text-white hover:shadow-blue-600/20'
         }`}
       >
         <Download id="cv-dl-icon" className="w-4 h-4" />
@@ -61,10 +61,10 @@ export default function CVButton({ className = '', id }: CVButtonProps) {
             className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-all ${
               isDark
                 ? 'text-gray-100 hover:bg-green-500/10 hover:text-green-400'
-                : 'text-slate-800 hover:bg-emerald-50 hover:text-emerald-700'
+                : 'text-slate-800 hover:bg-blue-50 hover:text-blue-700'
             }`}
           >
-            <FileText className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-emerald-600'}`} />
+            <FileText className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-blue-600'}`} />
             <span>{t('nav-cv-es')}</span>
           </a>
           <a
@@ -75,10 +75,10 @@ export default function CVButton({ className = '', id }: CVButtonProps) {
             className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-all border-t ${
               isDark
                 ? 'text-gray-100 hover:bg-green-500/10 hover:text-green-400 border-green-500/10'
-                : 'text-slate-800 hover:bg-emerald-50 hover:text-emerald-700 border-slate-100'
+                : 'text-slate-800 hover:bg-blue-50 hover:text-blue-700 border-slate-100'
             }`}
           >
-            <FileText className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-emerald-600'}`} />
+            <FileText className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-blue-600'}`} />
             <span>{t('nav-cv-en')}</span>
           </a>
         </div>
