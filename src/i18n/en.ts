@@ -4,6 +4,7 @@ export const en = {
   'nav-about': 'About me',
   'nav-projects': 'Projects',
   'nav-certificates': 'Certificates',
+  'nav-ai-assistant': 'AI Assistant',
   'nav-contact': 'Contact me',
   'nav-cv-btn': 'CV / Resume',
   'nav-cv-es': 'Download CV (Spanish)',
@@ -154,5 +155,18 @@ export const en = {
   // Footer
   'footer-contact': 'Contact me:',
   'footer-developed': 'Developed by',
-  'footer-rights': 'All rights reserved.'
+  'footer-rights': 'All rights reserved.',
+
+  // AI Assistant Section
+  'ai-title': 'Inquiry AI Assistant',
+  'ai-subtitle': 'Have questions about my experience, technologies, or certificates? Ask my trained virtual assistant.',
+  'ai-placeholder': 'Ask about Luis, his projects, skills, or certificates...',
+  'ai-send': 'Ask',
+  'ai-suggested-title': 'Suggested questions:',
+  'ai-suggested-1': 'What are your main technologies?',
+  'ai-suggested-2': 'Tell me about your Intermediate Excel certification',
+  'ai-suggested-3': 'What software projects have you built?',
+  'ai-suggested-4': 'How can I get in touch with you?',
+  'ai-api-note': 'This assistant processes queries locally. You can connect your API later by editing the designated section.',
+  'ai-initial-msg': 'Hi! I am Luis Fernando\'s virtual AI assistant. I can answer any questions you have regarding his professional resume, skills, certifications, and projects. How can I help you today?'
 };

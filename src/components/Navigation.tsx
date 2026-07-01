@@ -18,6 +18,7 @@ export default function Navigation() {
     { id: 'about', labelKey: 'nav-about' as const },
     { id: 'projects', labelKey: 'nav-projects' as const },
     { id: 'certificates', labelKey: 'nav-certificates' as const },
+    { id: 'ai-assistant', labelKey: 'nav-ai-assistant' as const },
     { id: 'contact', labelKey: 'nav-contact' as const },
   ];
 
@@ -232,7 +233,9 @@ export default function Navigation() {
 
           <div id="mobile-drawer-footer" className={`flex flex-col gap-4 border-t pt-4 mb-2 ${isDark ? 'border-green-500/10' : 'border-slate-200'}`}>
             <div id="mobile-drawer-toggles" className="flex items-center justify-between px-2">
-              <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>Ajustes / Settings</span>
+              <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                {language === 'es' ? 'Ajustes' : 'Settings'}
+              </span>
               
               <div className="flex items-center gap-2">
                 {/* Theme toggle */}
@@ -246,7 +249,7 @@ export default function Navigation() {
                   }`}
                 >
                   {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-                  <span>{isDark ? 'Claro' : 'Oscuro'}</span>
+                  <span>{isDark ? (language === 'es' ? 'Claro' : 'Light') : (language === 'es' ? 'Oscuro' : 'Dark')}</span>
                 </button>
 
                 {/* Lang toggle */}

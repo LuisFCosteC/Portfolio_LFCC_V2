@@ -6,8 +6,10 @@ import AboutMe from './components/AboutMe';
 import Projects from './components/Projects';
 import Certificates from './components/Certificates';
 import ContactForm from './components/ContactForm';
+import AiChatSection from './components/AiChatSection';
 import Footer from './components/Footer';
 import ParticleCanvas from './components/ParticleCanvas';
+import FloatingButtons from './components/FloatingButtons';
 
 function PortfolioAppContent() {
   const { theme } = useTheme();
@@ -47,8 +49,14 @@ function PortfolioAppContent() {
       {/* Certifications Accordion */}
       <Certificates />
 
+      {/* AI Assistant Chat Section */}
+      <AiChatSection />
+
       {/* Project inquiry / WhatsApp submit Form */}
       <ContactForm />
+
+      {/* Floating Action Buttons (WhatsApp & Gmail) */}
+      <FloatingButtons />
 
       {/* App Footer */}
       <Footer />
