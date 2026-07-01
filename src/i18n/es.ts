@@ -167,6 +167,6 @@ export const es = {
   'ai-suggested-2': 'Cuéntame sobre tu certificado de Excel Intermedio',
   'ai-suggested-3': '¿Qué proyectos de software has desarrollado?',
   'ai-suggested-4': '¿Cómo puedo ponerme en contacto contigo?',
-  'ai-api-note': 'Este asistente procesa consultas localmente. Puedes conectar tu API más adelante editando la sección correspondiente.',
+  'ai-api-note': 'Este asistente inteligente funciona con la tecnología de la API de Gemini.',
   'ai-initial-msg': '¡Hola! Soy el Asistente Inteligente de Luis Fernando. Estoy aquí para responder cualquier pregunta sobre su currículum, certificaciones, tecnologías o proyectos. ¿En qué te puedo ayudar hoy?'
 };

@@ -167,6 +167,6 @@ export const en = {
   'ai-suggested-2': 'Tell me about your Intermediate Excel certification',
   'ai-suggested-3': 'What software projects have you built?',
   'ai-suggested-4': 'How can I get in touch with you?',
-  'ai-api-note': 'This assistant processes queries locally. You can connect your API later by editing the designated section.',
+  'ai-api-note': 'This virtual assistant is powered by the Gemini API.',
   'ai-initial-msg': 'Hi! I am Luis Fernando\'s virtual AI assistant. I can answer any questions you have regarding his professional resume, skills, certifications, and projects. How can I help you today?'
 };
