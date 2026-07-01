@@ -39,9 +39,14 @@ export default function AiChatSection() {
     );
   }, [language, t]);
 
-  // Auto scroll to bottom of chat
+  const lastMessageCountRef = useRef(messages.length);
+
+  // Auto scroll to bottom of chat only when a new message is added or typing state changes
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messages.length > lastMessageCountRef.current || isTyping) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+    lastMessageCountRef.current = messages.length;
   }, [messages, isTyping]);
 
   const suggestedQuestions = [

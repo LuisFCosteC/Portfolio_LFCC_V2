@@ -343,7 +343,7 @@ export default function Certificates() {
                       {/* Header Section */}
                       <div className="text-center flex flex-col items-center gap-0.5 mb-2 sm:mb-4 shrink-0">
                         <span className={`text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase ${isDark ? 'text-green-400' : 'text-blue-700 font-bold'}`}>
-                          {isDark ? 'SECURE DIGITAL CREDENTIAL' : 'SISTEMA DE ACREDITACIÓN PROFESIONAL'}
+                          {language === 'es' ? 'CREDENCIAL DIGITAL SEGURA' : 'SECURE DIGITAL CREDENTIAL'}
                         </span>
                         <h4 className={`text-sm sm:text-lg md:text-xl font-serif tracking-wider uppercase font-black ${isDark ? 'text-white' : 'text-slate-950'}`}>
                           {language === 'es' ? 'Certificado de Finalización' : 'Certificate of Completion'}

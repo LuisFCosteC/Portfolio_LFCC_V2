@@ -444,7 +444,7 @@ export default function Footer() {
                 isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-emerald-600 text-slate-600'
               }`}
             >
-              {language === 'es' ? 'Tratamiento de Datos' : 'Tratamiento de Datos'}
+              {language === 'es' ? 'Tratamiento de Datos' : 'Data Treatment'}
             </button>
           </div>
 

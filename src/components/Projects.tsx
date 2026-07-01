@@ -539,7 +539,7 @@ export default function Projects() {
                     <div className="flex items-center gap-2">
                       <Terminal className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-blue-700'}`} />
                       <span className={`text-xs font-mono tracking-wider font-bold uppercase ${isDark ? 'text-green-400' : 'text-blue-700'}`}>
-                        {isDark ? 'DEVELOPER PREVIEW // LIVE SIMULATION' : 'VISTA DE SISTEMA // DEMO INTERACTIVA'}
+                        {language === 'es' ? 'VISTA DE SISTEMA // DEMO INTERACTIVA' : 'DEVELOPER PREVIEW // LIVE SIMULATION'}
                       </span>
                     </div>
 
