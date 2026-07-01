@@ -94,10 +94,8 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
 
     const ai = getAiClient();
 
-    // Map history to the structure required by GoogleGenAI SDK (role, parts)
-    // The role must be 'user' or 'model'
+    // Mapeo correcto del historial (Ya implementado correctamente en tu código)
     const contents: any[] = [];
-    
     if (Array.isArray(history)) {
       history.forEach((msg: any) => {
         contents.push({
@@ -107,7 +105,6 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
       });
     }
 
-    // Add current message to the contents array
     contents.push({
       role: 'user',
       parts: [{ text: message }]
@@ -124,7 +121,10 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
 
     const reply = response.text || '';
 
-    return res.json({ reply });
+    // AJUSTE CRÍTICO: Cambiamos { reply } por { response } para que coincida 
+    // perfectamente con la destructuración asíncrona del fetch en tu Frontend
+    return res.json({ response: reply });
+
   } catch (error: any) {
     console.error('Error in chat endpoint:', error);
     return res.status(500).json({
