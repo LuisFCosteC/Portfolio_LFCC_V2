@@ -59,14 +59,14 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-transparent"
     >
       {/* Decorative ambient blobs */}
-      <div id="hero-ambient-blob-1" className="absolute -top-40 -right-40 w-96 h-96 bg-green-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div id="hero-ambient-blob-2" className="absolute -bottom-40 -left-40 w-96 h-96 bg-green-400/5 rounded-full blur-[120px] pointer-events-none" />
+      <div id="hero-ambient-blob-1" className={`absolute -top-40 -right-40 w-96 h-96 rounded-full blur-[120px] pointer-events-none ${isDark ? 'bg-green-500/10' : 'bg-blue-500/10'}`} />
+      <div id="hero-ambient-blob-2" className={`absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-[120px] pointer-events-none ${isDark ? 'bg-green-400/5' : 'bg-blue-400/5'}`} />
 
       <div id="hero-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full mt-10 md:mt-14">
         <div className="crystal-panel rounded-[2.5rem] p-6 sm:p-12 relative overflow-hidden shadow-2xl">
           {/* Neon Glow element inside card */}
-          <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#3FE03E]/10 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#3FE03E]/5 rounded-full blur-[100px] pointer-events-none" />
+          <div className={`absolute -top-24 -left-24 w-72 h-72 rounded-full blur-[100px] pointer-events-none ${isDark ? 'bg-[#3FE03E]/10' : 'bg-blue-500/10'}`} />
+          <div className={`absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-[100px] pointer-events-none ${isDark ? 'bg-[#3FE03E]/5' : 'bg-blue-500/5'}`} />
 
           <div id="hero-grid" className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center relative z-10">
             
@@ -77,24 +77,24 @@ export default function Hero() {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
               }`}
             >
-              <div id="hero-tag" className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold w-fit tracking-wider uppercase transition-all duration-500 ${
+              <div id="hero-tag" className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold w-fit tracking-wider uppercase transition-all duration-500 ${
                 isDark 
                   ? 'bg-green-500/10 border border-green-500/25 text-green-400' 
-                  : 'bg-emerald-500/10 border border-emerald-500/25 text-emerald-700'
+                  : 'bg-blue-500/10 border border-blue-500/25 text-blue-700'
               }`}>
-                <span className={`w-2 h-2 rounded-full animate-pulse ${isDark ? 'bg-green-400' : 'bg-emerald-500'}`} />
+                <span className={`w-2.5 h-2.5 rounded-full animate-pulse ${isDark ? 'bg-green-400' : 'bg-blue-600'}`} />
                 {t('hero-greeting')}
               </div>
 
-              <h1 id="hero-main-heading" className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-900'}`}>
+              <h1 id="hero-main-heading" className={`text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-none transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-900'}`}>
                 {t('hero-name')}
               </h1>
 
-              <h2 id="hero-sub-heading" className="text-2xl sm:text-3xl font-black text-gradient-green w-fit">
+              <h2 id="hero-sub-heading" className="text-3xl sm:text-4xl font-black text-gradient-green w-fit">
                 {t('hero-title')}
               </h2>
 
-              <p id="hero-paragraph" className={`text-sm sm:text-base leading-relaxed max-w-xl transition-colors duration-500 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+              <p id="hero-paragraph" className={`text-base sm:text-lg leading-relaxed max-w-xl transition-colors duration-500 ${isDark ? 'text-gray-100 font-medium' : 'text-slate-700'}`}>
                 {t('hero-desc')}
               </p>
 
@@ -110,7 +110,7 @@ export default function Hero() {
                     className={`p-2.5 sm:p-3 rounded-full card-glass transition-all duration-300 shadow-sm sm:shadow-md hover:-translate-y-1 flex-shrink-0 flex items-center justify-center ${
                       isDark
                         ? 'bg-white/5 border-white/10 text-white hover:text-green-400 hover:border-green-400/60 hover:bg-green-400/10 hover:shadow-green-500/20'
-                        : 'bg-white/80 border-slate-200/80 text-black hover:text-emerald-600 hover:border-emerald-400/80 hover:bg-emerald-50/60 hover:shadow-emerald-500/25'
+                        : 'bg-white/80 border-slate-200/80 text-black hover:text-blue-600 hover:border-blue-400/80 hover:bg-blue-50/60 hover:shadow-blue-500/10'
                     }`}
                     aria-label={link.name}
                     style={{ transitionDelay: `${idx * 75}ms` }}
@@ -130,10 +130,12 @@ export default function Hero() {
             >
               <div id="hero-avatar-wrapper" className="relative group">
                 {/* Glowing Outer Frame Accent */}
-                <div id="hero-avatar-glow" className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-green-500 to-green-400 opacity-20 group-hover:opacity-40 blur-xl transition duration-500" />
+                <div id="hero-avatar-glow" className={`absolute -inset-1 rounded-3xl opacity-20 group-hover:opacity-40 blur-xl transition duration-500 ${
+                  isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+                }`} />
                 
                 <div id="hero-avatar-border" className={`relative p-2 rounded-[2rem] card-glass transition-all duration-500 overflow-hidden shadow-2xl ${
-                  isDark ? 'bg-[#0c253a]/40 group-hover:border-green-400/50' : 'bg-white/60 group-hover:border-emerald-500/50'
+                  isDark ? 'bg-[#0c253a]/40 group-hover:border-green-400/50' : 'bg-white/60 group-hover:border-blue-500/50'
                 }`}>
                   <img
                     id="hero-profile-img"

@@ -126,21 +126,23 @@ export default function Certificates() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
-          <span className={`font-bold tracking-widest text-xs uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${
-            isDark ? 'text-green-400' : 'text-emerald-600'
+          <span className={`font-bold tracking-widest text-sm uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${
+            isDark ? 'text-green-400' : 'text-blue-600'
           }`}>
-            <Award className="w-3.5 h-3.5" />
+            <Award className="w-4 h-4" />
             {t('nav-certificates')}
           </span>
-          <h2 id="certificates-title-h2" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
+          <h2 id="certificates-title-h2" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
             {t('cert-title')}
           </h2>
-          <p id="certificates-subtitle-p" className={`text-sm max-w-md mx-auto mt-1 transition-colors duration-500 ${
-            isDark ? 'text-gray-400' : 'text-slate-600'
+          <p id="certificates-subtitle-p" className={`text-base max-w-md mx-auto mt-1 transition-colors duration-500 ${
+            isDark ? 'text-gray-300 font-medium' : 'text-slate-600'
           }`}>
             {t('cert-subtitle')}
           </p>
-          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mx-auto mt-3" />
+          <div className={`w-20 h-1 rounded-full mx-auto mt-3 ${
+            isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+          }`} />
         </div>
 
         {/* Certificate Cards Grid */}
@@ -156,7 +158,7 @@ export default function Certificates() {
               className={`relative flex flex-col justify-between p-6 rounded-3xl card-glass transition-all duration-500 group overflow-hidden min-h-[200px] h-auto text-left items-stretch w-full cursor-pointer transform hover:-translate-y-1.5 hover:shadow-xl ${
                 isDark
                   ? 'hover:border-green-400/60 hover:shadow-green-400/15'
-                  : 'hover:border-emerald-500/60 hover:shadow-emerald-500/15'
+                  : 'hover:border-blue-500/60 hover:shadow-blue-500/15'
               } ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
               }`}
@@ -168,25 +170,25 @@ export default function Certificates() {
               {/* Floating Platform Badge */}
               <div id={`cert-badge-container-${cert.id}`} className="flex justify-between items-start gap-2">
                 <div id={`cert-badge-${cert.id}`} className={`px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-md shadow-sm transition-all duration-500 ${
-                  isDark ? 'bg-green-400 text-[#051A2F]' : 'bg-emerald-600 text-white'
+                  isDark ? 'bg-green-400 text-[#051A2F]' : 'bg-blue-600 text-white'
                 }`}>
                   {t(cert.platformKey as any)}
                 </div>
                 <ExternalLink id={`cert-ext-link-${cert.id}`} className={`w-4 h-4 shrink-0 transition-colors ${
-                  isDark ? 'text-gray-500 group-hover:text-green-400' : 'text-slate-400 group-hover:text-emerald-600'
+                  isDark ? 'text-gray-500 group-hover:text-green-400' : 'text-slate-400 group-hover:text-blue-600'
                 }`} />
               </div>
 
               {/* Title & Description */}
               <div id={`cert-title-desc-wrapper-${cert.id}`} className="flex flex-col gap-1.5 my-3 flex-grow">
-                <h3 id={`cert-title-${cert.id}`} className={`text-sm font-bold line-clamp-2 pr-2 transition-colors duration-500 ${
-                  isDark ? 'text-gray-100 group-hover:text-green-400/90' : 'text-slate-800 group-hover:text-emerald-600/90'
+                <h3 id={`cert-title-${cert.id}`} className={`text-base font-bold line-clamp-2 pr-2 transition-colors duration-500 ${
+                  isDark ? 'text-gray-100 group-hover:text-green-400/90' : 'text-slate-800 group-hover:text-blue-600/90'
                 }`}>
                   {t(cert.titleKey as any)}
                 </h3>
                 {cert.descKey && (
-                  <p id={`cert-desc-${cert.id}`} className={`text-[11px] leading-snug line-clamp-3 transition-colors duration-500 ${
-                    isDark ? 'text-gray-400 group-hover:text-gray-300' : 'text-slate-500 group-hover:text-slate-600'
+                  <p id={`cert-desc-${cert.id}`} className={`text-xs leading-snug line-clamp-3 transition-colors duration-500 ${
+                    isDark ? 'text-gray-300 font-medium' : 'text-slate-500 group-hover:text-slate-600'
                   }`}>
                     {t(cert.descKey as any)}
                   </p>
@@ -198,7 +200,7 @@ export default function Certificates() {
                 {/* Date emission text (visible by default, slides down on hover) */}
                 <div
                   id={`cert-date-${cert.id}`}
-                  className={`text-xs font-medium transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-4 ${
+                  className={`text-xs font-semibold transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-4 ${
                     isDark ? 'text-gray-400' : 'text-slate-500'
                   }`}
                 >
@@ -209,7 +211,7 @@ export default function Certificates() {
                 <div
                   id={`cert-link-hover-${cert.id}`}
                   className={`absolute inset-0 flex items-center gap-1.5 text-xs font-black opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${
-                    isDark ? 'text-green-400' : 'text-emerald-600'
+                    isDark ? 'text-green-400' : 'text-blue-600'
                   }`}
                 >
                   <span>{t('cert-view')}</span>
@@ -228,7 +230,7 @@ export default function Certificates() {
             className={`flex items-center gap-2.5 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-md active:scale-95 cursor-pointer ${
               isDark
                 ? 'bg-[#0c253a]/80 border border-green-500/20 text-green-400 hover:text-[#051A2F] hover:bg-green-400 hover:border-green-400 shadow-green-500/10'
-                : 'bg-white border border-emerald-600/20 text-emerald-700 hover:text-white hover:bg-emerald-600 hover:border-emerald-600 shadow-emerald-500/10'
+                : 'bg-white border border-blue-600/20 text-blue-700 hover:text-white hover:bg-blue-600 hover:border-blue-600 shadow-blue-500/10'
             }`}
           >
             <span>{showAll ? t('cert-show-less') : t('cert-show-more')}</span>
@@ -289,10 +291,10 @@ export default function Certificates() {
               {/* Desktop Navigation Arrows (hidden on mobile, floats on the sides of the modal) */}
               <button
                 onClick={(e) => { e.stopPropagation(); handlePrevCert(); }}
-                className={`hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-50 p-3.5 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-lg border cursor-pointer hover:shadow-green-500/10 ${
+                className={`hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-50 p-3.5 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-lg border cursor-pointer hover:shadow-blue-500/10 ${
                   isDark
                     ? 'bg-[#081827]/90 border border-green-500/30 text-green-400 hover:bg-green-400 hover:text-[#051A2F] hover:border-green-400'
-                    : 'bg-white/90 border border-slate-200 text-slate-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600'
+                    : 'bg-white/90 border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600'
                 }`}
                 aria-label="Previous certificate"
               >
@@ -301,10 +303,10 @@ export default function Certificates() {
 
               <button
                 onClick={(e) => { e.stopPropagation(); handleNextCert(); }}
-                className={`hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-50 p-3.5 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-lg border cursor-pointer hover:shadow-green-500/10 ${
+                className={`hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-50 p-3.5 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-lg border cursor-pointer hover:shadow-blue-500/10 ${
                   isDark
                     ? 'bg-[#081827]/90 border border-green-500/30 text-green-400 hover:bg-green-400 hover:text-[#051A2F] hover:border-green-400'
-                    : 'bg-white/90 border border-slate-200 text-slate-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600'
+                    : 'bg-white/90 border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600'
                 }`}
                 aria-label="Next certificate"
               >
@@ -326,27 +328,27 @@ export default function Certificates() {
                       className={`absolute inset-0 border-4 rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col justify-between ${
                         isDark 
                           ? 'bg-[#04121e] border-green-500/20 text-gray-100' 
-                          : 'bg-[#faf8f5] border-emerald-900/15 text-slate-800 shadow-inner'
+                          : 'bg-[#faf8f5] border-blue-900/15 text-slate-800 shadow-inner'
                       }`}
                     >
                       {/* Corner decorative designs */}
-                      <div className={`absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 ${isDark ? 'border-green-500/30' : 'border-emerald-800/30'}`} />
-                      <div className={`absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 ${isDark ? 'border-green-500/30' : 'border-emerald-800/30'}`} />
-                      <div className={`absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 ${isDark ? 'border-green-500/30' : 'border-emerald-800/30'}`} />
-                      <div className={`absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 ${isDark ? 'border-green-500/30' : 'border-emerald-800/30'}`} />
+                      <div className={`absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 ${isDark ? 'border-green-500/30' : 'border-blue-800/30'}`} />
+                      <div className={`absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 ${isDark ? 'border-green-500/30' : 'border-blue-800/30'}`} />
+                      <div className={`absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 ${isDark ? 'border-green-500/30' : 'border-blue-800/30'}`} />
+                      <div className={`absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 ${isDark ? 'border-green-500/30' : 'border-blue-800/30'}`} />
 
                       {/* Background Watermark/Grid */}
-                      <div className="absolute inset-4 border border-dashed rounded-lg opacity-5 pointer-events-none" style={{ borderColor: isDark ? '#10b981' : '#065f46' }} />
+                      <div className="absolute inset-4 border border-dashed rounded-lg opacity-5 pointer-events-none" style={{ borderColor: isDark ? '#10b981' : '#2563EB' }} />
 
                       {/* Header Section */}
                       <div className="text-center flex flex-col items-center gap-0.5 mb-2 sm:mb-4 shrink-0">
-                        <span className={`text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase ${isDark ? 'text-green-400' : 'text-emerald-700 font-bold'}`}>
+                        <span className={`text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase ${isDark ? 'text-green-400' : 'text-blue-700 font-bold'}`}>
                           {isDark ? 'SECURE DIGITAL CREDENTIAL' : 'SISTEMA DE ACREDITACIÓN PROFESIONAL'}
                         </span>
-                        <h4 className={`text-sm sm:text-lg md:text-xl font-serif tracking-wider uppercase font-black ${isDark ? 'text-white' : 'text-emerald-950'}`}>
+                        <h4 className={`text-sm sm:text-lg md:text-xl font-serif tracking-wider uppercase font-black ${isDark ? 'text-white' : 'text-slate-950'}`}>
                           {language === 'es' ? 'Certificado de Finalización' : 'Certificate of Completion'}
                         </h4>
-                        <div className={`w-16 h-[1.5px] mt-1 ${isDark ? 'bg-green-500/20' : 'bg-emerald-800/20'}`} />
+                        <div className={`w-16 h-[1.5px] mt-1 ${isDark ? 'bg-green-500/20' : 'bg-blue-800/20'}`} />
                       </div>
 
                       {/* Recipient Statement */}
@@ -359,12 +361,12 @@ export default function Certificates() {
                           <h5 className={`text-lg sm:text-xl md:text-2xl font-serif py-0.5 tracking-wider ${
                             isDark 
                               ? 'text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-300 to-green-500 font-black' 
-                              : 'text-emerald-950 font-black italic'
+                              : 'text-slate-950 font-black italic'
                           }`}>
                             Luis Fernando Coste Contreras
                           </h5>
-                          <div className={`w-32 h-[1px] mx-auto mt-0.5 ${isDark ? 'bg-gradient-to-r from-transparent via-green-500/40 to-transparent' : 'bg-gradient-to-r from-transparent via-emerald-800/40 to-transparent'}`} />
-                          <span className={`text-[8px] sm:text-[9px] uppercase tracking-widest font-mono ${isDark ? 'text-green-500/60' : 'text-emerald-600/70 font-semibold'}`}>
+                          <div className={`w-32 h-[1px] mx-auto mt-0.5 ${isDark ? 'bg-gradient-to-r from-transparent via-green-500/40 to-transparent' : 'bg-gradient-to-r from-transparent via-blue-800/40 to-transparent'}`} />
+                          <span className={`text-[8px] sm:text-[9px] uppercase tracking-widest font-mono ${isDark ? 'text-green-500/60' : 'text-blue-600/70 font-semibold'}`}>
                             {t('cert-modal-recipient')}
                           </span>
                         </div>
@@ -385,12 +387,12 @@ export default function Certificates() {
                       </div>
 
                       {/* Footer with Badges, Seals, Signatures */}
-                      <div className="grid grid-cols-3 gap-1 sm:gap-4 items-center pt-3 sm:pt-4 border-t border-dashed shrink-0" style={{ borderColor: isDark ? 'rgba(16,185,129,0.1)' : 'rgba(6,95,70,0.1)' }}>
+                      <div className="grid grid-cols-3 gap-1 sm:gap-4 items-center pt-3 sm:pt-4 border-t border-dashed shrink-0" style={{ borderColor: isDark ? 'rgba(16,185,129,0.1)' : 'rgba(37,99,235,0.1)' }}>
                         {/* Left: Platform & Date */}
                         <div className="flex flex-col gap-1.5 text-left items-start">
                           <div>
                             <span className="text-[8px] sm:text-[9px] uppercase tracking-widest text-slate-400 block font-mono leading-none mb-0.5">{language === 'es' ? 'Plataforma' : 'Platform'}</span>
-                            <span className={`text-[9px] sm:text-xs font-black uppercase tracking-tight block leading-tight ${isDark ? 'text-green-400' : 'text-emerald-800'}`}>
+                            <span className={`text-[9px] sm:text-xs font-black uppercase tracking-tight block leading-tight ${isDark ? 'text-green-400' : 'text-blue-800'}`}>
                               {t(selectedCert.platformKey as any)}
                             </span>
                           </div>
@@ -441,7 +443,7 @@ export default function Certificates() {
                           </div>
                           <div>
                             <span className="text-[8px] sm:text-[9px] uppercase tracking-widest text-slate-400 block font-mono leading-none mb-0.5">{language === 'es' ? 'Firma Digital' : 'Digital Signature'}</span>
-                            <span className={`text-[9px] sm:text-xs font-serif italic font-bold tracking-tight block leading-tight ${isDark ? 'text-green-400/90' : 'text-emerald-800/90'}`}>
+                            <span className={`text-[9px] sm:text-xs font-serif italic font-bold tracking-tight block leading-tight ${isDark ? 'text-green-400/90' : 'text-blue-800/90'}`}>
                               Luis F. Coste
                             </span>
                           </div>
@@ -452,13 +454,13 @@ export default function Certificates() {
                 </div>
 
                 {/* Mobile Navigation Controls */}
-                <div className="flex lg:hidden items-center justify-between w-full pt-4 mt-2 border-t border-dashed" style={{ borderColor: isDark ? 'rgba(16,185,129,0.1)' : 'rgba(6,95,70,0.1)' }}>
+                <div className="flex lg:hidden items-center justify-between w-full pt-4 mt-2 border-t border-dashed" style={{ borderColor: isDark ? 'rgba(16,185,129,0.1)' : 'rgba(37,99,235,0.1)' }}>
                   <button
                     onClick={handlePrevCert}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
                       isDark 
                         ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-green-500/10' 
-                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                     }`}
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -474,7 +476,7 @@ export default function Certificates() {
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
                       isDark 
                         ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-green-500/10' 
-                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                        : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                     }`}
                   >
                     <span>{language === 'es' ? 'Siguiente' : 'Next'}</span>
@@ -503,7 +505,7 @@ export default function Certificates() {
                     className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 shadow active:scale-95 cursor-pointer text-center ${
                       isDark
                         ? 'bg-green-400 text-[#051A2F] hover:bg-green-300 hover:shadow-green-500/20'
-                        : 'bg-emerald-600 text-white hover:bg-emerald-700 hover:shadow-emerald-500/20'
+                        : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-blue-500/20'
                     }`}
                   >
                     <ExternalLink className="w-4 h-4" />

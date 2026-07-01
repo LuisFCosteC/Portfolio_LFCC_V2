@@ -76,14 +76,14 @@ export default function AboutMe() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
-          <span className={`font-bold tracking-widest text-xs uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${isDark ? 'text-green-400' : 'text-emerald-600'}`}>
-            <User className="w-3.5 h-3.5" />
+          <span className={`font-bold tracking-widest text-sm uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${isDark ? 'text-green-400' : 'text-blue-600'}`}>
+            <User className="w-4 h-4" />
             {t('nav-about')}
           </span>
-          <h2 id="about-title" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
+          <h2 id="about-title" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
             {t('about-title')}
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mx-auto mt-2" />
+          <div className={`w-20 h-1 rounded-full mx-auto mt-2 ${isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'}`} />
         </div>
 
         {/* Two-Column Grid */}
@@ -126,7 +126,7 @@ export default function AboutMe() {
                 className={`absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg cursor-pointer ${
                   isDark 
                     ? 'bg-[#051A2F]/80 border border-green-500/20 text-green-400 hover:bg-green-500 hover:text-[#051A2F]' 
-                    : 'bg-white/85 border border-emerald-500/20 text-emerald-600 hover:bg-emerald-600 hover:text-white'
+                    : 'bg-white/85 border border-blue-500/20 text-blue-600 hover:bg-blue-600 hover:text-white'
                 }`}
                 aria-label="Previous image"
               >
@@ -138,7 +138,7 @@ export default function AboutMe() {
                 className={`absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg cursor-pointer ${
                   isDark 
                     ? 'bg-[#051A2F]/80 border border-green-500/20 text-green-400 hover:bg-green-500 hover:text-[#051A2F]' 
-                    : 'bg-white/85 border border-emerald-500/20 text-emerald-600 hover:bg-emerald-600 hover:text-white'
+                    : 'bg-white/85 border border-blue-500/20 text-blue-600 hover:bg-blue-600 hover:text-white'
                 }`}
                 aria-label="Next image"
               >
@@ -154,7 +154,7 @@ export default function AboutMe() {
                     onClick={() => scrollTo(index)}
                     className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                       index === selectedIndex 
-                        ? (isDark ? 'w-6 bg-green-400' : 'w-6 bg-emerald-500') 
+                        ? (isDark ? 'w-6 bg-green-400' : 'w-6 bg-blue-600') 
                         : (isDark ? 'w-2 bg-gray-500/60 hover:bg-gray-400' : 'w-2 bg-slate-300 hover:bg-slate-400')
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
@@ -171,15 +171,15 @@ export default function AboutMe() {
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             }`}
           >
-            <h3 id="about-narrative-subtitle" className="text-2xl font-black text-gradient-green italic tracking-tight">
+            <h3 id="about-narrative-subtitle" className="text-3xl font-black text-gradient-green italic tracking-tight">
               {t('about-subtitle')}
             </h3>
             
-            <p id="about-narrative-p1" className={`text-base leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+            <p id="about-narrative-p1" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
               {t('about-text-1')}
             </p>
 
-            <p id="about-narrative-p2" className={`text-base leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+            <p id="about-narrative-p2" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
               {t('about-text-2')}
             </p>
           </div>

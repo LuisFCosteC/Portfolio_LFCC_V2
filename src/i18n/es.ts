@@ -132,7 +132,7 @@ export const es = {
   'contact-email': 'Email',
   'contact-email-ph': 'tucorreo@ejemplo.com',
   'contact-phone': 'Teléfono',
-  'contact-phone-ph': 'ej. +57 311 6463033',
+  'contact-phone-ph': 'ej. +57 300 6003000',
   'contact-service': 'Servicio de Interés',
   'contact-service-ph': 'Selecciona el servicio...',
   'contact-deadline': 'Plazo Estimado',

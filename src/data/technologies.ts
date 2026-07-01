@@ -12,6 +12,11 @@ export const technologies: Technology[] = [
     category: 'frontend'
   },
   {
+    name: 'Next.js',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
+    category: 'frontend'
+  },
+  {
     name: 'Angular',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
     category: 'frontend'

@@ -73,21 +73,23 @@ ${details}`;
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
-          <span className={`font-bold tracking-widest text-xs uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${
-            isDark ? 'text-green-400' : 'text-emerald-600'
+          <span className={`font-bold tracking-widest text-sm uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${
+            isDark ? 'text-green-400' : 'text-blue-600'
           }`}>
-            <MessageSquareText className="w-3.5 h-3.5" />
+            <MessageSquareText className="w-4 h-4" />
             {t('nav-contact')}
           </span>
-          <h2 id="contact-title-h2" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
+          <h2 id="contact-title-h2" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
             {t('contact-title')}
           </h2>
-          <p id="contact-subtitle-p" className={`text-sm max-w-md mx-auto mt-1 transition-colors duration-500 ${
-            isDark ? 'text-gray-400' : 'text-slate-600'
+          <p id="contact-subtitle-p" className={`text-base max-w-md mx-auto mt-1 transition-colors duration-500 ${
+            isDark ? 'text-gray-300 font-medium' : 'text-slate-600'
           }`}>
             {t('contact-subtitle')}
           </p>
-          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mx-auto mt-3" />
+          <div className={`w-20 h-1 rounded-full mx-auto mt-3 ${
+            isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+          }`} />
         </div>
 
         {/* Contact Form Wrapper */}
@@ -104,8 +106,8 @@ ${details}`;
               
               {/* Full Name */}
               <div id="field-name-container" className="flex flex-col gap-2">
-                <label htmlFor="input-name" className={`text-xs font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
-                  isDark ? 'text-gray-400' : 'text-slate-600'
+                <label htmlFor="input-name" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
                   {t('contact-name')} <span className="text-green-500">*</span>
                 </label>
@@ -116,18 +118,18 @@ ${details}`;
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t('contact-name-ph')}
                   required
-                  className={`w-full px-4 py-3 rounded-xl border transition-all text-sm placeholder-slate-400 focus:outline-none focus:ring-1 ${
+                  className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold placeholder-slate-400 focus:outline-none focus:ring-1 ${
                     isDark
                       ? 'bg-[#051926]/80 border-green-500/10 text-gray-200 focus:border-green-400 focus:ring-green-400'
-                      : 'bg-slate-50 border-emerald-500/15 text-slate-800 focus:border-emerald-600 focus:ring-emerald-600'
+                      : 'bg-slate-50 border-blue-500/15 text-slate-800 focus:border-blue-600 focus:ring-blue-600'
                   }`}
                 />
               </div>
 
               {/* Email Address */}
               <div id="field-email-container" className="flex flex-col gap-2">
-                <label htmlFor="input-email" className={`text-xs font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
-                  isDark ? 'text-gray-400' : 'text-slate-600'
+                <label htmlFor="input-email" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
                   {t('contact-email')} <span className="text-green-500">*</span>
                 </label>
@@ -138,18 +140,18 @@ ${details}`;
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t('contact-email-ph')}
                   required
-                  className={`w-full px-4 py-3 rounded-xl border transition-all text-sm placeholder-slate-400 focus:outline-none focus:ring-1 ${
+                  className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold placeholder-slate-400 focus:outline-none focus:ring-1 ${
                     isDark
                       ? 'bg-[#051926]/80 border-green-500/10 text-gray-200 focus:border-green-400 focus:ring-green-400'
-                      : 'bg-slate-50 border-emerald-500/15 text-slate-800 focus:border-emerald-600 focus:ring-emerald-600'
+                      : 'bg-slate-50 border-blue-500/15 text-slate-800 focus:border-blue-600 focus:ring-blue-600'
                   }`}
                 />
               </div>
 
               {/* Phone Number */}
               <div id="field-phone-container" className="flex flex-col gap-2">
-                <label htmlFor="input-phone" className={`text-xs font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
-                  isDark ? 'text-gray-400' : 'text-slate-600'
+                <label htmlFor="input-phone" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
                   {t('contact-phone')}
                 </label>
@@ -159,18 +161,18 @@ ${details}`;
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder={t('contact-phone-ph')}
-                  className={`w-full px-4 py-3 rounded-xl border transition-all text-sm placeholder-slate-400 focus:outline-none focus:ring-1 ${
+                  className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold placeholder-slate-400 focus:outline-none focus:ring-1 ${
                     isDark
                       ? 'bg-[#051926]/80 border-green-500/10 text-gray-200 focus:border-green-400 focus:ring-green-400'
-                      : 'bg-slate-50 border-emerald-500/15 text-slate-800 focus:border-emerald-600 focus:ring-emerald-600'
+                      : 'bg-slate-50 border-blue-500/15 text-slate-800 focus:border-blue-600 focus:ring-blue-600'
                   }`}
                 />
               </div>
 
               {/* Service of Interest (Select) */}
               <div id="field-service-container" className="flex flex-col gap-2">
-                <label htmlFor="select-service" className={`text-xs font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
-                  isDark ? 'text-gray-400' : 'text-slate-600'
+                <label htmlFor="select-service" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
                   {t('contact-service')}
                 </label>
@@ -178,15 +180,15 @@ ${details}`;
                   id="select-service"
                   value={service}
                   onChange={(e) => setService(e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border transition-all text-sm appearance-none cursor-pointer focus:outline-none focus:ring-1 ${
+                  className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold appearance-none cursor-pointer focus:outline-none focus:ring-1 ${
                     isDark
                       ? 'bg-[#051926]/80 border-green-500/10 text-gray-200 focus:border-green-400 focus:ring-green-400'
-                      : 'bg-slate-50 border-emerald-500/15 text-slate-800 focus:border-emerald-600 focus:ring-emerald-600'
+                      : 'bg-slate-50 border-blue-500/15 text-slate-800 focus:border-blue-600 focus:ring-blue-600'
                   }`}
                   style={{ 
                     backgroundImage: isDark
                       ? `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233FE03E'><path d='M8 10L4 6h8z'/></svg>")`
-                      : `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23059669'><path d='M8 10L4 6h8z'/></svg>")`, 
+                      : `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232563EB'><path d='M8 10L4 6h8z'/></svg>")`, 
                     backgroundPosition: 'right 16px center', 
                     backgroundRepeat: 'no-repeat' 
                   }}
@@ -200,8 +202,8 @@ ${details}`;
 
               {/* Estimated Deadline (Select) */}
               <div id="field-deadline-container" className="flex flex-col gap-2 md:col-span-2">
-                <label htmlFor="select-deadline" className={`text-xs font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
-                  isDark ? 'text-gray-400' : 'text-slate-600'
+                <label htmlFor="select-deadline" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
                   {t('contact-deadline')}
                 </label>
@@ -209,15 +211,15 @@ ${details}`;
                   id="select-deadline"
                   value={deadline}
                   onChange={(e) => setDeadline(e.target.value)}
-                  className={`w-full px-4 py-3 rounded-xl border transition-all text-sm appearance-none cursor-pointer focus:outline-none focus:ring-1 ${
+                  className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold appearance-none cursor-pointer focus:outline-none focus:ring-1 ${
                     isDark
                       ? 'bg-[#051926]/80 border-green-500/10 text-gray-200 focus:border-green-400 focus:ring-green-400'
-                      : 'bg-slate-50 border-emerald-500/15 text-slate-800 focus:border-emerald-600 focus:ring-emerald-600'
+                      : 'bg-slate-50 border-blue-500/15 text-slate-800 focus:border-blue-600 focus:ring-blue-600'
                   }`}
                   style={{ 
                     backgroundImage: isDark
                       ? `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233FE03E'><path d='M8 10L4 6h8z'/></svg>")`
-                      : `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23059669'><path d='M8 10L4 6h8z'/></svg>")`, 
+                      : `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232563EB'><path d='M8 10L4 6h8z'/></svg>")`, 
                     backgroundPosition: 'right 16px center', 
                     backgroundRepeat: 'no-repeat' 
                   }}
@@ -231,8 +233,8 @@ ${details}`;
 
               {/* Project Details (Textarea - spans full row) */}
               <div id="field-details-container" className="flex flex-col gap-2 md:col-span-2">
-                <label htmlFor="textarea-details" className={`text-xs font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
-                  isDark ? 'text-gray-400' : 'text-slate-600'
+                <label htmlFor="textarea-details" className={`text-sm font-bold uppercase tracking-wider pl-1 transition-colors duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-slate-600'
                 }`}>
                   {t('contact-details')} <span className="text-green-500">*</span>
                 </label>
@@ -243,10 +245,10 @@ ${details}`;
                   placeholder={t('contact-details-ph')}
                   rows={5}
                   required
-                  className={`w-full px-4 py-3 rounded-xl border transition-all text-sm placeholder-slate-400 resize-y focus:outline-none focus:ring-1 ${
+                  className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold placeholder-slate-400 resize-y focus:outline-none focus:ring-1 ${
                     isDark
                       ? 'bg-[#051926]/80 border-green-500/10 text-gray-200 focus:border-green-400 focus:ring-green-400'
-                      : 'bg-slate-50 border-emerald-500/15 text-slate-800 focus:border-emerald-600 focus:ring-emerald-600'
+                      : 'bg-slate-50 border-blue-500/15 text-slate-800 focus:border-blue-600 focus:ring-blue-600'
                   }`}
                 />
               </div>
@@ -257,10 +259,10 @@ ${details}`;
             <button
               id="submit-contact-form"
               type="submit"
-              className={`mt-4 flex items-center justify-center gap-3.5 py-4 px-6 rounded-2xl text-base font-black transition-all duration-300 shadow-lg active:scale-95 cursor-pointer ${
+              className={`mt-4 flex items-center justify-center gap-3.5 py-4.5 px-6 rounded-2xl text-lg font-black transition-all duration-300 shadow-lg active:scale-95 cursor-pointer ${
                 isDark
                   ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-[#051A2F] shadow-green-500/10 hover:shadow-green-500/30 hover:-translate-y-0.5'
-                  : 'bg-gradient-to-r from-emerald-600 to-green-600 hover:brightness-105 text-white shadow-emerald-600/10 hover:shadow-emerald-600/30 hover:-translate-y-0.5'
+                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-105 text-white shadow-blue-600/10 hover:shadow-blue-600/25 hover:-translate-y-0.5'
               }`}
             >
               <Send className="w-5 h-5" />

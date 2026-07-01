@@ -97,8 +97,8 @@ export default function Navigation() {
                   onClick={(e) => handleNavClick(e, item.id)}
                   className={`text-sm font-semibold transition-all duration-300 relative py-1.5 ${
                     activeSection === item.id
-                      ? (isDark ? 'text-green-400' : 'text-emerald-600')
-                      : (isDark ? 'text-gray-300 hover:text-green-400' : 'text-slate-600 hover:text-emerald-600')
+                      ? (isDark ? 'text-green-400' : 'text-blue-600')
+                      : (isDark ? 'text-gray-300 hover:text-green-400' : 'text-slate-600 hover:text-blue-600')
                   }`}
                 >
                   {t(item.labelKey)}
@@ -106,7 +106,7 @@ export default function Navigation() {
                     <span
                       id={`nav-active-indicator-${item.id}`}
                       className={`absolute bottom-0 left-0 w-full h-[2px] rounded-full ${
-                        isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-emerald-600 to-green-600'
+                        isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
                       }`}
                     />
                   )}
@@ -122,7 +122,7 @@ export default function Navigation() {
                 className={`p-1.5 rounded-full transition-all cursor-pointer ${
                   isDark
                     ? 'bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/25'
-                    : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 hover:bg-emerald-500/20'
+                    : 'bg-blue-500/10 border border-blue-500/20 text-blue-600 hover:bg-blue-500/20'
                 }`}
                 title={isDark ? 'Cambiar a modo claro / Switch to light mode' : 'Cambiar a modo oscuro / Switch to dark mode'}
                 aria-label="Toggle theme"
@@ -137,7 +137,7 @@ export default function Navigation() {
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer text-xs font-bold ${
                   isDark
                     ? 'bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/25'
-                    : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 hover:bg-emerald-500/20'
+                    : 'bg-blue-500/10 border border-blue-500/20 text-blue-600 hover:bg-blue-500/20'
                 }`}
               >
                 <Globe className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export default function Navigation() {
               className={`p-1.5 rounded-full text-xs font-bold ${
                 isDark
                   ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                  : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600'
+                  : 'bg-blue-500/10 border border-blue-500/20 text-blue-600'
               }`}
               aria-label="Toggle theme"
             >
@@ -172,7 +172,7 @@ export default function Navigation() {
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold ${
                 isDark
                   ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                  : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600'
+                  : 'bg-blue-500/10 border border-blue-500/20 text-blue-600'
               }`}
             >
               <Globe className="w-3.5 h-3.5" />
@@ -182,8 +182,8 @@ export default function Navigation() {
             <button
               id="mobile-menu-toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`p-2 focus:outline-none focus:ring-2 focus:ring-green-400/50 rounded-lg transition-colors ${
-                isDark ? 'text-gray-300 hover:text-green-400' : 'text-slate-700 hover:text-emerald-600'
+              className={`p-2 focus:outline-none focus:ring-2 focus:ring-blue-400/50 rounded-lg transition-colors ${
+                isDark ? 'text-gray-300 hover:text-green-400' : 'text-slate-700 hover:text-blue-600'
               }`}
               aria-label="Toggle menu"
             >
@@ -205,7 +205,7 @@ export default function Navigation() {
         } ${
           isDark 
             ? 'bg-[#04121f]/95 border-green-500/35 shadow-[0_15px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(16,185,129,0.15)]' 
-            : 'bg-white/98 border-slate-200/90 shadow-[0_15px_50px_rgba(0,0,0,0.15),0_0_30px_rgba(15,118,110,0.05)]'
+            : 'bg-white/98 border-slate-200/90 shadow-[0_15px_50px_rgba(0,0,0,0.15),0_0_30px_rgba(37,99,235,0.05)]'
         }`}
         style={{ top: '85px', height: 'auto', maxHeight: 'calc(100vh - 110px)', overflowY: 'auto' }}
       >
@@ -221,8 +221,8 @@ export default function Navigation() {
                   isDark ? 'border-green-500/5' : 'border-slate-200'
                 } ${
                   activeSection === item.id
-                    ? (isDark ? 'text-green-400 pl-2 border-l-2 border-l-green-400' : 'text-emerald-600 pl-2 border-l-2 border-l-emerald-600')
-                    : (isDark ? 'text-gray-300 hover:text-green-400' : 'text-slate-700 hover:text-emerald-600')
+                    ? (isDark ? 'text-green-400 pl-2 border-l-2 border-l-green-400' : 'text-blue-600 pl-2 border-l-2 border-l-blue-600')
+                    : (isDark ? 'text-gray-300 hover:text-green-400' : 'text-slate-700 hover:text-blue-600')
                 }`}
               >
                 {t(item.labelKey)}
@@ -242,7 +242,7 @@ export default function Navigation() {
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
                     isDark
                       ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                      : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600'
+                      : 'bg-blue-500/10 border border-blue-500/20 text-blue-600'
                   }`}
                 >
                   {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
@@ -256,7 +256,7 @@ export default function Navigation() {
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
                     isDark
                       ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                      : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600'
+                      : 'bg-blue-500/10 border border-blue-500/20 text-blue-600'
                   }`}
                 >
                   <Globe className="w-3.5 h-3.5" />

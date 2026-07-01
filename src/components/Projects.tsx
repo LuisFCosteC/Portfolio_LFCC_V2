@@ -212,16 +212,18 @@ export default function Projects() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
-          <span className={`font-bold tracking-widest text-xs uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${
-            isDark ? 'text-green-400' : 'text-emerald-600'
+          <span className={`font-bold tracking-widest text-sm uppercase flex items-center justify-center gap-1.5 transition-colors duration-500 ${
+            isDark ? 'text-green-400' : 'text-blue-600'
           }`}>
-            <Code className="w-3.5 h-3.5" />
+            <Code className="w-4 h-4" />
             {t('nav-projects')}
           </span>
-          <h2 id="projects-title-h2" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
+          <h2 id="projects-title-h2" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
             {t('projects-title')}
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mx-auto mt-2" />
+          <div className={`w-20 h-1 rounded-full mx-auto mt-2 ${
+            isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+          }`} />
         </div>
 
         {/* Responsive Grid */}
@@ -238,27 +240,27 @@ export default function Projects() {
                   key={project.id}
                   id={`project-card-empty-${project.id}`}
                   onClick={() => handleSelectProject(project)}
-                  className={`flex flex-col justify-between p-6 rounded-3xl border-2 border-dashed transition-all duration-500 min-h-[420px] text-center relative group transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer ${
+                  className={`flex flex-col justify-between p-8 rounded-3xl border-2 border-dashed transition-all duration-500 min-h-[440px] text-center relative group transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer ${
                     isDark
-                      ? 'border-green-500/20 bg-[#05131f]/30 hover:border-green-400/50 hover:bg-[#05131f]/50 hover:shadow-green-400/5 text-gray-300'
-                      : 'border-slate-300 bg-slate-50/50 hover:border-emerald-500/50 hover:bg-slate-50 hover:shadow-emerald-500/5 text-slate-600'
+                      ? 'border-green-500/20 bg-[#05131f]/30 hover:border-green-400/50 hover:bg-[#05131f]/50 hover:shadow-green-400/5 text-gray-200'
+                      : 'border-slate-300 bg-slate-50/50 hover:border-blue-500/50 hover:bg-slate-50 hover:shadow-blue-500/5 text-slate-700'
                   } ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                   }`}
                   style={{ transitionDelay: `${idx * 150}ms` }}
                 >
-                  <div className="flex flex-col items-center justify-center flex-grow gap-4 my-auto">
+                  <div className="flex flex-col items-center justify-center flex-grow gap-5 my-auto">
                     <div className={`p-4 rounded-2xl transition-all duration-500 ${
-                      isDark ? 'bg-green-500/5 text-green-400 group-hover:bg-green-500/10' : 'bg-emerald-50 text-emerald-600'
+                      isDark ? 'bg-green-500/5 text-green-400 group-hover:bg-green-500/10' : 'bg-blue-50 text-blue-600'
                     }`}>
-                      <Code className="w-8 h-8 animate-pulse" />
+                      <Code className="w-9 h-9 animate-pulse" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black text-gradient-green mb-2 tracking-wide uppercase">
+                      <h3 className="text-2xl font-black text-gradient-green mb-2 tracking-wide uppercase">
                         {t(project.titleKey as any)}
                       </h3>
-                      <p className={`text-sm max-w-xs leading-relaxed transition-colors duration-500 ${
-                        isDark ? 'text-gray-400' : 'text-slate-500'
+                      <p className={`text-base max-w-xs leading-relaxed transition-colors duration-500 ${
+                        isDark ? 'text-gray-300' : 'text-slate-600'
                       }`}>
                         {t(project.descKey as any)}
                       </p>
@@ -266,10 +268,10 @@ export default function Projects() {
                   </div>
                   
                   <div className="flex justify-center mt-auto pt-4">
-                    <div className={`px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase border transition-all duration-500 ${
+                    <div className={`px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase border transition-all duration-500 ${
                       isDark 
                         ? 'bg-[#05131f] border-green-500/15 text-green-400 group-hover:border-green-400/30' 
-                        : 'bg-white border-emerald-100 text-emerald-600 group-hover:border-emerald-500/30'
+                        : 'bg-white border-blue-100 text-blue-600 group-hover:border-blue-500/30'
                     }`}>
                       {language === 'es' ? 'En Desarrollo' : 'In Development'}
                     </div>
@@ -285,7 +287,7 @@ export default function Projects() {
                 className={`flex flex-col rounded-3xl card-glass transition-all duration-500 overflow-hidden group transform hover:-translate-y-2 hover:shadow-2xl ${
                   isDark
                     ? 'hover:border-green-400/60 hover:shadow-green-400/15'
-                    : 'hover:border-emerald-500/60 hover:shadow-emerald-500/15'
+                    : 'hover:border-blue-500/40 hover:shadow-blue-500/10'
                 } ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
@@ -300,7 +302,7 @@ export default function Projects() {
                   }`}
                 >
                   {/* Browser Header Mockup */}
-                  <div className={`flex items-center justify-between px-4 py-2 border-b shrink-0 select-none ${
+                  <div className={`flex items-center justify-between px-4 py-2.5 border-b shrink-0 select-none ${
                     isDark ? 'bg-[#020b12] border-green-500/10' : 'bg-slate-50 border-slate-200'
                   }`}>
                     {/* Window Control Buttons */}
@@ -310,7 +312,7 @@ export default function Projects() {
                       <span className="w-2.5 h-2.5 rounded-full bg-green-500/90 shadow-[0_0_4px_rgba(34,197,94,0.3)]" />
                     </div>
                     {/* Mock URL / Domain Bar */}
-                    <div className={`text-[10px] font-mono px-3 py-0.5 rounded-lg truncate max-w-[150px] sm:max-w-[200px] text-center transition-colors duration-500 ${
+                    <div className={`text-xs font-mono px-3.5 py-0.5 rounded-lg truncate max-w-[150px] sm:max-w-[200px] text-center transition-colors duration-500 ${
                       isDark ? 'bg-[#041624] text-green-400/70 border border-green-500/5' : 'bg-slate-200/50 text-slate-500 border border-slate-300/20'
                     }`}>
                       {project.id === 6 
@@ -339,13 +341,15 @@ export default function Projects() {
                     />
                     {/* Hover visual overlay with instructions */}
                     <div className="absolute inset-0 bg-[#051a2f]/85 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 p-4 text-center">
-                      <div className="p-3 rounded-full bg-green-500 text-slate-950 shadow-lg shadow-green-500/20 mb-2 transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                        <PlayCircle className="w-6 h-6 fill-current animate-pulse" />
+                      <div className={`p-3 rounded-full shadow-lg mb-2 transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ${
+                        isDark ? 'bg-green-500 text-slate-950 shadow-green-500/20' : 'bg-blue-600 text-white shadow-blue-500/20'
+                      }`}>
+                        <PlayCircle className="w-7 h-7 fill-current animate-pulse" />
                       </div>
                       <span className="text-white text-xs font-mono font-bold tracking-wider uppercase">
                         {t('proj-view-preview')}
                       </span>
-                      <span className="text-green-400 text-[10px] font-mono mt-1 opacity-80">
+                      <span className={`text-[11px] font-mono mt-1 opacity-80 ${isDark ? 'text-green-400' : 'text-blue-300'}`}>
                         {language === 'es' ? 'Especificaciones & Video' : 'Specs & Video'}
                       </span>
                     </div>
@@ -353,18 +357,18 @@ export default function Projects() {
                 </div>
 
                 {/* Card Content */}
-                <div id={`project-content-${project.id}`} className="flex flex-col flex-grow p-6 gap-4 justify-between">
+                <div id={`project-content-${project.id}`} className="flex flex-col flex-grow p-7 gap-5 justify-between">
                   
                   {/* Upper Text */}
                   <div className="flex flex-col gap-2">
                     <h3 
                       id={`project-title-${project.id}`} 
                       onClick={() => handleSelectProject(project)}
-                      className="text-xl font-black text-gradient-green w-fit cursor-pointer hover:underline"
+                      className="text-2xl font-black text-gradient-green w-fit cursor-pointer hover:underline"
                     >
                       {t(project.titleKey as any)}
                     </h3>
-                    <p id={`project-desc-${project.id}`} className={`text-sm leading-relaxed line-clamp-4 transition-colors duration-500 ${
+                    <p id={`project-desc-${project.id}`} className={`text-base leading-relaxed line-clamp-4 transition-colors duration-500 ${
                       isDark ? 'text-gray-300' : 'text-slate-600'
                     }`}>
                       {t(project.descKey as any)}
@@ -380,10 +384,10 @@ export default function Projects() {
                         <div
                           key={techKey}
                           id={`project-${project.id}-tech-${techKey}`}
-                          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg transition-all duration-500 border ${
+                          className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-500 border ${
                             isDark
                               ? 'bg-[#05131f]/60 border-green-500/20 hover:border-green-400/40 text-gray-200'
-                              : 'bg-slate-100/85 border-emerald-500/10 hover:border-emerald-500/30 text-slate-700'
+                              : 'bg-slate-100/85 border-blue-500/10 hover:border-blue-500/30 text-slate-700'
                           }`}
                           title={iconData.name}
                         >
@@ -393,8 +397,8 @@ export default function Projects() {
                             className="w-4 h-4"
                             referrerPolicy="no-referrer"
                           />
-                          <span className={`font-semibold text-[10px] uppercase tracking-wider ${
-                            isDark ? 'text-green-400' : 'text-emerald-700'
+                          <span className={`font-bold text-xs uppercase tracking-wider ${
+                            isDark ? 'text-green-400' : 'text-blue-700'
                           }`}>{iconData.name}</span>
                         </div>
                       );
@@ -403,7 +407,7 @@ export default function Projects() {
 
                   {/* Actions Row */}
                   <div id={`project-actions-${project.id}`} className={`flex items-center gap-3 border-t pt-4 mt-2 ${
-                    isDark ? 'border-green-500/5' : 'border-slate-100'
+                    isDark ? 'border-green-500/5' : 'border-slate-200/60'
                   }`}>
                     
                     {/* GitHub Code Link */}
@@ -413,10 +417,10 @@ export default function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition-all duration-300 shadow-sm ${
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-bold transition-all duration-300 shadow-sm ${
                           isDark
                             ? 'border-green-500/20 text-green-400 hover:bg-green-500/10 hover:border-green-400'
-                            : 'border-emerald-600/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-600'
+                            : 'border-blue-600/20 text-blue-700 hover:bg-blue-50 hover:border-blue-600'
                         }`}
                       >
                         <Github className="w-4 h-4" />
@@ -426,9 +430,9 @@ export default function Projects() {
                       <button
                         id={`project-code-btn-disabled-${project.id}`}
                         disabled
-                        className={`flex-grow flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold cursor-not-allowed opacity-40 ${
+                        className={`flex-grow flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-bold cursor-not-allowed opacity-40 ${
                           isDark
-                            ? 'border-green-500/5 bg-[#0c253a] text-gray-500'
+                            ? 'border-green-500/10 bg-[#0c253a] text-gray-300 font-bold'
                             : 'border-slate-200 bg-slate-50 text-slate-400'
                         }`}
                       >
@@ -444,10 +448,10 @@ export default function Projects() {
                         href={project.demo!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold hover:brightness-110 active:scale-95 transition-all duration-300 shadow-md ${
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold hover:brightness-110 active:scale-95 transition-all duration-300 shadow-md ${
                           isDark
                             ? 'bg-gradient-to-r from-green-500 to-green-600 text-[#051A2F] shadow-green-500/10 hover:shadow-green-500/20'
-                            : 'bg-gradient-to-r from-emerald-600 to-green-600 text-white shadow-emerald-600/10 hover:shadow-emerald-600/20'
+                            : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-blue-600/10 hover:shadow-blue-600/20'
                         }`}
                       >
                         <ExternalLink className="w-4 h-4" />
@@ -457,9 +461,9 @@ export default function Projects() {
                       <button
                         id={`project-demo-btn-disabled-${project.id}`}
                         disabled
-                        className={`flex-grow flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold cursor-not-allowed opacity-40 ${
+                        className={`flex-grow flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold cursor-not-allowed opacity-40 ${
                           isDark
-                            ? 'bg-[#0c253a] border border-green-500/5 text-gray-500'
+                            ? 'bg-[#0c253a] border border-green-500/10 text-gray-300 font-bold'
                             : 'bg-slate-100 border border-slate-200 text-slate-400'
                         }`}
                       >
@@ -495,8 +499,8 @@ export default function Projects() {
               onClick={(e) => e.stopPropagation()}
               className={`relative w-full max-w-5xl lg:max-w-7xl lg:w-[94vw] h-[82vh] sm:h-[85vh] lg:h-[88vh] lg:max-h-[850px] lg:min-h-[640px] rounded-3xl overflow-hidden border shadow-2xl transition-all duration-300 ${
                 isDark 
-                  ? 'bg-[#030d16] border-green-500/25 text-gray-100 shadow-green-950/20' 
-                  : 'bg-white border-slate-200 text-slate-800 shadow-slate-300'
+                  ? 'bg-[#030d16] border-green-500/25 text-gray-100 shadow-slate-950/40' 
+                  : 'bg-white border-slate-200 text-slate-800 shadow-blue-100/40'
               }`}
             >
               {/* Header Controls (Close button) */}
@@ -507,7 +511,7 @@ export default function Projects() {
                   className={`p-2 rounded-xl transition-all duration-300 border cursor-pointer hover:scale-105 active:scale-95 ${
                     isDark 
                       ? 'bg-[#081827] border-green-500/15 text-green-400 hover:bg-green-500/10 hover:border-green-500/30' 
-                      : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'
+                      : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                   }`}
                   aria-label="Close project preview"
                 >
@@ -533,8 +537,8 @@ export default function Projects() {
                   <div className="flex flex-col gap-3.5 h-full">
                     {/* Title badge & label */}
                     <div className="flex items-center gap-2">
-                      <Terminal className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-emerald-700'}`} />
-                      <span className={`text-[10px] font-mono tracking-wider font-bold uppercase ${isDark ? 'text-green-400' : 'text-emerald-700'}`}>
+                      <Terminal className={`w-4 h-4 ${isDark ? 'text-green-400' : 'text-blue-700'}`} />
+                      <span className={`text-xs font-mono tracking-wider font-bold uppercase ${isDark ? 'text-green-400' : 'text-blue-700'}`}>
                         {isDark ? 'DEVELOPER PREVIEW // LIVE SIMULATION' : 'VISTA DE SISTEMA // DEMO INTERACTIVA'}
                       </span>
                     </div>
@@ -567,10 +571,12 @@ export default function Projects() {
                       {/* Play Indicator overlay when paused */}
                       {!isPlaying && (
                         <button 
-                          onClick={togglePlay} 
+                           onClick={togglePlay} 
                           className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors z-20 group"
                         >
-                          <div className="p-4 rounded-full bg-green-500 text-slate-950 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
+                          <div className={`p-4 rounded-full shadow-lg transform group-hover:scale-110 transition-transform ${
+                            isDark ? 'bg-green-505 text-slate-950 shadow-green-500/20' : 'bg-blue-600 text-white shadow-blue-500/20'
+                          }`}>
                             <Play className="w-8 h-8 fill-current" />
                           </div>
                         </button>
@@ -584,7 +590,9 @@ export default function Projects() {
                           onClick={handleProgressClick}
                         >
                           <div 
-                            className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full" 
+                            className={`h-full rounded-full ${
+                              isDark ? 'bg-gradient-to-r from-green-500 to-emerald-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+                            }`} 
                             style={{ width: `${progress}%` }}
                           />
                         </div>
@@ -612,10 +620,14 @@ export default function Projects() {
                           {/* Right: Maximize/Enlarge */}
                           <button 
                             onClick={() => setIsMaximized(true)}
-                            className="flex items-center gap-1 bg-green-500 hover:bg-green-400 text-slate-950 font-mono font-black text-[9px] sm:text-[10px] px-2.5 py-1 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-green-500/15 cursor-pointer uppercase"
+                            className={`flex items-center gap-1.5 font-mono font-bold text-xs px-3 py-1.5 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-md cursor-pointer uppercase ${
+                              isDark 
+                                ? 'bg-green-500 hover:bg-green-400 text-slate-950 shadow-green-500/15' 
+                                : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/15'
+                            }`}
                             title={t('proj-video-expand')}
                           >
-                            <Maximize2 className="w-3 h-3" />
+                            <Maximize2 className="w-3.5 h-3.5" />
                             <span>{t('proj-video-expand')}</span>
                           </button>
                         </div>
@@ -623,7 +635,7 @@ export default function Projects() {
                     </div>
 
                     {/* Info Tip */}
-                    <p className={`text-[11px] leading-relaxed italic ${isDark ? 'text-gray-400' : 'text-slate-500'} mt-1`}>
+                    <p className={`text-xs font-semibold leading-relaxed italic ${isDark ? 'text-gray-300' : 'text-slate-600'} mt-1`}>
                       {language === 'es' 
                         ? '* El video representa una simulación interactiva de las funcionalidades y flujos de datos del sistema.' 
                         : '* The video displays an interactive simulation of the systems features and data flows.'}
@@ -634,26 +646,26 @@ export default function Projects() {
                   <div className="hidden lg:flex items-center justify-between mt-6 pt-4">
                     <button
                       onClick={handlePrevProject}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
                         isDark 
                           ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-green-500/10 hover:border-green-400' 
-                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                       }`}
                     >
                       <ChevronLeft className="w-4 h-4" />
                       <span>{language === 'es' ? 'Proyecto Anterior' : 'Previous Project'}</span>
                     </button>
 
-                    <span className={`text-xs font-mono font-bold ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                    <span className={`text-sm font-mono font-bold ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
                       {String(projects.findIndex(p => p.id === selectedProject.id) + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
                     </span>
 
                     <button
                       onClick={handleNextProject}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
                         isDark 
-                          ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-green-500/10 hover:border-green-400' 
-                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                          ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-[#081827]/10 hover:border-green-400' 
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                       }`}
                     >
                       <span>{language === 'es' ? 'Siguiente Proyecto' : 'Next Project'}</span>
@@ -668,13 +680,13 @@ export default function Projects() {
                     
                     {/* Meta details and project tag */}
                     <div className="flex flex-wrap items-center gap-2 pt-4 sm:pt-0">
-                      <span className={`px-2.5 py-1 rounded-full text-[9px] font-mono tracking-widest uppercase border ${
-                        isDark ? 'bg-green-500/5 border-green-500/15 text-green-400' : 'bg-emerald-50 border-emerald-100 text-emerald-800'
+                      <span className={`px-3 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase border ${
+                        isDark ? 'bg-green-500/5 border-green-500/15 text-green-400' : 'bg-blue-50 border-blue-100 text-blue-800 font-semibold'
                       }`}>
                         {t(selectedProject.roleKey as any)}
                       </span>
                       {selectedProject.isEmpty && (
-                        <span className="px-2.5 py-1 rounded-full text-[9px] font-mono tracking-widest uppercase border bg-amber-500/5 border-amber-500/20 text-amber-500">
+                        <span className="px-3 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase border bg-amber-500/5 border-amber-500/20 text-amber-500 font-semibold">
                           {language === 'es' ? 'PLANIFICACIÓN' : 'ROADMAP'}
                         </span>
                       )}
@@ -682,29 +694,31 @@ export default function Projects() {
 
                     {/* Project Title */}
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-black text-gradient-green tracking-tight leading-tight">
+                      <h3 className="text-3xl sm:text-4xl font-black text-gradient-green tracking-tight leading-tight">
                         {t(selectedProject.titleKey as any)}
                       </h3>
-                      <div className={`w-12 h-1 mt-2.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-400`} />
+                      <div className={`w-16 h-1 mt-2.5 rounded-full ${
+                        isDark ? 'bg-gradient-to-r from-green-500 to-emerald-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'
+                      }`} />
                     </div>
 
                     {/* Fully Explained Description */}
                     <div className="flex flex-col gap-1.5">
-                      <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+                      <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-gray-200 font-medium' : 'text-slate-600'}`}>
                         {t(selectedProject.descKey as any)}
                       </p>
                     </div>
 
                     {/* Key Technical Features checklist */}
                     <div className="flex flex-col gap-2">
-                      <span className={`text-[10px] font-mono font-bold tracking-wider uppercase ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                      <span className={`text-xs font-mono font-bold tracking-wider uppercase ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
                         {t('proj-features-label')}
                       </span>
                       <div className="flex flex-col gap-2">
                         {t(selectedProject.featuresKey as any).split(',').map((feature, fIdx) => (
                           <div key={fIdx} className="flex items-start gap-2.5">
-                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${isDark ? 'text-green-400' : 'text-emerald-600'}`} />
-                            <span className={`text-[11px] sm:text-xs leading-snug font-medium ${isDark ? 'text-gray-200' : 'text-slate-700'}`}>
+                            <CheckCircle2 className={`w-4.5 h-4.5 shrink-0 mt-0.5 ${isDark ? 'text-green-400' : 'text-blue-600'}`} />
+                            <span className={`text-xs sm:text-sm leading-relaxed font-semibold ${isDark ? 'text-gray-100' : 'text-slate-800'}`}>
                               {feature.trim()}
                             </span>
                           </div>
@@ -714,7 +728,7 @@ export default function Projects() {
 
                     {/* Tech Stack Row */}
                     <div className="flex flex-col gap-2 pt-1">
-                      <span className={`text-[10px] font-mono font-bold tracking-wider uppercase ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                      <span className={`text-xs font-mono font-bold tracking-wider uppercase ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
                         {t('proj-techs-label')}
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -724,16 +738,16 @@ export default function Projects() {
                           return (
                             <div
                               key={techKey}
-                              className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[10px] font-bold ${
+                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold ${
                                 isDark
                                   ? 'bg-[#05131f] border-green-500/10 text-green-400'
-                                  : 'bg-slate-50 border-emerald-500/10 text-emerald-800'
+                                  : 'bg-slate-50 border-blue-500/10 text-blue-800'
                               }`}
                             >
                               <img
                                 src={iconData.url}
                                 alt={iconData.name}
-                                className="w-3.5 h-3.5"
+                                className="w-4 h-4"
                                 referrerPolicy="no-referrer"
                               />
                               <span>{iconData.name}</span>
@@ -741,7 +755,7 @@ export default function Projects() {
                           );
                         })}
                         {selectedProject.techs.length === 0 && (
-                          <span className={`text-xs italic ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>
+                          <span className={`text-sm italic ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
                             {language === 'es' ? 'No requiere stack específico' : 'No specific stack required'}
                           </span>
                         )}
@@ -759,10 +773,10 @@ export default function Projects() {
                           href={selectedProject.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-xs font-bold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm ${
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-bold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm ${
                             isDark
                               ? 'border-green-500/20 text-green-400 bg-green-500/5 hover:bg-green-500/10 hover:border-green-400'
-                              : 'border-emerald-600/20 text-emerald-700 bg-emerald-50/50 hover:bg-emerald-50 hover:border-emerald-600'
+                              : 'border-blue-600/20 text-blue-700 bg-blue-50/50 hover:bg-blue-50 hover:border-blue-600'
                           }`}
                         >
                           <Github className="w-4 h-4" />
@@ -771,9 +785,9 @@ export default function Projects() {
                       ) : (
                         <button
                           disabled
-                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-xs font-bold cursor-not-allowed opacity-40 ${
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-bold cursor-not-allowed opacity-40 ${
                             isDark
-                              ? 'border-green-500/5 bg-[#0c253a] text-gray-500'
+                              ? 'border-green-500/10 bg-[#0c253a] text-gray-300 font-bold'
                               : 'border-slate-200 bg-slate-50 text-slate-400'
                           }`}
                         >
@@ -788,10 +802,10 @@ export default function Projects() {
                           href={selectedProject.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-bold hover:brightness-110 active:scale-95 transition-all duration-300 shadow-md ${
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold hover:brightness-110 active:scale-95 transition-all duration-300 shadow-md ${
                             isDark
                               ? 'bg-gradient-to-r from-green-500 to-green-600 text-[#051A2F] shadow-green-500/10'
-                              : 'bg-gradient-to-r from-emerald-600 to-green-600 text-white shadow-emerald-600/10'
+                              : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-blue-600/10 hover:shadow-blue-600/20'
                           }`}
                         >
                           <ExternalLink className="w-4 h-4" />
@@ -800,9 +814,9 @@ export default function Projects() {
                       ) : (
                         <button
                           disabled
-                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-bold cursor-not-allowed opacity-40 ${
+                          className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold cursor-not-allowed opacity-40 ${
                             isDark
-                              ? 'bg-[#0c253a] border border-green-500/5 text-gray-500'
+                              ? 'bg-[#0c253a] border border-green-500/10 text-gray-300 font-bold'
                               : 'bg-slate-100 border border-slate-200 text-slate-400'
                           }`}
                         >
@@ -816,26 +830,26 @@ export default function Projects() {
                     <div className="flex lg:hidden items-center justify-between pt-2">
                       <button
                         onClick={handlePrevProject}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
                           isDark 
                             ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-green-500/10' 
-                            : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                            : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                         }`}
                       >
                         <ChevronLeft className="w-4 h-4" />
                         <span>{language === 'es' ? 'Anterior' : 'Prev'}</span>
                       </button>
 
-                      <span className={`text-xs font-mono font-bold ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                      <span className={`text-sm font-mono font-bold ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
                         {projects.findIndex(p => p.id === selectedProject.id) + 1} / {projects.length}
                       </span>
 
                       <button
                         onClick={handleNextProject}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-bold transition-all duration-300 active:scale-95 border cursor-pointer ${
                           isDark 
                             ? 'bg-[#081827] border-green-500/20 text-green-400 hover:bg-green-500/10' 
-                            : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                            : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                         }`}
                       >
                         <span>{language === 'es' ? 'Siguiente' : 'Next'}</span>
