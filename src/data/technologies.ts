@@ -46,6 +46,11 @@ export const technologies: Technology[] = [
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
     category: 'frontend'
   },
+  {
+    name: 'Vite',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg',
+    category: 'frontend'
+  },
 
   // Backend
   {
@@ -127,12 +132,22 @@ export const technologies: Technology[] = [
   },
   {
     name: 'Claude AI',
-    icon: 'https://raw.githubusercontent.com/lobehub/lobe-icons/main/packages/assets/icons/claude.svg',
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z" fill="%23cc785c"/></svg>',
     category: 'extras'
   },
   {
     name: 'Google AI Studio',
     icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 15 C50 35 35 50 15 50 C35 50 50 65 50 85 C50 65 65 50 85 50 C65 50 50 35 50 15 Z" fill="%2310b981"/><circle cx="25" cy="25" r="5" fill="%2334d399"/><circle cx="75" cy="75" r="5" fill="%23047857"/></svg>',
+    category: 'extras'
+  },
+  {
+    name: 'Gemini',
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="gemini-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%234285F4" /><stop offset="50%" stop-color="%239B51E0" /><stop offset="100%" stop-color="%23EA4335" /></linearGradient></defs><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" fill="url(%23gemini-grad)"/></svg>',
+    category: 'extras'
+  },
+  {
+    name: 'Vercel',
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 1.608 12 20.784H0Z" fill="%23111827" stroke="%23f1f5f9" stroke-width="1.5" stroke-linejoin="round"/></svg>',
     category: 'extras'
   },
   {
@@ -143,11 +158,6 @@ export const technologies: Technology[] = [
   {
     name: 'Docker',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
-    category: 'extras'
-  },
-  {
-    name: 'Firebase',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-original.svg',
     category: 'extras'
   }
 ];

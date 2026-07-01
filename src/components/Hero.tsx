@@ -137,7 +137,7 @@ export default function Hero() {
                 }`}>
                   <img
                     id="hero-profile-img"
-                    src="/images/luis_profile.jpg"
+                    src="/images/Imagen_1.png"
                     alt="Luis F. Coste C. Profile"
                     referrerPolicy="no-referrer"
                     className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover rounded-[1.75rem] transition-all duration-500 group-hover:scale-[1.02]"
