@@ -107,6 +107,6 @@ export const certificates: Certificate[] = [
     platformKey: 'badge-compensar',
     titleKey: 'cert-titulo-14',
     dateKey: 'fecha-cert-14',
-    url: 'assets/docs/Certificado. Excel intermedio.pdf'
+    url: '/docs/Certificado_Excel_intermedio.pdf'
   }
 ];
