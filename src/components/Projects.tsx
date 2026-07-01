@@ -40,7 +40,14 @@ const techIconMap: { [key: string]: { name: string; url: string } } = {
   csharp: { name: 'C#', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
   javascript: { name: 'JavaScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
   html: { name: 'HTML5', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-  css: { name: 'CSS3', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' }
+  css: { name: 'CSS3', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  axios: { name: 'Axios', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/axios/axios-plain.svg' },
+  sweetalert2: { name: 'SweetAlert2', url: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="%23f8bb86" stroke-width="2"/><path d="M12 7v6M12 16h.01" stroke="%23f8bb86" stroke-width="2" stroke-linecap="round"/></svg>' },
+  nextjs: { name: 'Next.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  socketio: { name: 'Socket.io', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg' },
+  sqlite: { name: 'SQLite', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg' },
+  shadcn: { name: 'Shadcn UI', url: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>' },
+  genkit: { name: 'Genkit', url: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF6F00"><path d="M12 2L2 22h20L12 2z"/></svg>' }
 };
 
 export default function Projects() {
@@ -288,25 +295,60 @@ export default function Projects() {
                 <div 
                   id={`project-img-frame-${project.id}`} 
                   onClick={() => handleSelectProject(project)}
-                  className="relative aspect-[16/10] overflow-hidden bg-[#05131f] border-b border-green-500/15 cursor-pointer"
+                  className={`relative aspect-[16/10] overflow-hidden cursor-pointer flex flex-col group/frame ${
+                    isDark ? 'bg-[#05131f] border-b border-green-500/15' : 'bg-slate-100 border-b border-slate-200'
+                  }`}
                 >
-                  <img
-                    src={project.image}
-                    alt={t(project.titleKey as any)}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  {/* Hover visual overlay with instructions */}
-                  <div className="absolute inset-0 bg-[#051a2f]/85 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 p-4 text-center">
-                    <div className="p-3 rounded-full bg-green-500 text-slate-950 shadow-lg shadow-green-500/20 mb-2 transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                      <PlayCircle className="w-6 h-6 fill-current animate-pulse" />
+                  {/* Browser Header Mockup */}
+                  <div className={`flex items-center justify-between px-4 py-2 border-b shrink-0 select-none ${
+                    isDark ? 'bg-[#020b12] border-green-500/10' : 'bg-slate-50 border-slate-200'
+                  }`}>
+                    {/* Window Control Buttons */}
+                    <div className="flex gap-1.5 items-center">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/90 shadow-[0_0_4px_rgba(239,68,68,0.3)]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/90 shadow-[0_0_4px_rgba(234,179,8,0.3)]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/90 shadow-[0_0_4px_rgba(34,197,94,0.3)]" />
                     </div>
-                    <span className="text-white text-xs font-mono font-bold tracking-wider uppercase">
-                      {t('proj-view-preview')}
-                    </span>
-                    <span className="text-green-400 text-[10px] font-mono mt-1 opacity-80">
-                      {language === 'es' ? 'Especificaciones & Video' : 'Specs & Video'}
-                    </span>
+                    {/* Mock URL / Domain Bar */}
+                    <div className={`text-[10px] font-mono px-3 py-0.5 rounded-lg truncate max-w-[150px] sm:max-w-[200px] text-center transition-colors duration-500 ${
+                      isDark ? 'bg-[#041624] text-green-400/70 border border-green-500/5' : 'bg-slate-200/50 text-slate-500 border border-slate-300/20'
+                    }`}>
+                      {project.id === 6 
+                        ? 'ecokraf.vercel.app' 
+                        : project.id === 5
+                        ? 'ventas-corp.local'
+                        : project.id === 4
+                        ? 'ws-chat-calc.local'
+                        : project.id === 3
+                        ? 'pokedex-api.dev'
+                        : project.id === 2
+                        ? 'med-dashboard.local'
+                        : 'rickandmorty-api.dev'}
+                    </div>
+                    {/* Balanced spacing */}
+                    <div className="w-12" />
+                  </div>
+
+                  {/* Screenshot Container */}
+                  <div className="relative flex-grow overflow-hidden w-full h-full bg-[#05131f]">
+                    <img
+                      src={project.image}
+                      alt={t(project.titleKey as any)}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
+                    />
+                    {/* Hover visual overlay with instructions */}
+                    <div className="absolute inset-0 bg-[#051a2f]/85 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 p-4 text-center">
+                      <div className="p-3 rounded-full bg-green-500 text-slate-950 shadow-lg shadow-green-500/20 mb-2 transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <PlayCircle className="w-6 h-6 fill-current animate-pulse" />
+                      </div>
+                      <span className="text-white text-xs font-mono font-bold tracking-wider uppercase">
+                        {t('proj-view-preview')}
+                      </span>
+                      <span className="text-green-400 text-[10px] font-mono mt-1 opacity-80">
+                        {language === 'es' ? 'Especificaciones & Video' : 'Specs & Video'}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -365,20 +407,35 @@ export default function Projects() {
                   }`}>
                     
                     {/* GitHub Code Link */}
-                    <a
-                      id={`project-code-btn-${project.id}`}
-                      href={project.github || undefined}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition-all duration-300 shadow-sm ${
-                        isDark
-                          ? 'border-green-500/20 text-green-400 hover:bg-green-500/10 hover:border-green-400'
-                          : 'border-emerald-600/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-600'
-                      }`}
-                    >
-                      <Github className="w-4 h-4" />
-                      <span>{t('projects-code')}</span>
-                    </a>
+                    {project.github ? (
+                      <a
+                        id={`project-code-btn-${project.id}`}
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition-all duration-300 shadow-sm ${
+                          isDark
+                            ? 'border-green-500/20 text-green-400 hover:bg-green-500/10 hover:border-green-400'
+                            : 'border-emerald-600/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-600'
+                        }`}
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>{t('projects-code')}</span>
+                      </a>
+                    ) : (
+                      <button
+                        id={`project-code-btn-disabled-${project.id}`}
+                        disabled
+                        className={`flex-grow flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold cursor-not-allowed opacity-40 ${
+                          isDark
+                            ? 'border-green-500/5 bg-[#0c253a] text-gray-500'
+                            : 'border-slate-200 bg-slate-50 text-slate-400'
+                        }`}
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>{t('projects-code')}</span>
+                      </button>
+                    )}
 
                     {/* Live Demo Link */}
                     {hasDemo ? (
