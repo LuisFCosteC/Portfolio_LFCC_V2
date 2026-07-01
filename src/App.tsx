@@ -15,8 +15,10 @@ function PortfolioAppContent() {
   return (
     <div
       id="portfolio-root-layout"
-      className={`min-h-screen transition-all duration-500 font-sans selection:bg-green-500/20 selection:text-green-300 overflow-x-hidden relative ${
-        theme === 'dark' ? 'bg-gradient-dark text-gray-100' : 'bg-gradient-light text-slate-800'
+      className={`min-h-screen transition-all duration-500 font-sans overflow-x-hidden relative ${
+        theme === 'dark' 
+          ? 'bg-gradient-dark text-gray-100 selection:bg-green-500/30 selection:text-green-200' 
+          : 'bg-gradient-light text-slate-800 selection:bg-blue-600/20 selection:text-black'
       }`}
     >
       {/* Comet constellation background */}
@@ -63,4 +65,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-

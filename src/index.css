@@ -17,6 +17,32 @@ html.dark {
 
 html.light {
   background-color: #f8fafc;
+  --shadow-sm: 0 1px 2px 0 rgba(37, 99, 235, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(37, 99, 235, 0.08), 0 2px 4px -2px rgba(37, 99, 235, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(37, 99, 235, 0.1), 0 4px 6px -4px rgba(37, 99, 235, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(37, 99, 235, 0.12), 0 8px 10px -6px rgba(37, 99, 235, 0.06);
+  --shadow-2xl: 0 25px 50px -12px rgba(37, 99, 235, 0.15);
+}
+
+/* Custom Text Selection Highlight */
+::selection {
+  background-color: rgba(74, 222, 128, 0.3); /* green-400/30 in dark mode */
+  color: #a7f3d0; /* green-200 */
+}
+
+html.light ::selection {
+  background-color: rgba(37, 99, 235, 0.25); /* blue-600/25 in light mode */
+  color: #000000; /* black text */
+}
+
+::-moz-selection {
+  background-color: rgba(74, 222, 128, 0.3);
+  color: #a7f3d0;
+}
+
+html.light ::-moz-selection {
+  background-color: rgba(37, 99, 235, 0.25);
+  color: #000000;
 }
 
 /* Immersive UI Specific Classes */
@@ -88,15 +114,15 @@ html.light .card-glass {
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   box-shadow: 
     inset 0 1px 2px rgba(255, 255, 255, 0.9),
-    0 12px 40px -12px rgba(15, 23, 42, 0.04);
+    0 12px 40px -12px rgba(37, 99, 235, 0.12);
 }
 
 html.light .card-glass:hover {
   border-color: rgba(59, 130, 246, 0.3);
   box-shadow: 
     inset 0 1px 2px rgba(255, 255, 255, 0.9),
-    0 0 25px rgba(59, 130, 246, 0.08),
-    0 12px 40px -12px rgba(15, 23, 42, 0.08);
+    0 0 25px rgba(59, 130, 246, 0.14),
+    0 12px 40px -12px rgba(37, 99, 235, 0.2);
 }
 
 /* Deep Crystal High Specular glass for focus areas */
@@ -129,15 +155,15 @@ html.light .crystal-panel {
   -webkit-backdrop-filter: blur(32px) saturate(180%);
   box-shadow: 
     inset 0 1px 3px rgba(255, 255, 255, 0.9),
-    0 20px 50px -12px rgba(15, 23, 42, 0.06);
+    0 20px 50px -12px rgba(37, 99, 235, 0.15);
 }
 
 html.light .crystal-panel:hover {
   border-color: rgba(59, 130, 246, 0.4);
   box-shadow: 
     inset 0 1px 3px rgba(255, 255, 255, 0.95),
-    0 0 35px rgba(59, 130, 246, 0.1),
-    0 20px 50px -12px rgba(15, 23, 42, 0.1);
+    0 0 35px rgba(59, 130, 246, 0.18),
+    0 20px 50px -12px rgba(37, 99, 235, 0.25);
 }
 
 /* Custom Webkit scrollbars matching the neon-green design theme */
