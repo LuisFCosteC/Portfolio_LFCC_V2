@@ -22,18 +22,18 @@ export const socialLinks: SocialLink[] = [
     id: 'gmail',
     name: 'Gmail',
     url: 'mailto:luisfcostec@gmail.com',
-    icon: 'Mail'
+    icon: 'Gmail'
   },
   {
     id: 'whatsapp',
     name: 'WhatsApp',
     url: 'https://wa.me/573116463033',
-    icon: 'MessageSquare'
+    icon: 'WhatsApp'
   },
   {
     id: 'discord',
     name: 'Discord',
     url: 'https://discord.com/users/luisfcostec',
-    icon: 'MessageCircle'
+    icon: 'Discord'
   }
 ];
