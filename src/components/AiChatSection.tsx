@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, Bot, User, Sparkles, ClipboardList, CheckCircle2, MessageSquare, AlertCircle } from 'lucide-react';
+import { Send, Bot, User, Sparkles, ClipboardList, AlertCircle, LogOut } from 'lucide-react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useTheme } from '../context/ThemeContext';
 
@@ -9,6 +9,148 @@ interface Message {
     sender: 'user' | 'bot';
     text: string;
     timestamp: Date;
+}
+const API_BASE = "http://localhost:8000";
+
+// Lightweight Markdown Parser to render beautiful API responses
+function parseMarkdownToReact(text: string, isDark: boolean) {
+    const lines = text.split('\n');
+    const elements: React.ReactNode[] = [];
+    
+    let inCodeBlock = false;
+    let codeLanguage = '';
+    let codeLines: string[] = [];
+    
+    // Helper to parse inline styles (**bold**, __bold__, `code`)
+    const parseInline = (content: string) => {
+        const inlineRegex = /(\*\*.*?\*\*|`.*?`|__.*?__)/g;
+        const tokens = content.split(inlineRegex);
+        return tokens.map((token, tokenIndex) => {
+            if (token.startsWith('**') && token.endsWith('**')) {
+                return (
+                    <strong key={tokenIndex} className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        {token.slice(2, -2)}
+                    </strong>
+                );
+            }
+            if (token.startsWith('__') && token.endsWith('__')) {
+                return (
+                    <strong key={tokenIndex} className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        {token.slice(2, -2)}
+                    </strong>
+                );
+            }
+            if (token.startsWith('`') && token.endsWith('`')) {
+                return (
+                    <code key={tokenIndex} className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-semibold ${
+                        isDark 
+                            ? 'bg-slate-800 text-emerald-400' 
+                            : 'bg-slate-100 text-blue-600'
+                    }`}>
+                        {token.slice(1, -1)}
+                    </code>
+                );
+            }
+            return token;
+        });
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        
+        // Code block detection
+        if (line.trim().startsWith('```')) {
+            if (inCodeBlock) {
+                // End code block
+                const codeText = codeLines.join('\n');
+                elements.push(
+                    <pre key={`code-${i}`} className={`p-3 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto my-2 border ${
+                        isDark 
+                            ? 'bg-slate-950/80 border-slate-800 text-slate-200' 
+                            : 'bg-slate-50 border-slate-200 text-slate-800'
+                    }`}>
+                        {codeLanguage && (
+                            <div className={`text-[9px] uppercase tracking-wider font-bold mb-1 select-none ${
+                                isDark ? 'text-slate-500' : 'text-slate-400'
+                            }`}>
+                                {codeLanguage}
+                            </div>
+                        )}
+                        <code>{codeText}</code>
+                    </pre>
+                );
+                inCodeBlock = false;
+                codeLines = [];
+                codeLanguage = '';
+            } else {
+                // Start code block
+                inCodeBlock = true;
+                codeLanguage = line.trim().slice(3).trim();
+            }
+            continue;
+        }
+        
+        if (inCodeBlock) {
+            codeLines.push(line);
+            continue;
+        }
+        
+        const trimmed = line.trim();
+        if (!trimmed) {
+            elements.push(<div key={`space-${i}`} className="h-2" />);
+            continue;
+        }
+
+        const headerMatch = trimmed.match(/^(#{1,6})\s+(.*)/);
+        const bulletMatch = trimmed.match(/^[\*\-]\s+(.*)/);
+        const numberMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+
+        if (headerMatch) {
+            const level = headerMatch[1].length;
+            const headingContent = headerMatch[2];
+            const classes = level === 1 ? `text-base font-extrabold mt-4 mb-2 ${isDark ? 'text-white' : 'text-slate-900'}` 
+                          : level === 2 ? `text-sm font-bold mt-3 mb-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`
+                          : `text-xs font-bold mt-2.5 mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`;
+            elements.push(<div key={`header-${i}`} className={classes}>{parseInline(headingContent)}</div>);
+            continue;
+        }
+
+        // List indentation calculation
+        const leadingSpaces = line.length - line.trimStart().length;
+        const indentClass = leadingSpaces >= 6 ? 'pl-8' : leadingSpaces >= 4 ? 'pl-6' : leadingSpaces >= 2 ? 'pl-4' : 'pl-2';
+
+        if (bulletMatch) {
+            elements.push(
+                <div key={`bullet-${i}`} className={`flex gap-2 py-0.5 items-start ${indentClass}`}>
+                    <span className={`select-none mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full ${
+                        isDark ? 'bg-emerald-400 shadow-sm shadow-emerald-500/50' : 'bg-blue-500 shadow-sm'
+                    }`} />
+                    <span className="flex-1">{parseInline(bulletMatch[1])}</span>
+                </div>
+            );
+            continue;
+        }
+
+        if (numberMatch) {
+            elements.push(
+                <div key={`number-${i}`} className={`flex gap-2 py-0.5 items-start ${indentClass}`}>
+                    <span className={`font-bold select-none text-xs shrink-0 mt-[2px] ${
+                        isDark ? 'text-emerald-400' : 'text-blue-600'
+                    }`}>{numberMatch[1]}.</span>
+                    <span className="flex-1">{parseInline(numberMatch[2])}</span>
+                </div>
+            );
+            continue;
+        }
+
+        elements.push(
+            <p key={`p-${i}`} className="mb-1.5 last:mb-0 leading-relaxed">
+                {parseInline(line)}
+            </p>
+        );
+    }
+
+    return elements;
 }
 
 export default function AiChatSection() {
@@ -19,35 +161,88 @@ export default function AiChatSection() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputVal, setInputVal] = useState('');
     const [isTyping, setIsTyping] = useState(false);
-    const [showQuoteForm, setShowQuoteForm] = useState(false);
 
-    // Form Fields for Lead Capture
+    // Form Fields for Lead Capture (Gatekeeper)
     const [formName, setFormName] = useState('');
     const [formEmail, setFormEmail] = useState('');
     const [formDesc, setFormDesc] = useState('');
-    const [formSubmitted, setFormSubmitted] = useState(false);
     const [formError, setFormError] = useState('');
 
-    const chatEndRef = useRef<HTMLDivElement>(null);
+    // Gatekeeper States
+    const [isLeadCaptured, setIsLeadCaptured] = useState<boolean>(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('lfcc-portfolio-active-lead') !== null;
+        }
+        return false;
+    });
 
-    // Set initial welcome message based on language
+    const [activeLead, setActiveLead] = useState<{ name: string; email: string; description: string } | null>(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('lfcc-portfolio-active-lead');
+            return saved ? JSON.parse(saved) : null;
+        }
+        return null;
+    });
+
+    const [isApiConnected, setIsApiConnected] = useState(false);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    // Check API connection on load
     useEffect(() => {
-        setMessages([
-            {
-                id: 'init-msg',
-                sender: 'bot',
-                text: t('ai-welcome'),
-                timestamp: new Date()
+        const checkApiConnection = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/api/health`, { method: 'GET' });
+                const contentType = res.headers.get('content-type');
+                if (res.ok && contentType && contentType.includes('application/json')) {
+                    setIsApiConnected(true);
+                } else {
+                    setIsApiConnected(false);
+                }
+            } catch (err) {
+                setIsApiConnected(false);
             }
-        ]);
-    }, [language]);
+        };
+        checkApiConnection();
+    }, []);
 
-    // Scroll to bottom on new messages or typing state change
+    // Initialize the conversation when a lead is active
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages, isTyping, showQuoteForm, formSubmitted]);
+        if (isLeadCaptured && activeLead) {
+            setMessages([
+                {
+                    id: 'lead-user-msg',
+                    sender: 'user',
+                    text: language === 'es'
+                        ? `Hola, mi nombre es ${activeLead.name} (${activeLead.email}). Mi idea de proyecto es: "${activeLead.description}"`
+                        : `Hello, my name is ${activeLead.name} (${activeLead.email}). My project idea is: "${activeLead.description}"`,
+                    timestamp: new Date()
+                },
+                {
+                    id: 'lead-bot-msg',
+                    sender: 'bot',
+                    text: language === 'es'
+                        ? `¡Mucho gusto, ${activeLead.name}! Es un placer saludarte. He recibido y analizado tu idea de proyecto: "${activeLead.description}". Como Asistente de Luis, estoy listo para guiarte técnicamente y responder cualquier duda que tengas sobre su stack de tecnologías, proyectos previos o currículum. ¿Qué te gustaría discutir primero?`
+                        : `Nice to meet you, ${activeLead.name}! It's a pleasure to greet you. I have received and analyzed your project idea: "${activeLead.description}". As Luis's Assistant, I am ready to guide you technically and answer any doubts you have about his technology stack, previous projects or resume. What would you like to discuss first?`,
+                    timestamp: new Date()
+                }
+            ]);
+        } else {
+            setMessages([]);
+        }
+    }, [isLeadCaptured, activeLead, language]);
 
-    const handleSendMessage = (textToSend: string) => {
+    // Scroll to bottom on messages/typing change
+    useEffect(() => {
+        if (messages.length <= 1) return;
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({
+                top: scrollContainerRef.current.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    }, [messages, isTyping]);
+
+    const handleSendMessage = async (textToSend: string) => {
         if (!textToSend.trim() || isTyping) return;
 
         const userMessage: Message = {
@@ -57,66 +252,54 @@ export default function AiChatSection() {
             timestamp: new Date()
         };
 
-        // 1. Añadimos el mensaje del usuario en pantalla inmediatamente
         const updatedMessages = [...messages, userMessage];
         setMessages(updatedMessages);
         setInputVal('');
         setIsTyping(true);
 
-        // 2. ESTRUCTURA DISPONIBLE: Así es como viajarán tus datos a tu futura API intermedia
-        const payloadParaTuFuturaAPI = {
-            message: textToSend,
-            history: updatedMessages
-                .filter((msg) => msg.id !== 'init-msg') // Limpiamos el mensaje de bienvenida
-                .map((msg) => ({
-                    role: msg.sender === 'user' ? 'user' : 'model',
-                    parts: [{ text: msg.text }] // Estructura exacta que exige el SDK oficial
-                }))
-        };
-
-        // Imprime en consola para que verifiques que el contrato de datos está listo
-        console.log("Payload listo para tu futura API Intermedia:", payloadParaTuFuturaAPI);
-
-        // 3. Simulación temporal local adaptada al Prompt de Robotino
-        setTimeout(() => {
-            const lowerInput = textToSend.toLowerCase();
-            const isEnglish = language !== 'es' || lowerInput.match(/(hello|hi|quote|website|app|developer|portfolio|english|uk|us)/);
-
-            let botResponse = '';
-
-            if (isEnglish) {
-                botResponse = `[Robotino - UI Ready]: I have received your message: "${textToSend}". Once you connect your intermediate API, I will process this in real-time with Google AI Studio.`;
-
-                if (
-                    lowerInput.includes('quote') ||
-                    lowerInput.includes('price') ||
-                    lowerInput.includes('budget') ||
-                    lowerInput.includes('website') ||
-                    lowerInput.includes('app') ||
-                    lowerInput.includes('software') ||
-                    lowerInput.includes('develop') ||
-                    lowerInput.includes('zapatos') ||
-                    lowerInput.includes('shoes') ||
-                    lowerInput.includes('cotizar')
-                ) {
-                    botResponse = `Excellent choice! I would love to help you bring your software idea to life. To provide you with a formal quote, tailor your project, and offer the best technical consulting, please share your details in the interactive form that will appear below.`;
-                }
-            } else {
-                botResponse = `[Robotino - UI Lista]: He recibido tu mensaje: "${textToSend}". Cuando conectes tu API intermedia, procesaré esta información en tiempo real con Google AI Studio.`;
-
-                if (
-                    lowerInput.includes('cotizar') ||
-                    lowerInput.includes('zapatos') ||
-                    lowerInput.includes('pagina web') ||
-                    lowerInput.includes('app') ||
-                    lowerInput.includes('aplicacion') ||
-                    lowerInput.includes('presupuesto') ||
-                    lowerInput.includes('desarrollo') ||
-                    lowerInput.includes('precio')
-                ) {
-                    botResponse = `¡Excelente elección! Me encantaría ayudarte a dar vida a tu idea de software. Para poder brindarte una cotización formal, detallar tu proyecto y darte la mejor asesoría técnica, por favor comparte tus datos en el formulario que se activará a continuación.`;
-                }
+        try {
+            if (!activeLead) {
+                throw new Error("No active lead details found");
             }
+
+            const historyPayload = updatedMessages.slice(-6).map((msg) => ({
+                role: msg.sender === 'user' ? 'user' : 'model',
+                text: msg.text
+            }));
+
+            const payload = {
+                name: activeLead.name,
+                email: activeLead.email,
+                message: textToSend,
+                history: historyPayload
+            };
+
+            const response = await fetch(`${API_BASE}/api/chat`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server returned HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+            const botReply = data.response;
+
+            setMessages((prev) => [...prev, {
+                id: `msg-${Date.now()}-bot`,
+                sender: 'bot',
+                text: botReply,
+                timestamp: new Date()
+            }]);
+        } catch (error) {
+            console.error("Error calling API chat endpoint:", error);
+            const botResponse = language === 'es'
+                ? "No pudimos conectarnos con el Asistente de Luis"
+                : "We couldn't connect to Luis's Assistant";
 
             setMessages((prev) => [...prev, {
                 id: `msg-${Date.now()}-bot`,
@@ -124,13 +307,9 @@ export default function AiChatSection() {
                 text: botResponse,
                 timestamp: new Date()
             }]);
+        } finally {
             setIsTyping(false);
-
-            // El Front reacciona al token exacto del Prompt de Google AI Studio
-            if (botResponse.includes('brindarte una cotización') || botResponse.includes('provide you with a formal quote')) {
-                setShowQuoteForm(true);
-            }
-        }, 1200);
+        }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -153,7 +332,6 @@ export default function AiChatSection() {
             return;
         }
 
-        // Capture the lead
         const newLead = {
             name: formName,
             email: formEmail,
@@ -164,33 +342,105 @@ export default function AiChatSection() {
         console.log("¡Nuevo Lead capturado por el Consultor IA!", newLead);
 
         // Save lead locally to simulate state persistence
+        localStorage.setItem('lfcc-portfolio-active-lead', JSON.stringify(newLead));
+
         const existingLeads = JSON.parse(localStorage.getItem('lfcc-portfolio-leads') || '[]');
         existingLeads.push(newLead);
         localStorage.setItem('lfcc-portfolio-leads', JSON.stringify(existingLeads));
 
-        setFormSubmitted(true);
-
-        setTimeout(() => {
-            // Add success message in chat from the assistant
-            const successText = language === 'es'
-                ? `¡Muchas gracias, ${formName}! He registrado tus datos correctamente. He guardado tu descripción: "${formDesc.substring(0, 80)}...". Luis se pondrá en contacto contigo muy pronto a tu correo (${formEmail}) para enviarte la propuesta.`
-                : `Thank you very much, ${formName}! I have successfully registered your details. I saved your description: "${formDesc.substring(0, 80)}...". Luis will contact you very soon at your email address (${formEmail}) to coordinate a proposal.`;
-
-            setMessages((prev) => [...prev, {
-                id: `msg-${Date.now()}-bot-success`,
-                sender: 'bot',
-                text: successText,
-                timestamp: new Date()
-            }]);
-
-            // Reset form states
-            setFormName('');
-            setFormEmail('');
-            setFormDesc('');
-            setFormSubmitted(false);
-            setShowQuoteForm(false);
-        }, 1500);
+        // Clear inputs and set states
+        setActiveLead(newLead);
+        setIsLeadCaptured(true);
+        setFormName('');
+        setFormEmail('');
+        setFormDesc('');
     };
+
+    const handleResetChat = async () => {
+        if (activeLead && messages.length > 0) {
+            try {
+                const historyPayload = messages.map((msg) => ({
+                    role: msg.sender === 'user' ? 'user' : 'model',
+                    text: msg.text
+                }));
+
+                // Call terminate in background
+                fetch(`${API_BASE}/api/terminate`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: activeLead.email,
+                        history: historyPayload
+                    })
+                }).catch(err => console.error("API Terminate error:", err));
+            } catch (err) {
+                console.error("Error during session reset termination:", err);
+            }
+        }
+
+        localStorage.removeItem('lfcc-portfolio-active-lead');
+        setIsLeadCaptured(false);
+        setActiveLead(null);
+        setMessages([]);
+        setFormName('');
+        setFormEmail('');
+        setFormDesc('');
+        setFormError('');
+    };
+
+    // Inactivity and Unload event listeners
+    useEffect(() => {
+        if (!isLeadCaptured || !activeLead) return;
+
+        let inactivityTimeout: number;
+
+        const resetInactivityTimer = () => {
+            clearTimeout(inactivityTimeout);
+            inactivityTimeout = window.setTimeout(() => {
+                console.log("Inactivity of 3 minutes detected. Terminating session...");
+                handleResetChat();
+            }, 3 * 60 * 1000); // 3 minutes
+        };
+
+        const activityEvents = ['mousedown', 'keydown', 'touchstart'];
+        activityEvents.forEach(event => {
+            window.addEventListener(event, resetInactivityTimer);
+        });
+
+        resetInactivityTimer();
+
+        // Handle page close / tab unload
+        const handleBeforeUnload = () => {
+            const historyPayload = messages.map((msg) => ({
+                role: msg.sender === 'user' ? 'user' : 'model',
+                text: msg.text
+            }));
+
+            fetch(`${API_BASE}/api/terminate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: activeLead.email,
+                    history: historyPayload
+                }),
+                keepalive: true
+            }).catch(err => console.error("Unload terminate error:", err));
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            clearTimeout(inactivityTimeout);
+            activityEvents.forEach(event => {
+                window.removeEventListener(event, resetInactivityTimer);
+            });
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isLeadCaptured, activeLead, messages]);
 
     return (
         <section id="ai-assistant" className="py-20 relative z-10">
@@ -203,7 +453,10 @@ export default function AiChatSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest mb-3 backdrop-blur-md border shadow-sm select-none bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest mb-3 backdrop-blur-md border shadow-sm select-none ${isDark
+                                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                                : 'bg-blue-500/10 border-blue-500/20 text-blue-600'
+                            }`}
                     >
                         <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                         <span>AI Studio Integration</span>
@@ -251,238 +504,241 @@ export default function AiChatSection() {
                                     : 'bg-blue-500/10 border-blue-500/35 text-blue-600'
                                 }`}>
                                 <Bot className="w-5.5 h-5.5" />
-                                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 rounded-full border-slate-950 animate-ping" />
-                                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 rounded-full border-slate-950" />
+                                {isApiConnected ? (
+                                    <>
+                                        <span className={`absolute bottom-0 right-0 w-3 h-3 border-2 rounded-full animate-ping ${isDark ? 'bg-green-500 border-slate-950' : 'bg-blue-500 border-white'}`} />
+                                        <span className={`absolute bottom-0 right-0 w-3 h-3 border-2 rounded-full ${isDark ? 'bg-green-500 border-slate-950' : 'bg-blue-500 border-white'}`} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className={`absolute bottom-0 right-0 w-3 h-3 bg-rose-500 border-2 rounded-full animate-pulse ${isDark ? 'border-slate-950' : 'border-white'}`} />
+                                    </>
+                                )}
                             </div>
                             <div>
                                 <h4 className={`text-sm font-bold leading-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                    Asistente para Luis
+                                    {language === 'es' ? 'Asistente de Luis' : 'Luis\'s Assistant'}
                                 </h4>
                                 <p className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
-                                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                                    {language === 'es' ? 'En línea // Listo para simular API' : 'Online // Ready to simulate API'}
+                                    <span className={`w-1.5 h-1.5 rounded-full ${isApiConnected
+                                            ? isDark ? 'bg-green-500' : 'bg-blue-500'
+                                            : 'bg-rose-500'
+                                        }`} />
+                                    {isApiConnected
+                                        ? (language === 'es' ? 'En línea' : 'Online')
+                                        : (language === 'es' ? 'Desconectado' : 'Offline')}
                                 </p>
                             </div>
                         </div>
 
-                        <div className={`text-[10px] font-mono px-2 py-1 rounded border hidden sm:block ${isDark
-                                ? 'bg-slate-900/60 border-slate-800 text-emerald-400'
-                                : 'bg-slate-100 border-slate-200 text-blue-600'
-                            }`}>
-                            SYSTEM: ACTIVE
+                        <div className="flex items-center gap-2">
+                            {isLeadCaptured && (
+                                <button
+                                    onClick={handleResetChat}
+                                    className={`text-[10px] font-bold px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${isDark
+                                            ? 'bg-rose-500/10 border-rose-500/20 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300'
+                                            : 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100 hover:text-rose-700'
+                                        }`}
+                                >
+                                    <LogOut className="w-3.5 h-3.5" />
+                                    <span>{language === 'es' ? 'Finalizar Conversación' : 'End Conversation'}</span>
+                                </button>
+                            )}
+
+                            <div className={`text-[10px] font-mono px-2 py-1 rounded border hidden sm:block ${isApiConnected
+                                    ? isDark
+                                        ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-400'
+                                        : 'bg-blue-50 border-blue-200 text-blue-600 font-bold'
+                                    : isDark
+                                        ? 'bg-rose-500/10 border-rose-500/20 text-rose-400 font-bold'
+                                        : 'bg-rose-50 border-rose-200 text-rose-600 font-bold shadow-sm'
+                                }`}>
+                                {isApiConnected ? 'SYSTEM: ACTIVE' : 'SYSTEM: OFFLINE'}
+                            </div>
                         </div>
                     </div>
 
-                    {/* Messages Area */}
-                    <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 min-h-0 scrollbar-thin">
-                        {messages.map((msg) => (
-                            <div
-                                key={msg.id}
-                                className={`flex gap-3 max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
-                                    }`}
-                            >
-                                {/* Avatar */}
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs border ${msg.sender === 'user'
-                                        ? isDark
-                                            ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                                            : 'bg-blue-500/15 border-blue-500/30 text-blue-600'
-                                        : isDark
-                                            ? 'bg-slate-800 border-slate-700 text-slate-300'
-                                            : 'bg-slate-100 border-slate-200 text-slate-600'
-                                    }`}>
-                                    {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
-                                </div>
-
-                                {/* Bubble */}
-                                <div className="space-y-1">
-                                    <div className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === 'user'
-                                            ? isDark
-                                                ? 'bg-emerald-600/15 text-emerald-100 rounded-tr-none border border-emerald-500/25'
-                                                : 'bg-blue-600/10 text-slate-900 rounded-tr-none border border-blue-500/20'
-                                            : isDark
-                                                ? 'bg-slate-900/80 text-slate-100 rounded-tl-none border border-slate-800/80'
-                                                : 'bg-slate-50 text-slate-800 rounded-tl-none border border-slate-200'
-                                        }`}>
-                                        {msg.text}
-                                    </div>
-                                    <span className="text-[9px] text-slate-400 block px-1">
-                                        {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
-
-                        {/* Is Typing Indicator */}
-                        {isTyping && (
-                            <div className="flex gap-3 max-w-[80%] mr-auto">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${isDark ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-600'
-                                    }`}>
-                                    <Bot className="w-4 h-4" />
-                                </div>
-                                <div className={`p-3.5 rounded-2xl rounded-tl-none border flex items-center gap-1.5 ${isDark ? 'bg-slate-900/80 border-slate-800/80' : 'bg-slate-50 border-slate-200'
-                                    }`}>
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '300ms' }} />
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Simulated Lead Capture Form overlaying or positioned next inside Chat */}
-                        <AnimatePresence>
-                            {showQuoteForm && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                                    transition={{ duration: 0.4 }}
-                                    className={`p-5 rounded-2xl border ${isDark
-                                            ? 'bg-emerald-950/20 border-emerald-500/25 shadow-xl shadow-emerald-950/10'
-                                            : 'bg-blue-50/70 border-blue-200 shadow-xl'
-                                        }`}
-                                >
-                                    <div className="flex items-start gap-3 mb-4">
-                                        <div className={`p-2 rounded-lg shrink-0 ${isDark ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-600'
+                    {isLeadCaptured ? (
+                        <>
+                            {/* Messages Area */}
+                            <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 min-h-0 scrollbar-thin">
+                                {messages.map((msg) => (
+                                    <div
+                                        key={msg.id}
+                                        className={`flex gap-3 max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
+                                            }`}
+                                    >
+                                        {/* Avatar */}
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs border ${msg.sender === 'user'
+                                                ? isDark
+                                                    ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+                                                    : 'bg-blue-500/15 border-blue-500/30 text-blue-600'
+                                                : isDark
+                                                    ? 'bg-slate-800 border-slate-700 text-slate-300'
+                                                    : 'bg-slate-100 border-slate-200 text-slate-600'
                                             }`}>
-                                            <ClipboardList className="w-5 h-5" />
+                                            {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                                         </div>
-                                        <div>
-                                            <h5 className={`text-sm font-bold ${isDark ? 'text-emerald-300' : 'text-blue-900'}`}>
-                                                {t('ai-form-title')}
-                                            </h5>
-                                            <p className={`text-xs mt-1 ${isDark ? 'text-emerald-200/70' : 'text-slate-600'}`}>
-                                                {t('ai-form-desc')}
-                                            </p>
+
+                                        {/* Bubble */}
+                                        <div className="space-y-1">
+                                            <div className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === 'user'
+                                                    ? isDark
+                                                        ? 'bg-emerald-600/15 text-emerald-100 rounded-tr-none border border-emerald-500/25'
+                                                        : 'bg-blue-600/10 text-slate-900 rounded-tr-none border border-blue-500/20'
+                                                    : isDark
+                                                        ? 'bg-slate-900/80 text-slate-100 rounded-tl-none border border-slate-800/80'
+                                                        : 'bg-slate-50 text-slate-800 rounded-tl-none border border-slate-200'
+                                                }`}>
+                                                {parseMarkdownToReact(msg.text, isDark)}
+                                            </div>
+                                            <span className="text-[9px] text-slate-400 block px-1">
+                                                {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            </span>
                                         </div>
                                     </div>
+                                ))}
 
-                                    {formSubmitted ? (
-                                        <motion.div
-                                            initial={{ opacity: 0, scale: 0.95 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            className="py-6 flex flex-col items-center justify-center text-center space-y-3"
-                                        >
-                                            <CheckCircle2 className="w-12 h-12 text-emerald-400 animate-bounce" />
-                                            <p className="text-xs font-semibold text-emerald-300">
-                                                {t('ai-form-success')}
-                                            </p>
-                                        </motion.div>
-                                    ) : (
-                                        <form onSubmit={handleFormSubmit} className="space-y-3.5">
-                                            {formError && (
-                                                <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
-                                                    <AlertCircle className="w-4 h-4 shrink-0" />
-                                                    <span>{formError}</span>
-                                                </div>
-                                            )}
+                                {/* Is Typing Indicator */}
+                                {isTyping && (
+                                    <div className="flex gap-3 max-w-[80%] mr-auto">
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${isDark ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-600'
+                                            }`}>
+                                            <Bot className="w-4 h-4" />
+                                        </div>
+                                        <div className={`p-3.5 rounded-2xl rounded-tl-none border flex items-center gap-1.5 ${isDark ? 'bg-slate-900/80 border-slate-800/80' : 'bg-slate-50 border-slate-200'
+                                            }`}>
+                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
 
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                                <div className="space-y-1">
-                                                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                                        {t('ai-form-name')} <span className="text-red-500">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        value={formName}
-                                                        onChange={(e) => setFormName(e.target.value)}
-                                                        className={`w-full px-3 py-2 text-xs rounded-lg outline-none border transition-all ${isDark
-                                                                ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50'
-                                                                : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500'
-                                                            }`}
-                                                        placeholder="John Doe"
-                                                    />
-                                                </div>
+                            {/* Input Bar */}
+                            <div className={`p-4 border-t flex items-center gap-2 shrink-0 ${isDark ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-200 bg-slate-50/40'
+                                }`}>
+                                <input
+                                    type="text"
+                                    value={inputVal}
+                                    onChange={(e) => setInputVal(e.target.value)}
+                                    onKeyDown={handleKeyPress}
+                                    disabled={isTyping}
+                                    className={`flex-1 px-4 py-3 rounded-xl text-xs sm:text-sm outline-none border transition-all ${isDark
+                                            ? 'bg-slate-950/70 border-slate-800 text-white focus:border-emerald-500/40 placeholder:text-slate-500'
+                                            : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                        } disabled:opacity-50`}
+                                    placeholder={language === 'es' ? 'Pregúntame sobre el stack de Luis o sus proyectos...' : 'Ask me about Luis\'s stack or projects...'}
+                                />
 
-                                                <div className="space-y-1">
-                                                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                                        {t('ai-form-email')} <span className="text-red-500">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="email"
-                                                        value={formEmail}
-                                                        onChange={(e) => setFormEmail(e.target.value)}
-                                                        className={`w-full px-3 py-2 text-xs rounded-lg outline-none border transition-all ${isDark
-                                                                ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50'
-                                                                : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500'
-                                                            }`}
-                                                        placeholder="johndoe@example.com"
-                                                    />
-                                                </div>
-                                            </div>
+                                <button
+                                    onClick={() => handleSendMessage(inputVal)}
+                                    disabled={isTyping || !inputVal.trim()}
+                                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all select-none cursor-pointer border ${isDark
+                                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 disabled:bg-slate-900 disabled:border-slate-800 disabled:text-slate-600'
+                                            : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20 disabled:bg-slate-100 disabled:border-slate-200 disabled:text-slate-400'
+                                        } disabled:cursor-not-allowed`}
+                                >
+                                    <Send className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        /* Beautiful Centered Gatekeeper Form */
+                        <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-8 overflow-y-auto scrollbar-none">
+                            <motion.div
+                                initial={{ opacity: 0, y: 15 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="w-full max-w-md mx-auto space-y-6"
+                            >
+                                <div className="text-center space-y-2">
+                                    <div className={`mx-auto w-12 h-12 rounded-2xl flex items-center justify-center border shadow-sm ${isDark
+                                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-emerald-950/20'
+                                            : 'bg-blue-500/10 border-blue-500/20 text-blue-600 shadow-blue-500/5'
+                                        }`}>
+                                        <ClipboardList className="w-6 h-6" />
+                                    </div>
+                                    <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                        {language === 'es' ? 'Identificación de Consultoría' : 'Consulting Registration'}
+                                    </h3>
+                                    <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                                        {language === 'es'
+                                            ? 'Rellena tus datos iniciales para habilitar el chat con el Asistente Técnico y Consultor de Software de Luis Fernando.'
+                                            : 'Fill in your details to enable chat with Luis Fernando\'s Technical Assistant and Software Consultant.'}
+                                    </p>
+                                </div>
 
-                                            <div className="space-y-1">
-                                                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                                    {t('ai-form-project')} <span className="text-red-500">*</span>
-                                                </label>
-                                                <textarea
-                                                    rows={3}
-                                                    value={formDesc}
-                                                    onChange={(e) => setFormDesc(e.target.value)}
-                                                    className={`w-full px-3 py-2 text-xs rounded-lg outline-none border resize-none transition-all ${isDark
-                                                            ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50'
-                                                            : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500'
-                                                        }`}
-                                                    placeholder={language === 'es' ? 'Quiero desarrollar una landing page corporativa...' : 'I want to build a secure e-commerce application...'}
-                                                />
-                                            </div>
-
-                                            <div className="flex gap-2.5 justify-end pt-1">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setShowQuoteForm(false)}
-                                                    className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer border transition-colors ${isDark
-                                                            ? 'border-slate-800 text-slate-400 hover:bg-slate-800/40 hover:text-white'
-                                                            : 'border-slate-200 text-slate-600 hover:bg-slate-100'
-                                                        }`}
-                                                >
-                                                    {language === 'es' ? 'Cancelar' : 'Cancel'}
-                                                </button>
-                                                <button
-                                                    type="submit"
-                                                    className={`px-4 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all shadow-md flex items-center gap-1.5 ${isDark
-                                                            ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-95'
-                                                            : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95'
-                                                        }`}
-                                                >
-                                                    <span>{t('ai-form-submit')}</span>
-                                                </button>
-                                            </div>
-                                        </form>
+                                <form onSubmit={handleFormSubmit} className="space-y-4">
+                                    {formError && (
+                                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+                                            <AlertCircle className="w-4 h-4 shrink-0" />
+                                            <span>{formError}</span>
+                                        </div>
                                     )}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
 
-                        <div ref={chatEndRef} />
-                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            {language === 'es' ? 'Nombre Completo' : 'Full Name'} <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={formName}
+                                            onChange={(e) => setFormName(e.target.value)}
+                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
+                                                    ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
+                                                    : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                }`}
+                                            placeholder="John Doe"
+                                        />
+                                    </div>
 
-                    {/* Regular Input Bar - Disabled when form is open to focus attention */}
-                    <div className={`p-4 border-t flex items-center gap-2 shrink-0 ${isDark ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-200 bg-slate-50/40'
-                        }`}>
-                        <input
-                            type="text"
-                            value={inputVal}
-                            onChange={(e) => setInputVal(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                            disabled={showQuoteForm || isTyping}
-                            className={`flex-1 px-4 py-3 rounded-xl text-xs sm:text-sm outline-none border transition-all ${isDark
-                                    ? 'bg-slate-950/70 border-slate-800 text-white focus:border-emerald-500/40 placeholder:text-slate-500'
-                                    : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
-                                } disabled:opacity-50 disabled:cursor-not-allowed`}
-                            placeholder={showQuoteForm ? (language === 'es' ? 'Por favor completa el formulario...' : 'Please complete the form...') : t('ai-input-placeholder')}
-                        />
+                                    <div className="space-y-1.5">
+                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            {language === 'es' ? 'Correo Electrónico' : 'Email Address'} <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            value={formEmail}
+                                            onChange={(e) => setFormEmail(e.target.value)}
+                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
+                                                    ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
+                                                    : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                }`}
+                                            placeholder="johndoe@example.com"
+                                        />
+                                    </div>
 
-                        <button
-                            onClick={() => handleSendMessage(inputVal)}
-                            disabled={showQuoteForm || isTyping || !inputVal.trim()}
-                            className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all select-none cursor-pointer border ${isDark
-                                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 disabled:bg-slate-900 disabled:border-slate-800 disabled:text-slate-600'
-                                    : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20 disabled:bg-slate-100 disabled:border-slate-200 disabled:text-slate-400'
-                                } disabled:cursor-not-allowed`}
-                        >
-                            <Send className="w-4 h-4" />
-                        </button>
-                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            {language === 'es' ? 'Idea de Software / Necesidad Inicial' : 'Software Idea / Initial Need'} <span className="text-red-500">*</span>
+                                        </label>
+                                        <textarea
+                                            rows={3}
+                                            value={formDesc}
+                                            onChange={(e) => setFormDesc(e.target.value)}
+                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border resize-none transition-all ${isDark
+                                                    ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
+                                                    : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                }`}
+                                            placeholder={language === 'es' ? 'Quiero desarrollar una aplicación web de comercio electrónico...' : 'I want to build an e-commerce web application...'}
+                                        />
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        className={`w-full py-3 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all shadow-md flex items-center justify-center gap-2 ${isDark
+                                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-98'
+                                                : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-98'
+                                            }`}
+                                    >
+                                        <Bot className="w-4 h-4" />
+                                        <span>{language === 'es' ? 'Comenzar Consulta' : 'Start Consultation'}</span>
+                                    </button>
+                                </form>
+                            </motion.div>
+                        </div>
+                    )}
                 </motion.div>
 
             </div>
