@@ -11,16 +11,17 @@ interface Message {
     timestamp: Date;
 }
 const getApiUrl = (endpoint: string) => {
-    // 1. Intentar leer la variable de entorno oficial de Vite
-    const envUrl = import.meta.env.VITE_APP_URL;
-    
-    // 2. Si la variable no existe (porque estás en local sin .env), usar localhost
-    const baseUrl = envUrl || 'http://localhost:8000';
-    
-    const cleanBase = baseUrl.replace(/\/+$/, '');
-    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-    
-    return `${cleanBase}${cleanEndpoint}`;
+  // 1. Intentamos leer la variable inyectada por Vercel/Vite en producción
+  const productionUrl = import.meta.env.VITE_APP_URL;
+  
+  // 2. Si no existe (desarrollo local sin .env), recurrimos al fallback por defecto
+  const baseUrl = productionUrl || 'http://localhost:8000';
+  
+  // Limpieza de slashes para evitar URLs mal formadas como //api/chat
+  const cleanBase = baseUrl.replace(/\/+$/, '');
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  
+  return `${cleanBase}${cleanEndpoint}`;
 };
 
 // Lightweight Markdown Parser to render beautiful API responses
