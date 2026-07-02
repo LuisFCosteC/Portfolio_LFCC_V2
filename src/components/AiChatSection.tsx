@@ -11,16 +11,21 @@ interface Message {
     timestamp: Date;
 }
 const getApiUrl = (endpoint: string) => {
-  // 1. Intentamos leer la variable inyectada por Vercel/Vite en producción
-  const productionUrl = import.meta.env.VITE_APP_URL;
-  
-  // 2. Si no existe (desarrollo local sin .env), recurrimos al fallback por defecto
-  const baseUrl = productionUrl || 'http://localhost:8000';
-  
-  // Limpieza de slashes para evitar URLs mal formadas como //api/chat
+  let baseUrl = '';
+
+  // 1. Detectamos si el usuario está navegando en internet (Vercel)
+  if (typeof window !== 'undefined' && window.location.hostname === 'lfcc.vercel.app') {
+    // Forzamos directamente tu URL de producción en Render sin depender de .env
+    baseUrl = 'https://portfolio-lfcc-v2-api.onrender.com';
+  } else {
+    // 2. Si está en localhost (tu computadora), usa el puerto local por defecto
+    baseUrl = 'http://localhost:8000';
+  }
+
+  // Limpieza estándar de slashes diagonales
   const cleanBase = baseUrl.replace(/\/+$/, '');
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  
+
   return `${cleanBase}${cleanEndpoint}`;
 };
 
