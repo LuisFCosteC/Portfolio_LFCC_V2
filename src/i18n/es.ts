@@ -4,6 +4,7 @@ export const es = {
   'nav-about': 'Acerca de mí',
   'nav-projects': 'Proyectos',
   'nav-certificates': 'Certificados',
+  'nav-ai': 'Asistente IA',
   'nav-contact': 'Contáctame',
   'nav-cv-btn': 'CV / Currículum',
   'nav-cv-es': 'Descargar CV (Español)',
@@ -154,5 +155,19 @@ export const es = {
   // Footer
   'footer-contact': 'Contáctame:',
   'footer-developed': 'Desarrollado por',
-  'footer-rights': 'Todos los derechos reservados.'
+  'footer-rights': 'Todos los derechos reservados.',
+
+  // AI Assistant Section
+  'ai-title': 'Consultor IA',
+  'ai-subtitle': 'Asistente Técnico Virtual',
+  'ai-welcome': '¡Hola! Soy el asistente virtual de Luis Fernando. Puedo ayudarte a conocer sus proyectos, habilidades o brindarte una propuesta de desarrollo de software si tienes alguna idea. ¿Qué tienes en mente hoy?',
+  'ai-input-placeholder': 'Pregúntame sobre sus proyectos o cotiza un software...',
+  'ai-send': 'Enviar',
+  'ai-form-title': 'Captura de Requerimiento',
+  'ai-form-desc': 'Completa estos tres campos sencillos para estructurar tu cotización y ponernos en contacto:',
+  'ai-form-name': 'Nombre Completo',
+  'ai-form-email': 'Correo Electrónico',
+  'ai-form-project': 'Descripción del Proyecto o Necesidad',
+  'ai-form-submit': 'Registrar Proyecto',
+  'ai-form-success': '¡Éxito! Tu requerimiento se ha guardado de forma segura. Luis Fernando se comunicará contigo de inmediato para coordinar la sesión.'
 };

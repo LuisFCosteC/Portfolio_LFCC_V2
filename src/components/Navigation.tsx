@@ -71,6 +71,7 @@ export default function Navigation() {
     { id: 'about', labelKey: 'nav-about' as const },
     { id: 'projects', labelKey: 'nav-projects' as const },
     { id: 'certificates', labelKey: 'nav-certificates' as const },
+    { id: 'ai-assistant', labelKey: 'nav-ai' as const },
     { id: 'contact', labelKey: 'nav-contact' as const },
   ];
 
