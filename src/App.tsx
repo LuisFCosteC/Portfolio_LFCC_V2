@@ -6,7 +6,6 @@ import AboutMe from './components/AboutMe';
 import Projects from './components/Projects';
 import Certificates from './components/Certificates';
 import ContactForm from './components/ContactForm';
-import AiChatSection from './components/AiChatSection';
 import Footer from './components/Footer';
 import ParticleCanvas from './components/ParticleCanvas';
 import FloatingButtons from './components/FloatingButtons';
@@ -17,21 +16,19 @@ function PortfolioAppContent() {
   return (
     <div
       id="portfolio-root-layout"
-      className={`min-h-screen transition-all duration-500 font-sans overflow-x-hidden relative ${
-        theme === 'dark' 
-          ? 'bg-gradient-dark text-gray-100 selection:bg-green-500/30 selection:text-green-200' 
-          : 'bg-gradient-light text-slate-800 selection:bg-blue-600/20 selection:text-black'
-      }`}
+      className={`min-h-screen transition-all duration-500 font-sans overflow-x-hidden relative ${theme === 'dark'
+        ? 'bg-gradient-dark text-gray-100 selection:bg-green-500/30 selection:text-green-200'
+        : 'bg-gradient-light text-slate-800 selection:bg-blue-600/20 selection:text-black'
+        }`}
     >
       {/* Comet constellation background */}
       <ParticleCanvas />
 
       {/* Subtle overlay to slightly dim the background canvas/gradients and make content pop */}
-      <div 
+      <div
         id="bg-dim-overlay"
-        className={`fixed inset-0 pointer-events-none z-0 transition-colors duration-500 ${
-          theme === 'dark' ? 'bg-[#00050a]/20' : 'bg-slate-950/[0.04]'
-        }`} 
+        className={`fixed inset-0 pointer-events-none z-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-[#00050a]/20' : 'bg-slate-950/[0.04]'
+          }`}
       />
 
       {/* Navigation Header */}
@@ -48,9 +45,6 @@ function PortfolioAppContent() {
 
       {/* Certifications Accordion */}
       <Certificates />
-
-      {/* AI Assistant Chat Section */}
-      <AiChatSection />
 
       {/* Project inquiry / WhatsApp submit Form */}
       <ContactForm />
