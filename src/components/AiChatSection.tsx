@@ -10,7 +10,18 @@ interface Message {
     text: string;
     timestamp: Date;
 }
-const API_BASE = "http://localhost:8000";
+const getApiUrl = (endpoint: string) => {
+    // 1. Intentar leer la variable de entorno oficial de Vite
+    const envUrl = import.meta.env.VITE_APP_URL;
+    
+    // 2. Si la variable no existe (porque estás en local sin .env), usar localhost
+    const baseUrl = envUrl || 'http://localhost:8000';
+    
+    const cleanBase = baseUrl.replace(/\/+$/, '');
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    
+    return `${cleanBase}${cleanEndpoint}`;
+};
 
 // Lightweight Markdown Parser to render beautiful API responses
 function parseMarkdownToReact(text: string, isDark: boolean) {
@@ -191,7 +202,7 @@ export default function AiChatSection() {
     useEffect(() => {
         const checkApiConnection = async () => {
             try {
-                const res = await fetch(`${API_BASE}/api/health`, { method: 'GET' });
+                const res = await fetch(getApiUrl('/api/health'), { method: 'GET' });
                 const contentType = res.headers.get('content-type');
                 if (res.ok && contentType && contentType.includes('application/json')) {
                     setIsApiConnected(true);
@@ -274,7 +285,7 @@ export default function AiChatSection() {
                 history: historyPayload
             };
 
-            const response = await fetch(`${API_BASE}/api/chat`, {
+            const response = await fetch(getApiUrl('/api/chat'), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -365,7 +376,7 @@ export default function AiChatSection() {
                 }));
 
                 // Call terminate in background
-                fetch(`${API_BASE}/api/terminate`, {
+                fetch(getApiUrl('/api/terminate'), {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -418,7 +429,7 @@ export default function AiChatSection() {
                 text: msg.text
             }));
 
-            fetch(`${API_BASE}/api/terminate`, {
+            fetch(getApiUrl('/api/terminate'), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
