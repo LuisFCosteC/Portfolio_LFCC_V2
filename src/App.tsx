@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import Projects from './components/Projects';
 import Certificates from './components/Certificates';
+import AiChatSection from './components/AiChatSection';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import ParticleCanvas from './components/ParticleCanvas';
@@ -17,8 +18,8 @@ function PortfolioAppContent() {
     <div
       id="portfolio-root-layout"
       className={`min-h-screen transition-all duration-500 font-sans overflow-x-hidden relative ${theme === 'dark'
-        ? 'bg-gradient-dark text-gray-100 selection:bg-green-500/30 selection:text-green-200'
-        : 'bg-gradient-light text-slate-800 selection:bg-blue-600/20 selection:text-black'
+          ? 'bg-gradient-dark text-gray-100 selection:bg-green-500/30 selection:text-green-200'
+          : 'bg-gradient-light text-slate-800 selection:bg-blue-600/20 selection:text-black'
         }`}
     >
       {/* Comet constellation background */}
@@ -46,6 +47,9 @@ function PortfolioAppContent() {
       {/* Certifications Accordion */}
       <Certificates />
 
+      {/* AI Assistant Chat Section */}
+      <AiChatSection />
+
       {/* Project inquiry / WhatsApp submit Form */}
       <ContactForm />
 
@@ -67,3 +71,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+

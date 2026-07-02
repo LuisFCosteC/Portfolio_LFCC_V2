@@ -4,6 +4,7 @@ export const en = {
   'nav-about': 'About me',
   'nav-projects': 'Projects',
   'nav-certificates': 'Certificates',
+  'nav-ai': 'AI Assistant',
   'nav-contact': 'Contact me',
   'nav-cv-btn': 'CV / Resume',
   'nav-cv-es': 'Download CV (Spanish)',
@@ -154,5 +155,19 @@ export const en = {
   // Footer
   'footer-contact': 'Contact me:',
   'footer-developed': 'Developed by',
-  'footer-rights': 'All rights reserved.'
+  'footer-rights': 'All rights reserved.',
+
+  // AI Assistant Section
+  'ai-title': 'AI Consultant',
+  'ai-subtitle': 'Virtual Technical Assistant',
+  'ai-welcome': "Hi! I'm Luis Fernando's virtual assistant. I can help you learn about his projects, skills, or provide you with a formal quote for software development if you have an idea in mind. What is on your mind today?",
+  'ai-input-placeholder': 'Ask me about his projects or request a software quote...',
+  'ai-send': 'Send',
+  'ai-form-title': 'Requirement Capture',
+  'ai-form-desc': 'Please complete these three simple fields to structure your quote and get in touch:',
+  'ai-form-name': 'Full Name',
+  'ai-form-email': 'Email Address',
+  'ai-form-project': 'Project Description or Needs',
+  'ai-form-submit': 'Submit Project',
+  'ai-form-success': 'Success! Your requirements have been securely recorded. Luis Fernando will get in touch with you immediately to coordinate.'
 };
