@@ -20,6 +20,10 @@ Este es un portafolio web interactivo de alto rendimiento y arquitectura **Singl
     *   **Consola de Configuración Granular**: El usuario puede activar o desactivar de manera independiente las cookies de analíticas o marketing de forma bilingüe.
 *   **Fondo Dinámico Sincronizado**:
     *   Fondos con gradientes radiales optimizados en rendimiento que se adaptan suavemente al modo oscuro o claro y eliminan las líneas o bandas de color mediante interpolación limpia de píxeles (`background-attachment: fixed`).
+*   **Consultor Técnico de Software con IA (`AiChatSection`)**:
+    *   Asistente virtual conversacional integrado con la API de Gemini mediante un proxy seguro con anonimización de PII (datos personales) en tiempo real.
+    *   **Renderizado Markdown de Alta Fidelidad**: Parser personalizado que genera HTML reactivo para viñetas anidadas por espacios, listas numeradas alineadas, texto en negrita, código en línea y bloques de código completos formateados.
+    *   **Rutado Dinámico Autogestionado (`getApiUrl`)**: Detector en caliente del host (`lfcc.vercel.app`) para conmutar automáticamente entre el servidor en la nube de Render y el local de desarrollo sin requerir inyección manual de variables.
 
 ---
 
@@ -45,9 +49,11 @@ El código fuente está organizado de forma modular para desarrollo ágil y máx
 │   │   ├── ContactForm.tsx      # Formulario de contacto con validación en tiempo real
 │   │   ├── Footer.tsx           # Enlaces legales, copyright y banner/panel de cookies
 │   │   ├── FloatingButtons.tsx  # Atajos flotantes de mensajería rápida (WhatsApp/Gmail)
+│   │   ├── AiChatSection.tsx    # Asistente virtual de consultoría de software integrado con IA
 │   │   └── ParticleCanvas.tsx   # Fondo dinámico interactivo optimizado para GPU
 │   ├── context/                 # Contextos de React
 │   │   └── ThemeContext.tsx     # Administrador global del tema (Dark / Light)
+│   ├── vite-env.d.ts            # Declaración de tipos para variables de entorno de Vite
 │   ├── i18n/                    # Módulos para internacionalización (Español / Inglés)
 │   │   ├── es.ts                # Traducciones al Español
 │   │   ├── en.ts                # Traducciones al Inglés
@@ -108,6 +114,43 @@ A continuación se describe exhaustivamente el propósito, la lógica interna y 
 *   **Lógica y Funciones**:
     *   **Validaciones en Tiempo Real**: Valida la estructura del correo electrónico en el formulario tradicional antes de enviarlo.
     *   **Enlaces de WhatsApp/Gmail**: Atajos permanentes en la esquina inferior derecha adaptados al idioma del visitante con mensajes de saludo predefinidos.
+
+### 8. Asistente Técnico y Consultoría IA (`AiChatSection.tsx`)
+*   **Propósito**: Capturar clientes potenciales (leads) de desarrollo de software y guiarlos técnicamente respondiendo dudas sobre el stack de Luis Fernando, proyectos o currículum.
+*   **Lógica y Funciones**:
+    *   **Gatekeeper de Captura**: Formulario inicial para ingresar Nombre, Correo e Idea de software antes de habilitar el chat.
+    *   **Parser de Markdown Premium**: Renderizador robusto que convierte la respuesta de la IA a React, admitiendo bloques de código (con etiquetas de lenguaje y scroll horizontal), negrita, código en línea y listas anidadas con sangría inteligente según el espacio en blanco.
+    *   **Alineación Estética**: Iconografía y numeración alineadas milimétricamente con adaptación de colores según el tema claro (azul) u oscuro (esmeralda).
+    *   **Detector de Entorno Inteligente (`getApiUrl`)**: Identifica dinámicamente si la aplicación está corriendo en producción (`lfcc.vercel.app`) para conectar con el backend de Render o si está en desarrollo local (`localhost:8000`), sin depender de variables de entorno estáticas.
+    *   **Finalización y Resumen**: Permite al usuario finalizar la sesión, enviando una señal para generar un resumen ejecutivo que se notifica por Telegram y limpia el caché temporal en RAM.
+
+### 9. Declaraciones de Entorno (`vite-env.d.ts`)
+*   **Propósito**: Definir la interfaz estricta de las variables de entorno inyectadas por Vite.
+*   **Lógica y Funciones**:
+    *   **Seguridad de Tipado**: Centraliza el acceso a claves públicas como `VITE_GEMINI_API_KEY` o `VITE_BACKEND_URL`, asegurando que el compilador de TypeScript rechace cualquier referencia inexistente.
+    *   **Intellisense**: Habilita el autocompletado en el IDE al invocar `import.meta.env`, eliminando errores de escritura comunes en entornos de despliegue.
+
+---
+
+## 🔗 Arquitectura de Conexión a la API y Flujo de Datos
+
+El portafolio se conecta de forma asíncrona a un backend proxy seguro desarrollado en **FastAPI** (alojado en Render). La comunicación se gestiona bajo los siguientes criterios de infraestructura y seguridad:
+
+### 1. Enrutamiento Dinámico de Peticiones (`getApiUrl`)
+Para evitar fallos de compilación y congelamiento de variables de entorno estáticas en el bundle del navegador, la aplicación detecta el origen en tiempo real mediante `window.location.hostname`:
+*   **Producción (`lfcc.vercel.app`)**: Redirige automáticamente todas las peticiones a la API en Render: `https://portfolio-lfcc-v2-api.onrender.com`.
+*   **Desarrollo (`localhost` / `127.0.0.1`)**: Conecta con el servidor local de desarrollo de FastAPI en `http://localhost:8000`.
+
+### 2. Endpoints Consumidos
+*   **Comprobación de Estado (`GET /api/health`)**: Determina el estado del asistente en el header del chat (`SYSTEM: ACTIVE` / `SYSTEM: OFFLINE`).
+*   **Chat Conversacional (`POST /api/chat`)**: Envía el payload con el nombre del lead, correo, mensaje actual e historial de conversación para interactuar de forma fluida.
+*   **Finalización de Sesión (`POST /api/terminate`)**: Se dispara al hacer clic en "Finalizar Conversación", por inactividad de 3 minutos o al cerrar la pestaña/navegador (`beforeunload` con `keepalive: true`). Esto genera el resumen técnico enviado a Telegram y destruye la caché de sesión en RAM.
+
+### 3. Flujo de Privacidad y Sanitización de Datos (Proxy PII)
+1.  **Captura Segura**: El frontend captura el lead de forma segura y envía los datos reales únicamente al backend.
+2.  **Auditoría Local**: El backend almacena de forma persistente la consulta real con PII en una base de datos privada local de SQLite (`leads_vault.db`), protegida de accesos externos.
+3.  **Anonimización**: El proxy del backend sanitiza el mensaje y el historial de chat, reemplazando nombres y correos con etiquetas genéricas antes de transferirlos a la API pública de Google Gemini.
+4.  **Generación de Alertas**: Al finalizar, el backend solicita un resumen técnico estructurado en 4 puntos a Gemini y lo despacha de inmediato a través del Bot de Telegram de Luis Coste.
 
 ---
 

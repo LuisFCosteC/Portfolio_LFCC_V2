@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, Bot, User, Sparkles, ClipboardList, AlertCircle, LogOut } from 'lucide-react';
+import { Send, Bot, User, Sparkles, ClipboardList, AlertCircle, LogOut, X, Calendar, Loader2 } from 'lucide-react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useTheme } from '../context/ThemeContext';
 
@@ -38,9 +38,9 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
     let codeLanguage = '';
     let codeLines: string[] = [];
     
-    // Helper to parse inline styles (**bold**, __bold__, `code`)
+    // Helper to parse inline styles (**bold**, __bold__, `code`, links)
     const parseInline = (content: string) => {
-        const inlineRegex = /(\*\*.*?\*\*|`.*?`|__.*?__)/g;
+        const inlineRegex = /(\*\*.*?\*\*|`.*?`|__.*?__|\[.*?\]\(.*?\)|https?:\/\/[^\s]+)/g;
         const tokens = content.split(inlineRegex);
         return tokens.map((token, tokenIndex) => {
             if (token.startsWith('**') && token.endsWith('**')) {
@@ -66,6 +66,40 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
                     }`}>
                         {token.slice(1, -1)}
                     </code>
+                );
+            }
+            if (token.startsWith('[') && token.includes('](')) {
+                const match = token.match(/^\[(.*?)\]\((.*?)\)$/);
+                if (match) {
+                    const [, linkText, linkUrl] = match;
+                    return (
+                        <a 
+                            key={tokenIndex} 
+                            href={linkUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className={`underline font-bold transition-all ${
+                                isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-blue-600 hover:text-blue-800'
+                            }`}
+                        >
+                            {linkText}
+                        </a>
+                    );
+                }
+            }
+            if (token.startsWith('http://') || token.startsWith('https://')) {
+                return (
+                    <a 
+                        key={tokenIndex} 
+                        href={token} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className={`underline font-bold transition-all ${
+                            isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-blue-600 hover:text-blue-800'
+                        }`}
+                    >
+                        {token}
+                    </a>
                 );
             }
             return token;
@@ -170,6 +204,25 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
     return elements;
 }
 
+const getDayName = (date: Date, lang: string) => {
+    const daysEs = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    const daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return lang === 'es' ? daysEs[date.getDay()] : daysEn[date.getDay()];
+};
+
+const getMonthName = (date: Date, lang: string) => {
+    const monthsEs = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return lang === 'es' ? monthsEs[date.getMonth()] : monthsEn[date.getMonth()];
+};
+
+const TIME_SLOTS = [
+    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+    '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+    '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+    '17:00', '17:30', '18:00', '18:30', '19:00', '19:30'
+];
+
 export default function AiChatSection() {
     const { language, t } = useTranslation();
     const { theme } = useTheme();
@@ -184,6 +237,61 @@ export default function AiChatSection() {
     const [formEmail, setFormEmail] = useState('');
     const [formDesc, setFormDesc] = useState('');
     const [formError, setFormError] = useState('');
+
+    // Calendar Scheduling States
+    const [showCalendarMode, setShowCalendarMode] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [selectedTime, setSelectedTime] = useState<string | null>(null);
+    const [isScheduling, setIsScheduling] = useState(false);
+    const [schedulingError, setSchedulingError] = useState('');
+
+    // Calculate weekdays for the next 2 weeks (excluding weekends, exactly 10 business days)
+    const getNextTwoWeeksWeekdays = () => {
+        const weekdaysList: Date[] = [];
+        let count = 0;
+        let daysOffset = 0;
+        while (count < 10) {
+            const d = new Date();
+            d.setDate(d.getDate() + daysOffset);
+            const day = d.getDay();
+            if (day !== 0 && day !== 6) { // 0 = Sunday, 6 = Saturday
+                weekdaysList.push(d);
+                count++;
+            }
+            daysOffset++;
+        }
+        return weekdaysList;
+    };
+
+    const weekdays = getNextTwoWeeksWeekdays();
+
+    // Set default selectedDate to the first weekday if not set
+    useEffect(() => {
+        if (showCalendarMode && !selectedDate && weekdays.length > 0) {
+            setSelectedDate(weekdays[0]);
+        }
+    }, [showCalendarMode, selectedDate, weekdays]);
+
+    const getAvailableSlots = (date: Date) => {
+        const today = new Date();
+        const isTodayDate = date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear();
+            
+        if (!isTodayDate) return TIME_SLOTS;
+        
+        const currentHour = today.getHours();
+        const currentMinute = today.getMinutes();
+        
+        return TIME_SLOTS.filter(slot => {
+            const [hourStr, minuteStr] = slot.split(':');
+            const slotHour = parseInt(hourStr, 10);
+            const slotMinute = parseInt(minuteStr, 10);
+            if (slotHour > currentHour) return true;
+            if (slotHour === currentHour && slotMinute > currentMinute) return true;
+            return false;
+        });
+    };
 
     // Gatekeeper States
     const [isLeadCaptured, setIsLeadCaptured] = useState<boolean>(() => {
@@ -306,12 +414,26 @@ export default function AiChatSection() {
             const data = await response.json();
             const botReply = data.response;
 
-            setMessages((prev) => [...prev, {
-                id: `msg-${Date.now()}-bot`,
-                sender: 'bot',
-                text: botReply,
-                timestamp: new Date()
-            }]);
+            if (botReply.includes("[TRIGGER_CALENDAR_INTERFACE]")) {
+                console.log("🎯 Flag detectado con éxito. Cambiando a vista de Calendario.");
+                const cleanBotReply = botReply.replace("[TRIGGER_CALENDAR_INTERFACE]", "").trim();
+                const finalReply = cleanBotReply || (language === 'es' ? 'Por favor selecciona una fecha y hora para agendar la cita:' : 'Please select a date and time to schedule the meeting:');
+                
+                setMessages((prev) => [...prev, {
+                    id: `msg-${Date.now()}-bot`,
+                    sender: 'bot',
+                    text: finalReply,
+                    timestamp: new Date()
+                }]);
+                setShowCalendarMode(true);
+            } else {
+                setMessages((prev) => [...prev, {
+                    id: `msg-${Date.now()}-bot`,
+                    sender: 'bot',
+                    text: botReply,
+                    timestamp: new Date()
+                }]);
+            }
         } catch (error) {
             console.error("Error calling API chat endpoint:", error);
             const botResponse = language === 'es'
@@ -326,6 +448,71 @@ export default function AiChatSection() {
             }]);
         } finally {
             setIsTyping(false);
+        }
+    };
+
+    const handleScheduleMeeting = async (timeSlot: string) => {
+        if (!selectedDate || isScheduling) return;
+        setSchedulingError('');
+        setIsScheduling(true);
+
+        const yyyy = selectedDate.getFullYear();
+        const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(selectedDate.getDate()).padStart(2, '0');
+        const formattedDatetime = `${yyyy}-${mm}-${dd}T${timeSlot}:00`;
+
+        const currentLeadEmail = activeLead?.email || '';
+        const currentLeadName = activeLead?.name || '';
+
+        try {
+            const url = getApiUrl('/api/schedule-meeting');
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: currentLeadEmail,
+                    name: currentLeadName,
+                    slot_datetime: formattedDatetime
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(language === 'es' ? `Error del servidor: HTTP ${response.status}` : `Server error: HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            // Destroy the calendar
+            setShowCalendarMode(false);
+            setSelectedDate(null);
+            setSelectedTime(null);
+
+            // Extract Google Meet link
+            const meetLink = data.meet_link || data.google_meet || data.link || 'https://meet.google.com';
+
+            // Print confirmation message
+            const dayName = getDayName(selectedDate, language);
+            const monthName = getMonthName(selectedDate, language);
+            const displayDateStr = `${dayName} ${dd} ${monthName} ${yyyy}`;
+
+            const confirmText = language === 'es'
+                ? `¡Cita agendada con éxito! 🎉 Nos reuniremos el **${displayDateStr}** a las **${timeSlot}**. Aquí tienes el enlace de Google Meet para unirte: ${meetLink}`
+                : `Meeting scheduled successfully! 🎉 We will meet on **${displayDateStr}** at **${timeSlot}**. Here is the Google Meet link to join: ${meetLink}`;
+
+            setMessages((prev) => [...prev, {
+                id: `msg-${Date.now()}-bot-confirm`,
+                sender: 'bot',
+                text: confirmText,
+                timestamp: new Date()
+            }]);
+        } catch (error: any) {
+            console.error("Error scheduling meeting:", error);
+            setSchedulingError(language === 'es' ? 'No se pudo agendar la cita. Por favor intenta de nuevo.' : 'Failed to schedule meeting. Please try again.');
+        } finally {
+            setIsScheduling(false);
         }
     };
 
@@ -507,7 +694,7 @@ export default function AiChatSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[550px] sm:h-[600px] transition-all duration-300 ${isDark
+                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[550px] sm:h-[600px] transition-all duration-300 relative ${isDark
                             ? 'bg-[#030914]/75 border-slate-800/80 shadow-emerald-950/20'
                             : 'bg-white/80 border-slate-200 shadow-slate-200/50'
                         }`}
@@ -633,33 +820,184 @@ export default function AiChatSection() {
                                 )}
                             </div>
 
-                            {/* Input Bar */}
-                            <div className={`p-4 border-t flex items-center gap-2 shrink-0 ${isDark ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-200 bg-slate-50/40'
+                            {/* Calendar Overlay (Integrated Glassmorphism Modal with 2 Columns) */}
+                            {showCalendarMode && (
+                                <div className={`absolute inset-x-0 bottom-0 top-[73px] z-20 flex flex-col backdrop-blur-xl ${
+                                    isDark ? 'bg-[#030914]/90 border-t border-slate-800/80 shadow-emerald-950/20' : 'bg-white/90 border-t border-slate-200 shadow-slate-200/20'
                                 }`}>
-                                <input
-                                    type="text"
-                                    value={inputVal}
-                                    onChange={(e) => setInputVal(e.target.value)}
-                                    onKeyDown={handleKeyPress}
-                                    disabled={isTyping}
-                                    className={`flex-1 px-4 py-3 rounded-xl text-xs sm:text-sm outline-none border transition-all ${isDark
-                                            ? 'bg-slate-950/70 border-slate-800 text-white focus:border-emerald-500/40 placeholder:text-slate-500'
-                                            : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
-                                        } disabled:opacity-50`}
-                                    placeholder={language === 'es' ? 'Pregúntame sobre el stack de Luis o sus proyectos...' : 'Ask me about Luis\'s stack or projects...'}
-                                />
+                                    {/* Loading Overlay */}
+                                    {isScheduling && (
+                                        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-slate-950/75 backdrop-blur-md">
+                                            <Loader2 className={`w-10 h-10 animate-spin mb-3 ${isDark ? 'text-emerald-400' : 'text-blue-600'}`} />
+                                            <span className="text-sm font-bold text-slate-200 animate-pulse">
+                                                {language === 'es' ? 'Agendando espacio con Luis...' : 'Scheduling spot with Luis...'}
+                                            </span>
+                                        </div>
+                                    )}
 
-                                <button
-                                    onClick={() => handleSendMessage(inputVal)}
-                                    disabled={isTyping || !inputVal.trim()}
-                                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all select-none cursor-pointer border ${isDark
-                                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 disabled:bg-slate-900 disabled:border-slate-800 disabled:text-slate-600'
-                                            : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20 disabled:bg-slate-100 disabled:border-slate-200 disabled:text-slate-400'
-                                        } disabled:cursor-not-allowed`}
-                                >
-                                    <Send className="w-4 h-4" />
-                                </button>
-                            </div>
+                                    {/* Header */}
+                                    <div className={`px-4 py-3 flex items-center justify-between border-b shrink-0 ${
+                                        isDark ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-200 bg-slate-50/40'
+                                    }`}>
+                                        <div className="flex items-center gap-2">
+                                            <Calendar className={`w-4 h-4 ${isDark ? 'text-emerald-400' : 'text-blue-600'}`} />
+                                            <h5 className={`text-xs sm:text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                                {language === 'es' ? 'Agendar Reunión con Luis' : 'Schedule Meeting with Luis'}
+                                            </h5>
+                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                setShowCalendarMode(false);
+                                                setSelectedDate(null);
+                                                setSelectedTime(null);
+                                                setSchedulingError('');
+                                            }}
+                                            className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                                                isDark 
+                                                    ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800' 
+                                                    : 'bg-white border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-100'
+                                            }`}
+                                            title={language === 'es' ? 'Volver al chat' : 'Back to chat'}
+                                        >
+                                            <X className="w-4 h-4" />
+                                        </button>
+                                    </div>
+
+                                    {/* Error Alert */}
+                                    {schedulingError && (
+                                        <div className="mx-4 mt-3 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center justify-between shrink-0">
+                                            <div className="flex items-center gap-2">
+                                                <AlertCircle className="w-4 h-4 shrink-0" />
+                                                <span>{schedulingError}</span>
+                                            </div>
+                                            <button onClick={() => setSchedulingError('')} className="p-1 hover:bg-rose-500/20 rounded-lg">
+                                                <X className="w-3 h-3" />
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* 2-Column Calendar Content */}
+                                    <div className="flex-1 overflow-hidden p-4 sm:p-5 flex gap-4 min-h-0">
+                                        {/* Left Panel - Days */}
+                                        <div className="w-[110px] sm:w-[170px] shrink-0 flex flex-col gap-2 overflow-y-auto pr-1 scrollbar-thin">
+                                            <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 select-none ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                {language === 'es' ? 'Días' : 'Days'}
+                                            </span>
+                                            {weekdays.map((date) => {
+                                                const isSel = selectedDate && 
+                                                    date.getDate() === selectedDate.getDate() && 
+                                                    date.getMonth() === selectedDate.getMonth() &&
+                                                    date.getFullYear() === selectedDate.getFullYear();
+                                                const dName = getDayName(date, language);
+                                                const mName = getMonthName(date, language);
+                                                const dNum = date.getDate();
+                                                return (
+                                                    <button
+                                                        key={date.toISOString()}
+                                                        onClick={() => {
+                                                            setSelectedDate(date);
+                                                            setSelectedTime(null);
+                                                        }}
+                                                        className={`flex flex-col sm:flex-row items-center sm:justify-start gap-1 sm:gap-3 px-3 py-2.5 rounded-xl border transition-all text-left cursor-pointer ${
+                                                            isSel
+                                                                ? isDark
+                                                                    ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold shadow-md shadow-emerald-950/20'
+                                                                    : 'bg-blue-500/15 border-blue-500 text-blue-600 font-bold shadow-md shadow-blue-500/10'
+                                                                : isDark
+                                                                    ? 'bg-slate-900/40 border-slate-800/80 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200'
+                                                                    : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-800'
+                                                        }`}
+                                                    >
+                                                        <span className="text-sm font-black leading-none">{dNum}</span>
+                                                        <div className="flex flex-col items-center sm:items-start leading-none">
+                                                            <span className="text-[9px] uppercase tracking-wider font-semibold">{dName}</span>
+                                                            <span className="text-[8px] opacity-75 mt-0.5 hidden sm:inline">{mName}</span>
+                                                        </div>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+
+                                        {/* Divider */}
+                                        <div className={`w-[1px] shrink-0 self-stretch ${isDark ? 'bg-slate-800/85' : 'bg-slate-200'}`} />
+
+                                        {/* Right Panel - Hours */}
+                                        <div className="flex-1 flex flex-col gap-2 overflow-hidden">
+                                            <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 select-none ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                {language === 'es' ? 'Horas Disponibles' : 'Available Hours'}
+                                            </span>
+                                            {selectedDate && getAvailableSlots(selectedDate).length > 0 ? (
+                                                <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin">
+                                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                                                        {getAvailableSlots(selectedDate).map((slot) => {
+                                                            const isSel = selectedTime === slot;
+                                                            return (
+                                                                <button
+                                                                    key={slot}
+                                                                    onClick={() => {
+                                                                        setSelectedTime(slot);
+                                                                        handleScheduleMeeting(slot);
+                                                                    }}
+                                                                    className={`py-2.5 px-1 rounded-xl text-xs font-bold border transition-all text-center cursor-pointer ${
+                                                                        isSel
+                                                                            ? isDark
+                                                                                ? 'bg-emerald-500 text-slate-950 border-emerald-500'
+                                                                                : 'bg-blue-600 text-white border-blue-600'
+                                                                            : isDark
+                                                                                ? 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/60 hover:text-white'
+                                                                                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                                                                    }`}
+                                                                >
+                                                                    {slot}
+                                                                </button>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="flex-1 flex flex-col items-center justify-center border border-dashed rounded-xl p-4 border-slate-800/40 text-center text-xs text-slate-400">
+                                                    {language === 'es' ? 'No hay horarios disponibles para hoy. Selecciona otra fecha.' : 'No slots available for today. Select another date.'}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Input Container */}
+                            {!showCalendarMode && (
+                                <div className={`p-4 border-t shrink-0 relative transition-all duration-300 ${
+                                    isDark 
+                                        ? 'border-slate-800/80 bg-slate-950/40' 
+                                        : 'border-slate-200 bg-slate-50/40'
+                                }`}>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="text"
+                                            value={inputVal}
+                                            onChange={(e) => setInputVal(e.target.value)}
+                                            onKeyDown={handleKeyPress}
+                                            disabled={isTyping}
+                                            className={`flex-1 px-4 py-3 rounded-xl text-xs sm:text-sm outline-none border transition-all ${isDark
+                                                    ? 'bg-slate-950/70 border-slate-800 text-white focus:border-emerald-500/40 placeholder:text-slate-500'
+                                                    : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                } disabled:opacity-50`}
+                                            placeholder={language === 'es' ? 'Pregúntame sobre el stack de Luis o sus proyectos...' : 'Ask me about Luis\'s stack or projects...'}
+                                        />
+
+                                        <button
+                                            onClick={() => handleSendMessage(inputVal)}
+                                            disabled={isTyping || !inputVal.trim()}
+                                            className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all select-none cursor-pointer border ${isDark
+                                                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 disabled:bg-slate-900 disabled:border-slate-800 disabled:text-slate-600'
+                                                    : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20 disabled:bg-slate-100 disabled:border-slate-200 disabled:text-slate-400'
+                                                } disabled:cursor-not-allowed`}
+                                        >
+                                            <Send className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </>
                     ) : (
                         /* Beautiful Centered Gatekeeper Form */
