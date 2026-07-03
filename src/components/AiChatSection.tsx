@@ -244,26 +244,55 @@ export default function AiChatSection() {
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [isScheduling, setIsScheduling] = useState(false);
     const [schedulingError, setSchedulingError] = useState('');
+    const [occupiedSlots, setOccupiedSlots] = useState<string[]>([]);
 
-    // Calculate weekdays for the next 2 weeks (excluding weekends, exactly 10 business days)
-    const getNextTwoWeeksWeekdays = () => {
+    const fetchOccupiedSlots = async () => {
+        try {
+            const url = getApiUrl('/api/occupied-slots');
+            const res = await fetch(url);
+            if (res.ok) {
+                const data = await res.json();
+                if (data.status === 'success') {
+                    setOccupiedSlots(data.occupied_slots || []);
+                }
+            }
+        } catch (err) {
+            console.error("Error fetching occupied slots:", err);
+        }
+    };
+
+    useEffect(() => {
+        if (showCalendarMode) {
+            fetchOccupiedSlots();
+        }
+    }, [showCalendarMode]);
+
+    const isSlotOccupiedInList = (date: Date, slot: string) => {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        const formatted = `${yyyy}-${mm}-${dd}T${slot}:00`;
+        return occupiedSlots.includes(formatted);
+    };
+
+    // Calculate weekdays for this week and the next two weeks (excluding weekends, exactly 15 business days)
+    const getThreeWeeksWeekdays = () => {
         const weekdaysList: Date[] = [];
-        let count = 0;
+        const today = new Date();
         let daysOffset = 0;
-        while (count < 10) {
+        while (weekdaysList.length < 15) {
             const d = new Date();
-            d.setDate(d.getDate() + daysOffset);
+            d.setDate(today.getDate() + daysOffset);
             const day = d.getDay();
             if (day !== 0 && day !== 6) { // 0 = Sunday, 6 = Saturday
                 weekdaysList.push(d);
-                count++;
             }
             daysOffset++;
         }
         return weekdaysList;
     };
 
-    const weekdays = getNextTwoWeeksWeekdays();
+    const weekdays = getThreeWeeksWeekdays();
 
     // Set default selectedDate to the first weekday if not set
     useEffect(() => {
@@ -415,7 +444,7 @@ export default function AiChatSection() {
             const botReply = data.response;
 
             if (botReply.includes("[TRIGGER_CALENDAR_INTERFACE]")) {
-                console.log("🎯 Flag detectado con éxito. Cambiando a vista de Calendario.");
+                console.log("🎯 Flag detectado con éxito.");
                 const cleanBotReply = botReply.replace("[TRIGGER_CALENDAR_INTERFACE]", "").trim();
                 const finalReply = cleanBotReply || (language === 'es' ? 'Por favor selecciona una fecha y hora para agendar la cita:' : 'Please select a date and time to schedule the meeting:');
                 
@@ -425,7 +454,6 @@ export default function AiChatSection() {
                     text: finalReply,
                     timestamp: new Date()
                 }]);
-                setShowCalendarMode(true);
             } else {
                 setMessages((prev) => [...prev, {
                     id: `msg-${Date.now()}-bot`,
@@ -480,7 +508,14 @@ export default function AiChatSection() {
             });
 
             if (!response.ok) {
-                throw new Error(language === 'es' ? `Error del servidor: HTTP ${response.status}` : `Server error: HTTP ${response.status}`);
+                let errorMsg = language === 'es' ? `Error del servidor: HTTP ${response.status}` : `Server error: HTTP ${response.status}`;
+                try {
+                    const errData = await response.json();
+                    if (errData && errData.detail) {
+                        errorMsg = errData.detail;
+                    }
+                } catch (e) {}
+                throw new Error(errorMsg);
             }
 
             const data = await response.json();
@@ -510,7 +545,9 @@ export default function AiChatSection() {
             }]);
         } catch (error: any) {
             console.error("Error scheduling meeting:", error);
-            setSchedulingError(language === 'es' ? 'No se pudo agendar la cita. Por favor intenta de nuevo.' : 'Failed to schedule meeting. Please try again.');
+            setSchedulingError(error.message || (language === 'es' ? 'No se pudo agendar la cita. Por favor intenta de nuevo.' : 'Failed to schedule meeting. Please try again.'));
+            // Re-fetch occupied slots on error so the conflict slot updates in the UI
+            fetchOccupiedSlots();
         } finally {
             setIsScheduling(false);
         }
@@ -930,22 +967,28 @@ export default function AiChatSection() {
                                                 <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin">
                                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                                         {getAvailableSlots(selectedDate).map((slot) => {
+                                                            const isOccupied = selectedDate && isSlotOccupiedInList(selectedDate, slot);
                                                             const isSel = selectedTime === slot;
                                                             return (
                                                                 <button
                                                                     key={slot}
+                                                                    disabled={isOccupied || isScheduling}
                                                                     onClick={() => {
                                                                         setSelectedTime(slot);
                                                                         handleScheduleMeeting(slot);
                                                                     }}
-                                                                    className={`py-2.5 px-1 rounded-xl text-xs font-bold border transition-all text-center cursor-pointer ${
-                                                                        isSel
+                                                                    className={`py-2.5 px-1 rounded-xl text-xs font-bold border transition-all text-center ${
+                                                                        isOccupied
                                                                             ? isDark
-                                                                                ? 'bg-emerald-500 text-slate-950 border-emerald-500'
-                                                                                : 'bg-blue-600 text-white border-blue-600'
-                                                                            : isDark
-                                                                                ? 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/60 hover:text-white'
-                                                                                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                                                                                ? 'bg-slate-950/40 border-slate-900/60 text-slate-600 cursor-not-allowed line-through'
+                                                                                : 'bg-slate-100 border-slate-200 text-slate-400/50 cursor-not-allowed line-through'
+                                                                            : isSel
+                                                                                ? isDark
+                                                                                    ? 'bg-emerald-500 text-slate-950 border-emerald-500 cursor-pointer'
+                                                                                    : 'bg-blue-600 text-white border-blue-600 cursor-pointer'
+                                                                                : isDark
+                                                                                    ? 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/60 hover:text-white cursor-pointer'
+                                                                                    : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer'
                                                                     }`}
                                                                 >
                                                                     {slot}
@@ -972,6 +1015,19 @@ export default function AiChatSection() {
                                         : 'border-slate-200 bg-slate-50/40'
                                 }`}>
                                     <div className="flex items-center gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowCalendarMode(true)}
+                                            className={`px-3.5 py-3 rounded-xl flex items-center gap-2 shrink-0 border transition-all select-none cursor-pointer text-xs sm:text-sm font-bold ${
+                                                isDark
+                                                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20'
+                                                    : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20'
+                                            }`}
+                                        >
+                                            <Calendar className="w-4 h-4" />
+                                            <span>{language === 'es' ? 'Agendar Cita' : 'Schedule Meeting'}</span>
+                                        </button>
+
                                         <input
                                             type="text"
                                             value={inputVal}
