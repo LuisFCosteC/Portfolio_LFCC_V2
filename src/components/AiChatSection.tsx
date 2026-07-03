@@ -11,33 +11,33 @@ interface Message {
     timestamp: Date;
 }
 const getApiUrl = (endpoint: string) => {
-  let baseUrl = '';
+    let baseUrl = '';
 
-  // 1. Detectamos si el usuario está navegando en internet (Vercel)
-  if (typeof window !== 'undefined' && window.location.hostname === 'lfcc.vercel.app') {
-    // Forzamos directamente tu URL de producción en Render sin depender de .env
-    baseUrl = 'https://portfolio-lfcc-v2-api.onrender.com';
-  } else {
-    // 2. Si está en localhost (tu computadora), usa el puerto local por defecto
-    baseUrl = 'http://localhost:8000';
-  }
+    // 1. Detectamos si el usuario está navegando en internet (Vercel)
+    if (typeof window !== 'undefined' && window.location.hostname === 'lfcc.vercel.app') {
+        // Forzamos directamente tu URL de producción en Render sin depender de .env
+        baseUrl = 'https://portfolio-lfcc-v2-api.onrender.com';
+    } else {
+        // 2. Si está en localhost (tu computadora), usa el puerto local por defecto
+        baseUrl = 'http://localhost:8000';
+    }
 
-  // Limpieza estándar de slashes diagonales
-  const cleanBase = baseUrl.replace(/\/+$/, '');
-  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    // Limpieza estándar de slashes diagonales
+    const cleanBase = baseUrl.replace(/\/+$/, '');
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
 
-  return `${cleanBase}${cleanEndpoint}`;
+    return `${cleanBase}${cleanEndpoint}`;
 };
 
 // Lightweight Markdown Parser to render beautiful API responses
 function parseMarkdownToReact(text: string, isDark: boolean) {
     const lines = text.split('\n');
     const elements: React.ReactNode[] = [];
-    
+
     let inCodeBlock = false;
     let codeLanguage = '';
     let codeLines: string[] = [];
-    
+
     // Helper to parse inline styles (**bold**, __bold__, `code`, links)
     const parseInline = (content: string) => {
         const inlineRegex = /(\*\*.*?\*\*|`.*?`|__.*?__|\[.*?\]\(.*?\)|https?:\/\/[^\s]+)/g;
@@ -59,11 +59,10 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
             }
             if (token.startsWith('`') && token.endsWith('`')) {
                 return (
-                    <code key={tokenIndex} className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-semibold ${
-                        isDark 
-                            ? 'bg-slate-800 text-emerald-400' 
+                    <code key={tokenIndex} className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-semibold ${isDark
+                            ? 'bg-slate-800 text-emerald-400'
                             : 'bg-slate-100 text-blue-600'
-                    }`}>
+                        }`}>
                         {token.slice(1, -1)}
                     </code>
                 );
@@ -73,14 +72,13 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
                 if (match) {
                     const [, linkText, linkUrl] = match;
                     return (
-                        <a 
-                            key={tokenIndex} 
-                            href={linkUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className={`underline font-bold transition-all ${
-                                isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-blue-600 hover:text-blue-800'
-                            }`}
+                        <a
+                            key={tokenIndex}
+                            href={linkUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`underline font-bold transition-all ${isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-blue-600 hover:text-blue-800'
+                                }`}
                         >
                             {linkText}
                         </a>
@@ -89,14 +87,13 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
             }
             if (token.startsWith('http://') || token.startsWith('https://')) {
                 return (
-                    <a 
-                        key={tokenIndex} 
-                        href={token} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className={`underline font-bold transition-all ${
-                            isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-blue-600 hover:text-blue-800'
-                        }`}
+                    <a
+                        key={tokenIndex}
+                        href={token}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`underline font-bold transition-all ${isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-blue-600 hover:text-blue-800'
+                            }`}
                     >
                         {token}
                     </a>
@@ -108,22 +105,20 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        
+
         // Code block detection
         if (line.trim().startsWith('```')) {
             if (inCodeBlock) {
                 // End code block
                 const codeText = codeLines.join('\n');
                 elements.push(
-                    <pre key={`code-${i}`} className={`p-3 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto my-2 border ${
-                        isDark 
-                            ? 'bg-slate-950/80 border-slate-800 text-slate-200' 
+                    <pre key={`code-${i}`} className={`p-3 rounded-lg font-mono text-[11px] sm:text-xs overflow-x-auto my-2 border ${isDark
+                            ? 'bg-slate-950/80 border-slate-800 text-slate-200'
                             : 'bg-slate-50 border-slate-200 text-slate-800'
-                    }`}>
+                        }`}>
                         {codeLanguage && (
-                            <div className={`text-[9px] uppercase tracking-wider font-bold mb-1 select-none ${
-                                isDark ? 'text-slate-500' : 'text-slate-400'
-                            }`}>
+                            <div className={`text-[9px] uppercase tracking-wider font-bold mb-1 select-none ${isDark ? 'text-slate-500' : 'text-slate-400'
+                                }`}>
                                 {codeLanguage}
                             </div>
                         )}
@@ -140,12 +135,12 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
             }
             continue;
         }
-        
+
         if (inCodeBlock) {
             codeLines.push(line);
             continue;
         }
-        
+
         const trimmed = line.trim();
         if (!trimmed) {
             elements.push(<div key={`space-${i}`} className="h-2" />);
@@ -159,9 +154,9 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
         if (headerMatch) {
             const level = headerMatch[1].length;
             const headingContent = headerMatch[2];
-            const classes = level === 1 ? `text-base font-extrabold mt-4 mb-2 ${isDark ? 'text-white' : 'text-slate-900'}` 
-                          : level === 2 ? `text-sm font-bold mt-3 mb-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`
-                          : `text-xs font-bold mt-2.5 mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`;
+            const classes = level === 1 ? `text-base font-extrabold mt-4 mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`
+                : level === 2 ? `text-sm font-bold mt-3 mb-1.5 ${isDark ? 'text-white' : 'text-slate-900'}`
+                    : `text-xs font-bold mt-2.5 mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`;
             elements.push(<div key={`header-${i}`} className={classes}>{parseInline(headingContent)}</div>);
             continue;
         }
@@ -173,9 +168,8 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
         if (bulletMatch) {
             elements.push(
                 <div key={`bullet-${i}`} className={`flex gap-2 py-0.5 items-start ${indentClass}`}>
-                    <span className={`select-none mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full ${
-                        isDark ? 'bg-emerald-400 shadow-sm shadow-emerald-500/50' : 'bg-blue-500 shadow-sm'
-                    }`} />
+                    <span className={`select-none mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full ${isDark ? 'bg-emerald-400 shadow-sm shadow-emerald-500/50' : 'bg-blue-500 shadow-sm'
+                        }`} />
                     <span className="flex-1">{parseInline(bulletMatch[1])}</span>
                 </div>
             );
@@ -185,9 +179,8 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
         if (numberMatch) {
             elements.push(
                 <div key={`number-${i}`} className={`flex gap-2 py-0.5 items-start ${indentClass}`}>
-                    <span className={`font-bold select-none text-xs shrink-0 mt-[2px] ${
-                        isDark ? 'text-emerald-400' : 'text-blue-600'
-                    }`}>{numberMatch[1]}.</span>
+                    <span className={`font-bold select-none text-xs shrink-0 mt-[2px] ${isDark ? 'text-emerald-400' : 'text-blue-600'
+                        }`}>{numberMatch[1]}.</span>
                     <span className="flex-1">{parseInline(numberMatch[2])}</span>
                 </div>
             );
@@ -203,6 +196,72 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
 
     return elements;
 }
+
+const COUNTRIES = [
+    { code: 'CO', name: 'Colombia', dial: '+57', flag: '🇨🇴' },
+    { code: 'US', name: 'Estados Unidos', dial: '+1', flag: '🇺🇸' },
+    { code: 'ES', name: 'España', dial: '+34', flag: '🇪🇸' },
+    { code: 'MX', name: 'México', dial: '+52', flag: '🇲🇽' },
+    { code: 'AR', name: 'Argentina', dial: '+54', flag: '🇦🇷' },
+    { code: 'VE', name: 'Venezuela', dial: '+58', flag: '🇻🇪' },
+    { code: 'PE', name: 'Perú', dial: '+51', flag: '🇵🇪' },
+    { code: 'CL', name: 'Chile', dial: '+56', flag: '🇨🇱' },
+    { code: 'EC', name: 'Ecuador', dial: '+593', flag: '🇪🇨' },
+    { code: 'BO', name: 'Bolivia', dial: '+591', flag: '🇧🇴' },
+    { code: 'BR', name: 'Brasil', dial: '+55', flag: '🇧🇷' },
+    { code: 'UY', name: 'Uruguay', dial: '+598', flag: '🇺🇾' },
+    { code: 'PY', name: 'Paraguay', dial: '+595', flag: '🇵🇾' },
+    { code: 'PA', name: 'Panamá', dial: '+507', flag: '🇵🇦' },
+    { code: 'CR', name: 'Costa Rica', dial: '+506', flag: '🇨🇷' },
+    { code: 'GT', name: 'Guatemala', dial: '+502', flag: '🇬🇹' },
+    { code: 'HN', name: 'Honduras', dial: '+504', flag: '🇭🇳' },
+    { code: 'SV', name: 'El Salvador', dial: '+503', flag: '🇸🇻' },
+    { code: 'NI', name: 'Nicaragua', dial: '+505', flag: '🇳🇮' },
+    { code: 'DO', name: 'República Dominicana', dial: '+1', flag: '🇩🇴' },
+    { code: 'PR', name: 'Puerto Rico', dial: '+1', flag: '🇵🇷' },
+    { code: 'CA', name: 'Canadá', dial: '+1', flag: '🇨🇦' },
+    { code: 'GB', name: 'Reino Unido', dial: '+44', flag: '🇬🇧' },
+    { code: 'FR', name: 'Francia', dial: '+33', flag: '🇫🇷' },
+    { code: 'DE', name: 'Alemania', dial: '+49', flag: '🇩🇪' },
+    { code: 'IT', name: 'Italia', dial: '+39', flag: '🇮🇹' },
+    { code: 'PT', name: 'Portugal', dial: '+351', flag: '🇵🇹' },
+    { code: 'CN', name: 'China', dial: '+86', flag: '🇨🇳' },
+    { code: 'JP', name: 'Japón', dial: '+81', flag: '🇯🇵' },
+    { code: 'IN', name: 'India', dial: '+91', flag: '🇮🇳' },
+    { code: 'AU', name: 'Australia', dial: '+61', flag: '🇦🇺' },
+    { code: 'NZ', name: 'Nueva Zelanda', dial: '+64', flag: '🇳🇿' },
+    { code: 'CH', name: 'Suiza', dial: '+41', flag: '🇨🇭' },
+    { code: 'NL', name: 'Países Bajos', dial: '+31', flag: '🇳🇱' },
+    { code: 'BE', name: 'Bélgica', dial: '+32', flag: '🇧🇪' },
+    { code: 'SE', name: 'Suecia', dial: '+46', flag: '🇸🇪' },
+    { code: 'NO', name: 'Noruega', dial: '+47', flag: '🇳🇴' },
+    { code: 'DK', name: 'Dinamarca', dial: '+45', flag: '🇩🇰' },
+    { code: 'FI', name: 'Finlandia', dial: '+358', flag: '🇫🇮' },
+    { code: 'IE', name: 'Irlanda', dial: '+353', flag: '🇮🇪' },
+    { code: 'RU', name: 'Rusia', dial: '+7', flag: '🇷🇺' },
+    { code: 'ZA', name: 'Sudáfrica', dial: '+27', flag: '🇿🇦' },
+    { code: 'KR', name: 'Corea del Sur', dial: '+82', flag: '🇰🇷' },
+    { code: 'SG', name: 'Singapur', dial: '+65', flag: '🇸🇬' },
+    { code: 'IL', name: 'Israel', dial: '+972', flag: '🇮🇱' },
+    { code: 'TR', name: 'Turquía', dial: '+90', flag: '🇹🇷' },
+    { code: 'SA', name: 'Arabia Saudita', dial: '+966', flag: '🇸🇦' },
+    { code: 'UA', name: 'Ucrania', dial: '+380', flag: '🇺🇦' },
+    { code: 'PL', name: 'Polonia', dial: '+48', flag: '🇵🇱' },
+    { code: 'GR', name: 'Grecia', dial: '+30', flag: '🇬🇷' },
+    { code: 'RO', name: 'Rumania', dial: '+40', flag: '🇷🇴' },
+    { code: 'HU', name: 'Hungría', dial: '+36', flag: '🇭🇺' },
+    { code: 'CZ', name: 'Chequia', dial: '+420', flag: '🇨🇿' },
+    { code: 'AT', name: 'Austria', dial: '+43', flag: '🇦🇹' },
+    { code: 'TH', name: 'Tailandia', dial: '+66', flag: '🇹🇭' },
+    { code: 'MY', name: 'Malasia', dial: '+60', flag: '🇲🇾' },
+    { code: 'ID', name: 'Indonesia', dial: '+62', flag: '🇮🇩' },
+    { code: 'PH', name: 'Filipinas', dial: '+63', flag: '🇵🇭' },
+    { code: 'VN', name: 'Vietnam', dial: '+84', flag: '🇻🇳' },
+    { code: 'EG', name: 'Egipto', dial: '+20', flag: '🇪🇬' },
+    { code: 'MA', name: 'Marruecos', dial: '+212', flag: '🇲🇦' },
+    { code: 'NG', name: 'Nigeria', dial: '+234', flag: '🇳🇬' },
+    { code: 'KE', name: 'Kenia', dial: '+254', flag: '🇰🇪' }
+];
 
 const getDayName = (date: Date, lang: string) => {
     const daysEs = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
@@ -236,6 +295,7 @@ export default function AiChatSection() {
     const [formName, setFormName] = useState('');
     const [formEmail, setFormEmail] = useState('');
     const [formPhone, setFormPhone] = useState('');
+    const [selectedCountryCode, setSelectedCountryCode] = useState('CO');
     const [formDesc, setFormDesc] = useState('');
     const [formError, setFormError] = useState('');
 
@@ -307,12 +367,12 @@ export default function AiChatSection() {
         const isTodayDate = date.getDate() === today.getDate() &&
             date.getMonth() === today.getMonth() &&
             date.getFullYear() === today.getFullYear();
-            
+
         if (!isTodayDate) return TIME_SLOTS;
-        
+
         const currentHour = today.getHours();
         const currentMinute = today.getMinutes();
-        
+
         return TIME_SLOTS.filter(slot => {
             const [hourStr, minuteStr] = slot.split(':');
             const slotHour = parseInt(hourStr, 10);
@@ -448,7 +508,7 @@ export default function AiChatSection() {
                 console.log("🎯 Flag detectado con éxito.");
                 const cleanBotReply = botReply.replace("[TRIGGER_CALENDAR_INTERFACE]", "").trim();
                 const finalReply = cleanBotReply || (language === 'es' ? 'Por favor selecciona una fecha y hora para agendar la cita:' : 'Please select a date and time to schedule the meeting:');
-                
+
                 setMessages((prev) => [...prev, {
                     id: `msg-${Date.now()}-bot`,
                     sender: 'bot',
@@ -492,6 +552,7 @@ export default function AiChatSection() {
 
         const currentLeadEmail = activeLead?.email || '';
         const currentLeadName = activeLead?.name || '';
+        const currentLeadPhone = activeLead?.phone || '';
 
         try {
             const url = getApiUrl('/api/schedule-meeting');
@@ -504,6 +565,7 @@ export default function AiChatSection() {
                 body: JSON.stringify({
                     email: currentLeadEmail,
                     name: currentLeadName,
+                    phone: currentLeadPhone,
                     slot_datetime: formattedDatetime
                 })
             });
@@ -515,12 +577,12 @@ export default function AiChatSection() {
                     if (errData && errData.detail) {
                         errorMsg = errData.detail;
                     }
-                } catch (e) {}
+                } catch (e) { }
                 throw new Error(errorMsg);
             }
 
             const data = await response.json();
-            
+
             // Destroy the calendar
             setShowCalendarMode(false);
             setSelectedDate(null);
@@ -574,10 +636,14 @@ export default function AiChatSection() {
             return;
         }
 
+        const countryObj = COUNTRIES.find(c => c.code === selectedCountryCode);
+        const dialCode = countryObj ? countryObj.dial : '';
+        const fullPhone = `${dialCode} ${formPhone.trim()}`;
+
         const newLead = {
             name: formName,
             email: formEmail,
-            phone: formPhone,
+            phone: fullPhone,
             description: formDesc,
             timestamp: new Date().toISOString()
         };
@@ -597,6 +663,7 @@ export default function AiChatSection() {
         setFormName('');
         setFormEmail('');
         setFormPhone('');
+        setSelectedCountryCode('CO');
         setFormDesc('');
     };
 
@@ -631,6 +698,7 @@ export default function AiChatSection() {
         setFormName('');
         setFormEmail('');
         setFormPhone('');
+        setSelectedCountryCode('CO');
         setFormDesc('');
         setFormError('');
     };
@@ -687,6 +755,21 @@ export default function AiChatSection() {
         };
     }, [isLeadCaptured, activeLead, messages]);
 
+    // Custom Event Listener for cross-component Scheduling Trigger
+    useEffect(() => {
+        const handleOpenCalendar = () => {
+            setShowCalendarMode(true);
+            const assistantEl = document.getElementById('ai-assistant');
+            if (assistantEl) {
+                assistantEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+        window.addEventListener('open-calendar-scheduling', handleOpenCalendar);
+        return () => {
+            window.removeEventListener('open-calendar-scheduling', handleOpenCalendar);
+        };
+    }, []);
+
     return (
         <section id="ai-assistant" className="py-20 relative z-10">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -699,8 +782,8 @@ export default function AiChatSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
                         className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest mb-3 backdrop-blur-md border shadow-sm select-none ${isDark
-                                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                                : 'bg-blue-500/10 border-blue-500/20 text-blue-600'
+                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                            : 'bg-blue-500/10 border-blue-500/20 text-blue-600'
                             }`}
                     >
                         <Sparkles className="w-3.5 h-3.5 animate-pulse" />
@@ -736,8 +819,8 @@ export default function AiChatSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                     className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[700px] sm:h-[800px] transition-all duration-300 relative ${isDark
-                            ? 'bg-[#030914]/75 border-slate-800/80 shadow-emerald-950/20'
-                            : 'bg-white/80 border-slate-200 shadow-slate-200/50'
+                        ? 'bg-[#030914]/75 border-slate-800/80 shadow-emerald-950/20'
+                        : 'bg-white/80 border-slate-200 shadow-slate-200/50'
                         }`}
                 >
                     {/* Widget Header */}
@@ -745,8 +828,8 @@ export default function AiChatSection() {
                         }`}>
                         <div className="flex items-center gap-3">
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center border relative ${isDark
-                                    ? 'bg-emerald-500/10 border-emerald-500/35 text-emerald-400'
-                                    : 'bg-blue-500/10 border-blue-500/35 text-blue-600'
+                                ? 'bg-emerald-500/10 border-emerald-500/35 text-emerald-400'
+                                : 'bg-blue-500/10 border-blue-500/35 text-blue-600'
                                 }`}>
                                 <Bot className="w-5.5 h-5.5" />
                                 {isApiConnected ? (
@@ -766,8 +849,8 @@ export default function AiChatSection() {
                                 </h4>
                                 <p className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
                                     <span className={`w-1.5 h-1.5 rounded-full ${isApiConnected
-                                            ? isDark ? 'bg-green-500' : 'bg-blue-500'
-                                            : 'bg-rose-500'
+                                        ? isDark ? 'bg-green-500' : 'bg-blue-500'
+                                        : 'bg-rose-500'
                                         }`} />
                                     {isApiConnected
                                         ? (language === 'es' ? 'En línea' : 'Online')
@@ -781,8 +864,8 @@ export default function AiChatSection() {
                                 <button
                                     onClick={handleResetChat}
                                     className={`text-[10px] font-bold px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${isDark
-                                            ? 'bg-rose-500/10 border-rose-500/20 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300'
-                                            : 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100 hover:text-rose-700'
+                                        ? 'bg-rose-500/10 border-rose-500/20 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300'
+                                        : 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100 hover:text-rose-700'
                                         }`}
                                 >
                                     <LogOut className="w-3.5 h-3.5" />
@@ -791,12 +874,12 @@ export default function AiChatSection() {
                             )}
 
                             <div className={`text-[10px] font-mono px-2 py-1 rounded border hidden sm:block ${isApiConnected
-                                    ? isDark
-                                        ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-400'
-                                        : 'bg-blue-50 border-blue-200 text-blue-600 font-bold'
-                                    : isDark
-                                        ? 'bg-rose-500/10 border-rose-500/20 text-rose-400 font-bold'
-                                        : 'bg-rose-50 border-rose-200 text-rose-600 font-bold shadow-sm'
+                                ? isDark
+                                    ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-400'
+                                    : 'bg-blue-50 border-blue-200 text-blue-600 font-bold'
+                                : isDark
+                                    ? 'bg-rose-500/10 border-rose-500/20 text-rose-400 font-bold'
+                                    : 'bg-rose-50 border-rose-200 text-rose-600 font-bold shadow-sm'
                                 }`}>
                                 {isApiConnected ? 'SYSTEM: ACTIVE' : 'SYSTEM: OFFLINE'}
                             </div>
@@ -815,12 +898,12 @@ export default function AiChatSection() {
                                     >
                                         {/* Avatar */}
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs border ${msg.sender === 'user'
-                                                ? isDark
-                                                    ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                                                    : 'bg-blue-500/15 border-blue-500/30 text-blue-600'
-                                                : isDark
-                                                    ? 'bg-slate-800 border-slate-700 text-slate-300'
-                                                    : 'bg-slate-100 border-slate-200 text-slate-600'
+                                            ? isDark
+                                                ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+                                                : 'bg-blue-500/15 border-blue-500/30 text-blue-600'
+                                            : isDark
+                                                ? 'bg-slate-800 border-slate-700 text-slate-300'
+                                                : 'bg-slate-100 border-slate-200 text-slate-600'
                                             }`}>
                                             {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                                         </div>
@@ -828,12 +911,12 @@ export default function AiChatSection() {
                                         {/* Bubble */}
                                         <div className="space-y-1">
                                             <div className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === 'user'
-                                                    ? isDark
-                                                        ? 'bg-emerald-600/15 text-emerald-100 rounded-tr-none border border-emerald-500/25'
-                                                        : 'bg-blue-600/10 text-slate-900 rounded-tr-none border border-blue-500/20'
-                                                    : isDark
-                                                        ? 'bg-slate-900/80 text-slate-100 rounded-tl-none border border-slate-800/80'
-                                                        : 'bg-slate-50 text-slate-800 rounded-tl-none border border-slate-200'
+                                                ? isDark
+                                                    ? 'bg-emerald-600/15 text-emerald-100 rounded-tr-none border border-emerald-500/25'
+                                                    : 'bg-blue-600/10 text-slate-900 rounded-tr-none border border-blue-500/20'
+                                                : isDark
+                                                    ? 'bg-slate-900/80 text-slate-100 rounded-tl-none border border-slate-800/80'
+                                                    : 'bg-slate-50 text-slate-800 rounded-tl-none border border-slate-200'
                                                 }`}>
                                                 {parseMarkdownToReact(msg.text, isDark)}
                                             </div>
@@ -863,9 +946,8 @@ export default function AiChatSection() {
 
                             {/* Calendar Overlay (Integrated Glassmorphism Modal with 2 Columns) */}
                             {showCalendarMode && (
-                                <div className={`absolute inset-x-0 bottom-0 top-[73px] z-20 flex flex-col backdrop-blur-xl ${
-                                    isDark ? 'bg-[#030914]/90 border-t border-slate-800/80 shadow-emerald-950/20' : 'bg-white/90 border-t border-slate-200 shadow-slate-200/20'
-                                }`}>
+                                <div className={`absolute inset-x-0 bottom-0 top-[73px] z-20 flex flex-col backdrop-blur-xl ${isDark ? 'bg-[#030914]/90 border-t border-slate-800/80 shadow-emerald-950/20' : 'bg-white/90 border-t border-slate-200 shadow-slate-200/20'
+                                    }`}>
                                     {/* Loading Overlay */}
                                     {isScheduling && (
                                         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-slate-950/75 backdrop-blur-md">
@@ -877,9 +959,8 @@ export default function AiChatSection() {
                                     )}
 
                                     {/* Header */}
-                                    <div className={`px-4 py-3 flex items-center justify-between border-b shrink-0 ${
-                                        isDark ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-200 bg-slate-50/40'
-                                    }`}>
+                                    <div className={`px-4 py-3 flex items-center justify-between border-b shrink-0 ${isDark ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-200 bg-slate-50/40'
+                                        }`}>
                                         <div className="flex items-center gap-2">
                                             <Calendar className={`w-4 h-4 ${isDark ? 'text-emerald-400' : 'text-blue-600'}`} />
                                             <h5 className={`text-xs sm:text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -893,11 +974,10 @@ export default function AiChatSection() {
                                                 setSelectedTime(null);
                                                 setSchedulingError('');
                                             }}
-                                            className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
-                                                isDark 
-                                                    ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800' 
+                                            className={`p-1.5 rounded-lg border transition-all cursor-pointer ${isDark
+                                                    ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800'
                                                     : 'bg-white border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-100'
-                                            }`}
+                                                }`}
                                             title={language === 'es' ? 'Volver al chat' : 'Back to chat'}
                                         >
                                             <X className="w-4 h-4" />
@@ -925,8 +1005,8 @@ export default function AiChatSection() {
                                                 {language === 'es' ? 'Días' : 'Days'}
                                             </span>
                                             {weekdays.map((date) => {
-                                                const isSel = selectedDate && 
-                                                    date.getDate() === selectedDate.getDate() && 
+                                                const isSel = selectedDate &&
+                                                    date.getDate() === selectedDate.getDate() &&
                                                     date.getMonth() === selectedDate.getMonth() &&
                                                     date.getFullYear() === selectedDate.getFullYear();
                                                 const dName = getDayName(date, language);
@@ -939,15 +1019,14 @@ export default function AiChatSection() {
                                                             setSelectedDate(date);
                                                             setSelectedTime(null);
                                                         }}
-                                                        className={`flex flex-col sm:flex-row items-center sm:justify-start gap-1 sm:gap-3 px-3 py-2.5 rounded-xl border transition-all text-left cursor-pointer ${
-                                                            isSel
+                                                        className={`flex flex-col sm:flex-row items-center sm:justify-start gap-1 sm:gap-3 px-3 py-2.5 rounded-xl border transition-all text-left cursor-pointer ${isSel
                                                                 ? isDark
                                                                     ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold shadow-md shadow-emerald-950/20'
                                                                     : 'bg-blue-500/15 border-blue-500 text-blue-600 font-bold shadow-md shadow-blue-500/10'
                                                                 : isDark
                                                                     ? 'bg-slate-900/40 border-slate-800/80 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200'
                                                                     : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-800'
-                                                        }`}
+                                                            }`}
                                                     >
                                                         <span className="text-sm font-black leading-none">{dNum}</span>
                                                         <div className="flex flex-col items-center sm:items-start leading-none">
@@ -985,8 +1064,7 @@ export default function AiChatSection() {
                                                                         setSelectedTime(slot);
                                                                         handleScheduleMeeting(slot);
                                                                     }}
-                                                                    className={`py-2.5 px-1 rounded-xl text-xs font-bold border transition-all text-center ${
-                                                                        isOccupied
+                                                                    className={`py-2.5 px-1 rounded-xl text-xs font-bold border transition-all text-center ${isOccupied
                                                                             ? isDark
                                                                                 ? 'bg-slate-950/40 border-slate-900/60 text-slate-600 cursor-not-allowed line-through'
                                                                                 : 'bg-slate-100 border-slate-200 text-slate-400/50 cursor-not-allowed line-through'
@@ -997,7 +1075,7 @@ export default function AiChatSection() {
                                                                                 : isDark
                                                                                     ? 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:bg-slate-800/60 hover:text-white cursor-pointer'
                                                                                     : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 cursor-pointer'
-                                                                    }`}
+                                                                        }`}
                                                                 >
                                                                     {slot}
                                                                 </button>
@@ -1017,20 +1095,18 @@ export default function AiChatSection() {
 
                             {/* Input Container */}
                             {!showCalendarMode && (
-                                <div className={`p-4 border-t shrink-0 relative transition-all duration-300 ${
-                                    isDark 
-                                        ? 'border-slate-800/80 bg-slate-950/40' 
+                                <div className={`p-4 border-t shrink-0 relative transition-all duration-300 ${isDark
+                                        ? 'border-slate-800/80 bg-slate-950/40'
                                         : 'border-slate-200 bg-slate-50/40'
-                                }`}>
+                                    }`}>
                                     <div className="flex items-center gap-2">
                                         <button
                                             type="button"
                                             onClick={() => setShowCalendarMode(true)}
-                                            className={`px-3.5 py-3 rounded-xl flex items-center gap-2 shrink-0 border transition-all select-none cursor-pointer text-xs sm:text-sm font-bold ${
-                                                isDark
+                                            className={`px-3.5 py-3 rounded-xl flex items-center gap-2 shrink-0 border transition-all select-none cursor-pointer text-xs sm:text-sm font-bold ${isDark
                                                     ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20'
                                                     : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20'
-                                            }`}
+                                                }`}
                                         >
                                             <Calendar className="w-4 h-4" />
                                             <span>{language === 'es' ? 'Agendar Cita' : 'Schedule Meeting'}</span>
@@ -1043,8 +1119,8 @@ export default function AiChatSection() {
                                             onKeyDown={handleKeyPress}
                                             disabled={isTyping}
                                             className={`flex-1 px-4 py-3 rounded-xl text-xs sm:text-sm outline-none border transition-all ${isDark
-                                                    ? 'bg-slate-950/70 border-slate-800 text-white focus:border-emerald-500/40 placeholder:text-slate-500'
-                                                    : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                ? 'bg-slate-950/70 border-slate-800 text-white focus:border-emerald-500/40 placeholder:text-slate-500'
+                                                : 'bg-white border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
                                                 } disabled:opacity-50`}
                                             placeholder={language === 'es' ? 'Pregúntame sobre el stack de Luis o sus proyectos...' : 'Ask me about Luis\'s stack or projects...'}
                                         />
@@ -1053,8 +1129,8 @@ export default function AiChatSection() {
                                             onClick={() => handleSendMessage(inputVal)}
                                             disabled={isTyping || !inputVal.trim()}
                                             className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all select-none cursor-pointer border ${isDark
-                                                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 disabled:bg-slate-900 disabled:border-slate-800 disabled:text-slate-600'
-                                                    : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20 disabled:bg-slate-100 disabled:border-slate-200 disabled:text-slate-400'
+                                                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 disabled:bg-slate-900 disabled:border-slate-800 disabled:text-slate-600'
+                                                : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20 disabled:bg-slate-100 disabled:border-slate-200 disabled:text-slate-400'
                                                 } disabled:cursor-not-allowed`}
                                         >
                                             <Send className="w-4 h-4" />
@@ -1073,8 +1149,8 @@ export default function AiChatSection() {
                             >
                                 <div className="text-center space-y-2">
                                     <div className={`mx-auto w-12 h-12 rounded-2xl flex items-center justify-center border shadow-sm ${isDark
-                                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-emerald-950/20'
-                                            : 'bg-blue-500/10 border-blue-500/20 text-blue-600 shadow-blue-500/5'
+                                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-emerald-950/20'
+                                        : 'bg-blue-500/10 border-blue-500/20 text-blue-600 shadow-blue-500/5'
                                         }`}>
                                         <ClipboardList className="w-6 h-6" />
                                     </div>
@@ -1104,46 +1180,70 @@ export default function AiChatSection() {
                                             type="text"
                                             value={formName}
                                             onChange={(e) => setFormName(e.target.value)}
-                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
-                                                    ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
-                                                    : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all duration-200 ${isDark
+                                                ? 'bg-slate-950/40 border-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10 text-white placeholder:text-slate-600'
+                                                : 'bg-slate-50/50 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 text-slate-800 placeholder:text-slate-400'
                                                 }`}
                                             placeholder="John Doe"
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div className="space-y-1.5">
-                                            <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                {language === 'es' ? 'Teléfono de Contacto' : 'Contact Phone'} <span className="text-red-500">*</span>
-                                            </label>
+                                    <div className="space-y-1.5">
+                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            {language === 'es' ? 'Teléfono de Contacto' : 'Contact Phone'} <span className="text-red-500">*</span>
+                                        </label>
+                                        <div className={`flex rounded-xl overflow-hidden border transition-all duration-200 ${isDark
+                                                ? 'bg-slate-950/40 border-slate-800 focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10 shadow-sm'
+                                                : 'bg-slate-50/50 border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 shadow-sm'
+                                            }`}>
+                                            <div className={`relative shrink-0 flex items-center border-r transition-all ${isDark ? 'border-slate-800' : 'border-slate-200'
+                                                }`}>
+                                                <select
+                                                    value={selectedCountryCode}
+                                                    onChange={(e) => setSelectedCountryCode(e.target.value)}
+                                                    className={`pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${isDark
+                                                            ? 'text-white bg-[#030914]'
+                                                            : 'text-slate-800 bg-white'
+                                                        }`}
+                                                    style={{ minWidth: '95px' }}
+                                                >
+                                                    {COUNTRIES.map((c) => (
+                                                        <option key={c.code} value={c.code} className={isDark ? 'bg-slate-950 text-white' : 'bg-white text-slate-800'}>
+                                                            {c.flag} {c.dial} ({c.name})
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                                <span className={`absolute right-2 pointer-events-none ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                                    </svg>
+                                                </span>
+                                            </div>
                                             <input
                                                 type="tel"
                                                 value={formPhone}
                                                 onChange={(e) => setFormPhone(e.target.value)}
-                                                className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
-                                                        ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
-                                                        : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                className={`flex-1 px-3.5 py-2.5 text-xs sm:text-sm bg-transparent outline-none transition-all ${isDark ? 'text-white placeholder:text-slate-650' : 'text-slate-800 placeholder:text-slate-400'
                                                     }`}
-                                                placeholder="+1 (555) 019-9234"
+                                                placeholder="300 123 4567"
                                             />
                                         </div>
+                                    </div>
 
-                                        <div className="space-y-1.5">
-                                            <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                {language === 'es' ? 'Correo Electrónico' : 'Email Address'} <span className="text-red-500">*</span>
-                                            </label>
-                                            <input
-                                                type="email"
-                                                value={formEmail}
-                                                onChange={(e) => setFormEmail(e.target.value)}
-                                                className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
-                                                        ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
-                                                        : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
-                                                    }`}
-                                                placeholder="johndoe@example.com"
-                                            />
-                                        </div>
+                                    <div className="space-y-1.5">
+                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            {language === 'es' ? 'Correo Electrónico' : 'Email Address'} <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            value={formEmail}
+                                            onChange={(e) => setFormEmail(e.target.value)}
+                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all duration-200 ${isDark
+                                                ? 'bg-slate-950/40 border-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10 text-white placeholder:text-slate-600'
+                                                : 'bg-slate-50/50 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 text-slate-800 placeholder:text-slate-400'
+                                                }`}
+                                            placeholder="johndoe@example.com"
+                                        />
                                     </div>
 
                                     <div className="space-y-1.5">
@@ -1154,9 +1254,9 @@ export default function AiChatSection() {
                                             rows={3}
                                             value={formDesc}
                                             onChange={(e) => setFormDesc(e.target.value)}
-                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border resize-none transition-all ${isDark
-                                                    ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
-                                                    : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border resize-none transition-all duration-200 ${isDark
+                                                ? 'bg-slate-950/40 border-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10 text-white placeholder:text-slate-650'
+                                                : 'bg-slate-50/50 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 text-slate-800 placeholder:text-slate-400'
                                                 }`}
                                             placeholder={language === 'es' ? 'Quiero desarrollar una aplicación web de comercio electrónico...' : 'I want to build an e-commerce web application...'}
                                         />
@@ -1165,8 +1265,8 @@ export default function AiChatSection() {
                                     <button
                                         type="submit"
                                         className={`w-full py-3 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all shadow-md flex items-center justify-center gap-2 ${isDark
-                                                ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-98'
-                                                : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-98'
+                                            ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-98'
+                                            : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-98'
                                             }`}
                                     >
                                         <Bot className="w-4 h-4" />
