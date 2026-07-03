@@ -235,6 +235,7 @@ export default function AiChatSection() {
     // Form Fields for Lead Capture (Gatekeeper)
     const [formName, setFormName] = useState('');
     const [formEmail, setFormEmail] = useState('');
+    const [formPhone, setFormPhone] = useState('');
     const [formDesc, setFormDesc] = useState('');
     const [formError, setFormError] = useState('');
 
@@ -330,7 +331,7 @@ export default function AiChatSection() {
         return false;
     });
 
-    const [activeLead, setActiveLead] = useState<{ name: string; email: string; description: string } | null>(() => {
+    const [activeLead, setActiveLead] = useState<{ name: string; email: string; phone?: string; description: string } | null>(() => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('lfcc-portfolio-active-lead');
             return saved ? JSON.parse(saved) : null;
@@ -563,7 +564,7 @@ export default function AiChatSection() {
         e.preventDefault();
         setFormError('');
 
-        if (!formName.trim() || !formEmail.trim() || !formDesc.trim()) {
+        if (!formName.trim() || !formEmail.trim() || !formPhone.trim() || !formDesc.trim()) {
             setFormError(language === 'es' ? 'Por favor completa todos los campos obligatorios.' : 'Please fill out all required fields.');
             return;
         }
@@ -576,6 +577,7 @@ export default function AiChatSection() {
         const newLead = {
             name: formName,
             email: formEmail,
+            phone: formPhone,
             description: formDesc,
             timestamp: new Date().toISOString()
         };
@@ -594,6 +596,7 @@ export default function AiChatSection() {
         setIsLeadCaptured(true);
         setFormName('');
         setFormEmail('');
+        setFormPhone('');
         setFormDesc('');
     };
 
@@ -627,6 +630,7 @@ export default function AiChatSection() {
         setMessages([]);
         setFormName('');
         setFormEmail('');
+        setFormPhone('');
         setFormDesc('');
         setFormError('');
     };
@@ -731,7 +735,7 @@ export default function AiChatSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[550px] sm:h-[600px] transition-all duration-300 relative ${isDark
+                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[700px] sm:h-[800px] transition-all duration-300 relative ${isDark
                             ? 'bg-[#030914]/75 border-slate-800/80 shadow-emerald-950/20'
                             : 'bg-white/80 border-slate-200 shadow-slate-200/50'
                         }`}
@@ -967,7 +971,11 @@ export default function AiChatSection() {
                                                 <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin">
                                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                                         {getAvailableSlots(selectedDate).map((slot) => {
-                                                            const isOccupied = selectedDate && isSlotOccupiedInList(selectedDate, slot);
+                                                            const yyyy = selectedDate.getFullYear();
+                                                            const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
+                                                            const dd = String(selectedDate.getDate()).padStart(2, '0');
+                                                            const currentSlotIso = `${yyyy}-${mm}-${dd}T${slot}:00`;
+                                                            const isOccupied = occupiedSlots.includes(currentSlotIso);
                                                             const isSel = selectedTime === slot;
                                                             return (
                                                                 <button
@@ -1104,20 +1112,38 @@ export default function AiChatSection() {
                                         />
                                     </div>
 
-                                    <div className="space-y-1.5">
-                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            {language === 'es' ? 'Correo Electrónico' : 'Email Address'} <span className="text-red-500">*</span>
-                                        </label>
-                                        <input
-                                            type="email"
-                                            value={formEmail}
-                                            onChange={(e) => setFormEmail(e.target.value)}
-                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
-                                                    ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
-                                                    : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
-                                                }`}
-                                            placeholder="johndoe@example.com"
-                                        />
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="space-y-1.5">
+                                            <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                {language === 'es' ? 'Teléfono de Contacto' : 'Contact Phone'} <span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                type="tel"
+                                                value={formPhone}
+                                                onChange={(e) => setFormPhone(e.target.value)}
+                                                className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
+                                                        ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
+                                                        : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                    }`}
+                                                placeholder="+1 (555) 019-9234"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1.5">
+                                            <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                {language === 'es' ? 'Correo Electrónico' : 'Email Address'} <span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                type="email"
+                                                value={formEmail}
+                                                onChange={(e) => setFormEmail(e.target.value)}
+                                                className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all ${isDark
+                                                        ? 'bg-slate-950/60 border-slate-800 text-white focus:border-emerald-500/50 placeholder:text-slate-600'
+                                                        : 'bg-slate-50 border-slate-200 text-slate-800 focus:border-blue-500 placeholder:text-slate-400'
+                                                    }`}
+                                                placeholder="johndoe@example.com"
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="space-y-1.5">
