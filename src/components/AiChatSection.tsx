@@ -420,6 +420,60 @@ export default function AiChatSection() {
         checkApiConnection();
     }, []);
 
+    // Listen to external custom events to trigger scheduling calendar overlay
+    useEffect(() => {
+        const handleExternalScheduling = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            const detail = customEvent.detail;
+            
+            // Smoothly scroll to the AI chat widget
+            const chatElement = document.getElementById('ai-assistant');
+            if (chatElement) {
+                chatElement.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            if (detail && detail.name && detail.email) {
+                // Pre-fill active lead with info passed from ContactForm
+                const newLead = {
+                    name: detail.name,
+                    email: detail.email,
+                    phone: detail.phone || '',
+                    description: detail.description || (language === 'es' ? 'Reunión agendada desde el Formulario de Contacto' : 'Meeting scheduled from Contact Form'),
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Save locally
+                localStorage.setItem('lfcc-portfolio-active-lead', JSON.stringify(newLead));
+                const existingLeads = JSON.parse(localStorage.getItem('lfcc-portfolio-leads') || '[]');
+                existingLeads.push(newLead);
+                localStorage.setItem('lfcc-portfolio-leads', JSON.stringify(existingLeads));
+                
+                // Update state and immediately show calendar
+                setActiveLead(newLead);
+                setIsLeadCaptured(true);
+                setShowCalendarMode(true);
+            } else {
+                // Triggered from FloatingButtons or without detail
+                if (isLeadCaptured) {
+                    setShowCalendarMode(true);
+                } else {
+                    // Highlight or focus the first input of lead form
+                    setTimeout(() => {
+                        const firstInput = document.querySelector('input[placeholder="John Doe"]') as HTMLInputElement;
+                        if (firstInput) {
+                            firstInput.focus();
+                        }
+                    }, 500);
+                }
+            }
+        };
+
+        window.addEventListener('open-calendar-scheduling', handleExternalScheduling);
+        return () => {
+            window.removeEventListener('open-calendar-scheduling', handleExternalScheduling);
+        };
+    }, [isLeadCaptured, language]);
+
     // Initialize the conversation when a lead is active
     useEffect(() => {
         if (isLeadCaptured && activeLead) {
@@ -507,7 +561,7 @@ export default function AiChatSection() {
             if (botReply.includes("[TRIGGER_CALENDAR_INTERFACE]")) {
                 console.log("🎯 Flag detectado con éxito.");
                 const cleanBotReply = botReply.replace("[TRIGGER_CALENDAR_INTERFACE]", "").trim();
-                const finalReply = cleanBotReply || (language === 'es' ? 'Por favor selecciona una fecha y hora para agendar la cita:' : 'Please select a date and time to schedule the meeting:');
+                const finalReply = cleanBotReply || (language === 'es' ? 'Por favor selecciona una fecha y hora para agendar la reunión:' : 'Please select a date and time to schedule the meeting:');
 
                 setMessages((prev) => [...prev, {
                     id: `msg-${Date.now()}-bot`,
@@ -597,7 +651,7 @@ export default function AiChatSection() {
             const displayDateStr = `${dayName} ${dd} ${monthName} ${yyyy}`;
 
             const confirmText = language === 'es'
-                ? `¡Cita agendada con éxito! 🎉 Nos reuniremos el **${displayDateStr}** a las **${timeSlot}**. Aquí tienes el enlace de Google Meet para unirte: ${meetLink}`
+                ? `¡Reunión agendada con éxito! 🎉 Nos reuniremos el **${displayDateStr}** a las **${timeSlot}**. Aquí tienes el enlace de Google Meet para unirte: ${meetLink}`
                 : `Meeting scheduled successfully! 🎉 We will meet on **${displayDateStr}** at **${timeSlot}**. Here is the Google Meet link to join: ${meetLink}`;
 
             setMessages((prev) => [...prev, {
@@ -608,7 +662,7 @@ export default function AiChatSection() {
             }]);
         } catch (error: any) {
             console.error("Error scheduling meeting:", error);
-            setSchedulingError(error.message || (language === 'es' ? 'No se pudo agendar la cita. Por favor intenta de nuevo.' : 'Failed to schedule meeting. Please try again.'));
+            setSchedulingError(error.message || (language === 'es' ? 'No se pudo agendar la reunión. Por favor intenta de nuevo.' : 'Failed to schedule meeting. Please try again.'));
             // Re-fetch occupied slots on error so the conflict slot updates in the UI
             fetchOccupiedSlots();
         } finally {
@@ -1109,7 +1163,7 @@ export default function AiChatSection() {
                                                 }`}
                                         >
                                             <Calendar className="w-4 h-4" />
-                                            <span>{language === 'es' ? 'Agendar Cita' : 'Schedule Meeting'}</span>
+                                            <span>{language === 'es' ? 'Agendar Reunión' : 'Schedule Meeting'}</span>
                                         </button>
 
                                         <input
