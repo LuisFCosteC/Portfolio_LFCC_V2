@@ -390,9 +390,10 @@ ${details}`;
                   const countryObj = COUNTRIES.find(c => c.code === selectedCountryCode);
                   const dialCode = countryObj ? countryObj.dial : '';
                   const fullPhone = `${dialCode} ${phone.trim()}`;
+                  const desc = `Servicio: ${service || 'N/A'}\nPlazo: ${deadline || 'N/A'}\nDetalles: ${details}`;
 
                   window.dispatchEvent(new CustomEvent('open-ai-chat-only', {
-                    detail: { name: name.trim(), email: email.trim(), phone: fullPhone.trim() }
+                    detail: { name: name.trim(), email: email.trim(), phone: fullPhone.trim(), description: desc }
                   }));
                 }}
                 className={`w-full flex items-center justify-center gap-3.5 py-4.5 px-6 rounded-2xl text-lg font-black transition-all duration-300 shadow-lg active:scale-95 cursor-pointer border ${

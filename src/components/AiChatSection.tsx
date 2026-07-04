@@ -774,6 +774,9 @@ export default function AiChatSection() {
                     },
                     body: JSON.stringify({
                         email: activeLead.email,
+                        name: activeLead.name,
+                        phone: activeLead.phone,
+                        description: activeLead.description,
                         history: historyPayload
                     })
                 }).catch(err => console.error("API Terminate error:", err));
@@ -829,6 +832,9 @@ export default function AiChatSection() {
                 },
                 body: JSON.stringify({
                     email: activeLead.email,
+                    name: activeLead.name,
+                    phone: activeLead.phone,
+                    description: activeLead.description,
                     history: historyPayload
                 }),
                 keepalive: true
