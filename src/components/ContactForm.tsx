@@ -391,7 +391,7 @@ ${details}`;
                   const dialCode = countryObj ? countryObj.dial : '';
                   const fullPhone = `${dialCode} ${phone.trim()}`;
 
-                  window.dispatchEvent(new CustomEvent('open-calendar-scheduling', {
+                  window.dispatchEvent(new CustomEvent('open-ai-chat-only', {
                     detail: { name: name.trim(), email: email.trim(), phone: fullPhone.trim() }
                   }));
                 }}

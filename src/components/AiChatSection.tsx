@@ -474,6 +474,43 @@ export default function AiChatSection() {
         };
     }, [isLeadCaptured, language]);
 
+    // Listen to open-ai-chat-only event (from Contact Form) to just register and enter chat without scheduling trigger
+    useEffect(() => {
+        const handleEnterChatOnly = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            const detail = customEvent.detail;
+            
+            const chatElement = document.getElementById('ai-assistant');
+            if (chatElement) {
+                chatElement.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            if (detail && detail.name && detail.email) {
+                const newLead = {
+                    name: detail.name,
+                    email: detail.email,
+                    phone: detail.phone || '',
+                    description: detail.description || (language === 'es' ? 'Consulta iniciada desde el Formulario de Contacto' : 'Consultation started from Contact Form'),
+                    timestamp: new Date().toISOString()
+                };
+                
+                localStorage.setItem('lfcc-portfolio-active-lead', JSON.stringify(newLead));
+                const existingLeads = JSON.parse(localStorage.getItem('lfcc-portfolio-leads') || '[]');
+                existingLeads.push(newLead);
+                localStorage.setItem('lfcc-portfolio-leads', JSON.stringify(existingLeads));
+                
+                setActiveLead(newLead);
+                setIsLeadCaptured(true);
+                setShowCalendarMode(false); // Explicitly ensure calendar is NOT triggered
+            }
+        };
+
+        window.addEventListener('open-ai-chat-only', handleEnterChatOnly);
+        return () => {
+            window.removeEventListener('open-ai-chat-only', handleEnterChatOnly);
+        };
+    }, [language]);
+
     // Initialize the conversation when a lead is active
     useEffect(() => {
         if (isLeadCaptured && activeLead) {
@@ -826,7 +863,7 @@ export default function AiChatSection() {
 
     return (
         <section id="ai-assistant" className="py-20 relative z-10">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Section Heading */}
                 <div className="text-center mb-12">
@@ -872,7 +909,7 @@ export default function AiChatSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[700px] sm:h-[800px] transition-all duration-300 relative ${isDark
+                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[580px] sm:h-[750px] md:h-[800px] transition-all duration-300 relative ${isDark
                         ? 'bg-[#030914]/75 border-slate-800/80 shadow-emerald-950/20'
                         : 'bg-white/80 border-slate-200 shadow-slate-200/50'
                         }`}
@@ -923,7 +960,8 @@ export default function AiChatSection() {
                                         }`}
                                 >
                                     <LogOut className="w-3.5 h-3.5" />
-                                    <span>{language === 'es' ? 'Finalizar Conversación' : 'End Conversation'}</span>
+                                    <span className="hidden sm:inline">{language === 'es' ? 'Finalizar Conversación' : 'End Conversation'}</span>
+                                    <span className="sm:hidden">{language === 'es' ? 'Salir' : 'End'}</span>
                                 </button>
                             )}
 
@@ -1163,7 +1201,7 @@ export default function AiChatSection() {
                                                 }`}
                                         >
                                             <Calendar className="w-4 h-4" />
-                                            <span>{language === 'es' ? 'Agendar Reunión' : 'Schedule Meeting'}</span>
+                                            <span className="hidden sm:inline">{language === 'es' ? 'Agendar Reunión' : 'Schedule Meeting'}</span>
                                         </button>
 
                                         <input
