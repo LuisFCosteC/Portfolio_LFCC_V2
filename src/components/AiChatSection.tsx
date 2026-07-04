@@ -451,11 +451,11 @@ export default function AiChatSection() {
                 // Update state and immediately show calendar
                 setActiveLead(newLead);
                 setIsLeadCaptured(true);
-                setShowCalendarMode(true);
+                setShowCalendarMode(false);
             } else {
                 // Triggered from FloatingButtons or without detail
                 if (isLeadCaptured) {
-                    setShowCalendarMode(true);
+                    setShowCalendarMode(false);
                 } else {
                     // Highlight or focus the first input of lead form
                     setTimeout(() => {
@@ -855,7 +855,7 @@ export default function AiChatSection() {
     // Custom Event Listener for cross-component Scheduling Trigger
     useEffect(() => {
         const handleOpenCalendar = () => {
-            setShowCalendarMode(true);
+            setShowCalendarMode(false);
             const assistantEl = document.getElementById('ai-assistant');
             if (assistantEl) {
                 assistantEl.scrollIntoView({ behavior: 'smooth' });
