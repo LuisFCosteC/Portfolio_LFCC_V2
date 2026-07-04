@@ -21,13 +21,13 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'gmail',
     name: 'Gmail',
-    url: 'mailto:luisfcostec@gmail.com',
+    url: 'https://mail.google.com/mail/?view=cm&fs=1&to=luisfcostec@gmail.com',
     icon: 'Gmail'
   },
   {
     id: 'whatsapp',
     name: 'WhatsApp',
-    url: 'https://wa.me/573116463033',
+    url: 'https://wa.me/+573042042752',
     icon: 'WhatsApp'
   },
   {

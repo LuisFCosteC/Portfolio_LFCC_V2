@@ -990,9 +990,9 @@ export default function AiChatSection() {
                                         </div>
                                         <div className={`p-3.5 rounded-2xl rounded-tl-none border flex items-center gap-1.5 ${isDark ? 'bg-slate-900/80 border-slate-800/80' : 'bg-slate-50 border-slate-200'
                                             }`}>
-                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                                            <span className={`w-2 h-2 rounded-full animate-bounce ${isDark ? 'bg-emerald-400' : 'bg-blue-500'}`} style={{ animationDelay: '0ms' }} />
+                                            <span className={`w-2 h-2 rounded-full animate-bounce ${isDark ? 'bg-emerald-400' : 'bg-blue-500'}`} style={{ animationDelay: '150ms' }} />
+                                            <span className={`w-2 h-2 rounded-full animate-bounce ${isDark ? 'bg-emerald-400' : 'bg-blue-500'}`} style={{ animationDelay: '300ms' }} />
                                         </div>
                                     </div>
                                 )}

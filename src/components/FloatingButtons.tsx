@@ -1,23 +1,33 @@
+import React, { useState } from 'react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'motion/react';
+import { Calendar, Plus } from 'lucide-react';
 
 export default function FloatingButtons() {
   const { language } = useTranslation();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  
+  const [isOpen, setIsOpen] = useState(false);
 
-  const whatsappUrl = 'https://wa.me/573116463033';
-  const gmailUrl = 'mailto:luisfcostec@gmail.com';
+  const whatsappUrl = 'https://wa.me/+573042042752';
+  const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=luisfcostec@gmail.com';
 
   const labels = {
     es: {
       whatsapp: 'Escríbeme por WhatsApp',
       gmail: 'Enviar un correo',
+      calendar: 'Agenda una reunión',
+      toggleOpen: 'Mostrar menú de contacto',
+      toggleClose: 'Cerrar menú',
     },
     en: {
       whatsapp: 'Chat on WhatsApp',
       gmail: 'Send an email',
+      calendar: 'Schedule a meeting',
+      toggleOpen: 'Show contact menu',
+      toggleClose: 'Close menu',
     },
   };
 
@@ -37,86 +47,203 @@ export default function FloatingButtons() {
     </svg>
   );
 
+  // Animation variants
+  const containerVariants = {
+    open: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.02
+      }
+    },
+    collapsed: {
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    }
+  };
+
+  const itemVariants = {
+    open: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      pointerEvents: 'auto' as const,
+      transition: {
+        type: 'spring',
+        stiffness: 260,
+        damping: 20
+      }
+    },
+    collapsed: {
+      opacity: 0,
+      scale: 0.8,
+      y: 20,
+      pointerEvents: 'none' as const,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
   return (
     <div
-      id="floating-buttons-container"
-      className="fixed bottom-6 right-6 z-50 flex flex-col gap-4 items-end pointer-events-none"
+      id="floating-buttons-wrapper"
+      className="fixed bottom-6 right-6 z-50 flex flex-col gap-4 items-end"
     >
-      {/* Gmail Button Group */}
+      {/* Expandable Buttons List */}
       <motion.div
-        id="gmail-floating-group"
-        className="flex items-center gap-3 pointer-events-auto group"
-        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1, type: 'spring', stiffness: 260, damping: 20 }}
+        id="floating-menu-list"
+        className="flex flex-col gap-4 items-end pointer-events-none"
+        initial="collapsed"
+        animate={isOpen ? "open" : "collapsed"}
+        variants={containerVariants}
       >
-        {/* Tooltip */}
-        <span
-          id="gmail-floating-tooltip"
-          className={`px-3 py-1.5 text-xs font-bold font-mono rounded-xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-md ${
-            isDark
-              ? 'bg-slate-900/90 text-gray-200 border-green-500/20'
-              : 'bg-white/95 text-slate-800 border-blue-500/20'
-          }`}
+        {/* Calendar Button Group */}
+        <motion.div
+          id="calendar-floating-group"
+          variants={itemVariants}
+          className="flex items-center gap-3 group"
         >
-          {currentLabels.gmail}
-        </span>
+          {/* Tooltip */}
+          <span
+            id="calendar-floating-tooltip"
+            className={`px-3 py-1.5 text-xs font-bold font-mono rounded-xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-md ${
+              isDark
+                ? 'bg-slate-900/90 text-gray-200 border-green-500/20'
+                : 'bg-white/95 text-slate-800 border-blue-500/20'
+            }`}
+          >
+            {currentLabels.calendar}
+          </span>
 
-        {/* Floating Button */}
-        <a
-          id="gmail-floating-btn"
-          href={gmailUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={currentLabels.gmail}
-          className={`relative w-15 h-15 sm:w-16 sm:h-16 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 hover:-translate-y-1 active:scale-95 ${
-            isDark
-              ? 'bg-slate-900/60 border-slate-800 text-gray-300 hover:text-green-400 hover:border-green-400/40 hover:shadow-[0_0_25px_rgba(34,197,94,0.25)]'
-              : 'bg-white/60 border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-500/40 hover:shadow-[0_6px_25px_rgba(37,99,235,0.15)]'
-          }`}
+          {/* Floating Button */}
+          <button
+            id="calendar-floating-btn"
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('open-calendar-scheduling'));
+              setIsOpen(false); // Close menu when opened
+            }}
+            aria-label={currentLabels.calendar}
+            className={`relative w-15 h-15 sm:w-16 sm:h-16 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 hover:-translate-y-1 active:scale-95 cursor-pointer pointer-events-auto ${
+              isDark
+                ? 'bg-slate-900/60 border-slate-800 text-gray-300 hover:text-green-400 hover:border-green-400/40 hover:shadow-[0_0_25px_rgba(34,197,94,0.25)]'
+                : 'bg-white/60 border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-500/40 hover:shadow-[0_6px_25px_rgba(37,99,235,0.15)]'
+            }`}
+          >
+            <span
+              className={`absolute inset-0 rounded-full opacity-20 animate-ping -z-10 ${
+                isDark ? 'bg-emerald-500' : 'bg-blue-500'
+              }`}
+              style={{ animationDelay: '1.2s', animationDuration: '3s' }}
+            />
+            <Calendar className="w-6 h-6 sm:w-7 sm:h-7" />
+          </button>
+        </motion.div>
+
+        {/* Gmail Button Group */}
+        <motion.div
+          id="gmail-floating-group"
+          variants={itemVariants}
+          className="flex items-center gap-3 group"
         >
-          {/* Pulsing ring indicator to catch attention nicely in theme-matching color */}
-          <span className={`absolute inset-0 rounded-full opacity-25 animate-ping -z-10 ${
-            isDark ? 'bg-green-500' : 'bg-blue-500'
-          }`} />
-          {gmailIcon}
-        </a>
+          {/* Tooltip */}
+          <span
+            id="gmail-floating-tooltip"
+            className={`px-3 py-1.5 text-xs font-bold font-mono rounded-xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-md ${
+              isDark
+                ? 'bg-slate-900/90 text-gray-200 border-green-500/20'
+                : 'bg-white/95 text-slate-800 border-blue-500/20'
+            }`}
+          >
+            {currentLabels.gmail}
+          </span>
+
+          {/* Floating Button */}
+          <a
+            id="gmail-floating-btn"
+            href={gmailUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={currentLabels.gmail}
+            className={`relative w-15 h-15 sm:w-16 sm:h-16 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 hover:-translate-y-1 active:scale-95 pointer-events-auto ${
+              isDark
+                ? 'bg-slate-900/60 border-slate-800 text-gray-300 hover:text-green-400 hover:border-green-400/40 hover:shadow-[0_0_25px_rgba(34,197,94,0.25)]'
+                : 'bg-white/60 border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-500/40 hover:shadow-[0_6px_25px_rgba(37,99,235,0.15)]'
+            }`}
+          >
+            <span
+              className={`absolute inset-0 rounded-full opacity-20 animate-ping -z-10 ${
+                isDark ? 'bg-green-500' : 'bg-blue-500'
+              }`}
+              style={{ animationDelay: '0.6s', animationDuration: '3s' }}
+            />
+            {gmailIcon}
+          </a>
+        </motion.div>
+
+        {/* WhatsApp Button Group */}
+        <motion.div
+          id="whatsapp-floating-group"
+          variants={itemVariants}
+          className="flex items-center gap-3 group"
+        >
+          {/* Tooltip */}
+          <span
+            id="whatsapp-floating-tooltip"
+            className={`px-3 py-1.5 text-xs font-bold font-mono rounded-xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-md ${
+              isDark
+                ? 'bg-slate-900/90 text-gray-200 border-green-500/20'
+                : 'bg-white/95 text-slate-800 border-blue-500/20'
+            }`}
+          >
+            {currentLabels.whatsapp}
+          </span>
+
+          {/* Floating Button */}
+          <a
+            id="whatsapp-floating-btn"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={currentLabels.whatsapp}
+            className="relative w-15 h-15 sm:w-16 sm:h-16 flex items-center justify-center rounded-full text-white shadow-[0_6px_25px_rgba(37,211,102,0.3)] transition-all duration-300 hover:-translate-y-1 active:scale-95 bg-[#25D366] hover:bg-[#20ba59] pointer-events-auto"
+          >
+            <span
+              className="absolute inset-0 rounded-full bg-[#25D366] opacity-25 animate-ping -z-10"
+              style={{ animationDelay: '0s', animationDuration: '3s' }}
+            />
+            {whatsappIcon}
+          </a>
+        </motion.div>
       </motion.div>
 
-      {/* WhatsApp Button Group */}
-      <motion.div
-        id="whatsapp-floating-group"
-        className="flex items-center gap-3 pointer-events-auto group"
-        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5, type: 'spring', stiffness: 260, damping: 20 }}
+      {/* Main Toggle Button */}
+      <button
+        id="floating-menu-toggle"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? currentLabels.toggleClose : currentLabels.toggleOpen}
+        className={`w-15 h-15 sm:w-16 sm:h-16 flex items-center justify-center rounded-full text-white shadow-xl transition-all duration-300 hover:-translate-y-1 active:scale-95 cursor-pointer relative z-10 ${
+          isDark
+            ? 'bg-gradient-to-r from-green-500 to-green-600 shadow-green-500/25 hover:shadow-green-500/40'
+            : 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-blue-500/25 hover:shadow-blue-500/40'
+        }`}
       >
-        {/* Tooltip */}
-        <span
-          id="whatsapp-floating-tooltip"
-          className={`px-3 py-1.5 text-xs font-bold font-mono rounded-xl border opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-md ${
-            isDark
-              ? 'bg-slate-900/90 text-gray-200 border-green-500/20'
-              : 'bg-white/95 text-slate-800 border-blue-500/20'
-          }`}
+        {!isOpen && (
+          <span
+            className={`absolute inset-0 rounded-full opacity-25 animate-ping -z-10 ${
+              isDark ? 'bg-green-500' : 'bg-blue-500'
+            }`}
+          />
+        )}
+        <motion.div
+          animate={{ rotate: isOpen ? 135 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center justify-center"
         >
-          {currentLabels.whatsapp}
-        </span>
-
-        {/* Floating Button */}
-        <a
-          id="whatsapp-floating-btn"
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={currentLabels.whatsapp}
-          className="relative w-15 h-15 sm:w-16 sm:h-16 flex items-center justify-center rounded-full text-white shadow-[0_6px_25px_rgba(37,211,102,0.3)] transition-all duration-300 hover:-translate-y-1 active:scale-95 bg-[#25D366] hover:bg-[#20ba59]"
-        >
-          {/* Pulsing ring indicator to catch attention nicely */}
-          <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping -z-10" />
-          {whatsappIcon}
-        </a>
-      </motion.div>
+          <Plus className="w-8 h-8 sm:w-9 sm:h-9" />
+        </motion.div>
+      </button>
     </div>
   );
 }

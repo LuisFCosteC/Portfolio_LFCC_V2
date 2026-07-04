@@ -158,19 +158,19 @@ export default function Footer() {
       return (
         <div id="terms-content-es" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. Aceptación de Términos</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. Aceptación de Términos</h4>
             <p className="text-xs leading-relaxed">Al acceder y utilizar este portafolio web de Luis F. Coste C. (LFCC), usted acepta cumplir con estos Términos y Condiciones en su totalidad. Si no está de acuerdo, le solicitamos abstenerse de usar el sitio.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Propiedad Intelectual</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Propiedad Intelectual</h4>
             <p className="text-xs leading-relaxed">Todo el código fuente, diseños, logos, textos, imágenes, videos y marcas mostrados en este portafolio son de propiedad exclusiva de Luis F. Coste C. o cuentan con las licencias correspondientes. Queda prohibida su reproducción parcial o total con fines comerciales sin autorización previa por escrito.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Uso Permitido</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Uso Permitido</h4>
             <p className="text-xs leading-relaxed">Se concede permiso para visualizar el contenido del sitio web con fines informativos y profesionales. No se permite realizar ingeniería inversa, raspado de datos (scraping) o cualquier actividad que comprometa la integridad de la infraestructura de este sitio.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Limitación de Responsabilidad</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Limitación de Responsabilidad</h4>
             <p className="text-xs leading-relaxed">El desarrollador realiza sus mejores esfuerzos para garantizar la precisión del contenido, pero no asume responsabilidad por errores u omisiones en la información del sitio, ni por daños derivados de interrupciones técnicas.</p>
           </div>
         </div>
@@ -179,19 +179,19 @@ export default function Footer() {
       return (
         <div id="terms-content-en" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. Acceptance of Terms</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. Acceptance of Terms</h4>
             <p className="text-xs leading-relaxed">By accessing and using this web portfolio of Luis F. Coste C. (LFCC), you agree to comply with these Terms and Conditions in full. If you do not agree, please refrain from using the site.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Intellectual Property</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Intellectual Property</h4>
             <p className="text-xs leading-relaxed">All source code, designs, logos, texts, images, videos, and trademarks shown in this portfolio are the exclusive property of Luis F. Coste C. or have the corresponding licenses. Partial or total reproduction for commercial purposes is prohibited without prior written authorization.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Permitted Use</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Permitted Use</h4>
             <p className="text-xs leading-relaxed">Permission is granted to view the website content for informational and professional purposes. You are not allowed to perform reverse engineering, data scraping, or any activity that compromises the integrity of this site's infrastructure.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Limitation of Liability</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Limitation of Liability</h4>
             <p className="text-xs leading-relaxed">The developer makes their best efforts to ensure content accuracy, but assumes no responsibility for errors or omissions in the site information, nor for damages resulting from technical interruptions.</p>
           </div>
         </div>
@@ -204,19 +204,19 @@ export default function Footer() {
       return (
         <div id="privacy-content-es" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. Recopilación de Datos</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. Recopilación de Datos</h4>
             <p className="text-xs leading-relaxed">Este sitio web no almacena de forma permanente información de carácter personal de los usuarios visitantes. Los únicos datos procesados son aquellos que el usuario decide proporcionar voluntariamente a través del formulario de contacto.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Uso de la Información</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Uso de la Información</h4>
             <p className="text-xs leading-relaxed">La información ingresada en el formulario de contacto (como Nombre, Correo, Teléfono y Detalle del proyecto) se utiliza exclusivamente para componer el mensaje seguro de WhatsApp o Correo que se envía directamente a Luis F. Coste C. No comercializamos bases de datos.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Terceros y Seguridad</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Terceros y Seguridad</h4>
             <p className="text-xs leading-relaxed">Sus datos nunca serán vendidos, alquilados, distribuidos ni compartidos con empresas externas. Contamos con protocolos seguros HTTPS y cifrado de extremo a extremo en la transmisión de mensajes por WhatsApp.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Derechos del Titular</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Derechos del Titular</h4>
             <p className="text-xs leading-relaxed">En cualquier momento, usted puede solicitar la eliminación de cualquier conversación o información de contacto escribiendo a los canales oficiales listados en este sitio web.</p>
           </div>
         </div>
@@ -225,19 +225,19 @@ export default function Footer() {
       return (
         <div id="privacy-content-en" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. Data Collection</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. Data Collection</h4>
             <p className="text-xs leading-relaxed">This website does not permanently store personal information of visiting users. The only data processed is what the user voluntarily provides through the contact form.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Use of Information</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Use of Information</h4>
             <p className="text-xs leading-relaxed">The information entered in the contact form (such as Name, Email, Phone, and Project Details) is used exclusively to compose the secure WhatsApp or Email message sent directly to Luis F. Coste C. We do not sell databases.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Third Parties & Security</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Third Parties & Security</h4>
             <p className="text-xs leading-relaxed">Your data will never be sold, rented, distributed, or shared with external companies. We count on HTTPS secure protocols and end-to-end encryption for WhatsApp messaging transmission.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Owner Rights</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Owner Rights</h4>
             <p className="text-xs leading-relaxed">At any time, you can request the deletion of any conversation or contact information by writing to the official channels listed on this website.</p>
           </div>
         </div>
@@ -250,19 +250,19 @@ export default function Footer() {
       return (
         <div id="cookies-content-es" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. ¿Qué son las cookies?</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. ¿Qué son las cookies?</h4>
             <p className="text-xs leading-relaxed">Las cookies y el almacenamiento local (localStorage) son pequeños archivos de texto que los sitios web almacenan en su navegador para recordar información sobre sus visitas y preferencias.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Cookies Técnicas y Esenciales</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Cookies Técnicas y Esenciales</h4>
             <p className="text-xs leading-relaxed">Utilizamos almacenamiento local puramente técnico para guardar su selección de idioma (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-red-500 font-mono text-[10px]">lfcc-portfolio-lang</code>) y su preferencia de tema oscuro/claro, de modo que su experiencia de usuario sea consistente y fluida.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Cookies de Rendimiento</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Cookies de Rendimiento</h4>
             <p className="text-xs leading-relaxed">Permiten realizar un seguimiento estadístico anónimo del volumen de visitas y secciones más visitadas con el fin de optimizar el rendimiento técnico del portafolio.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Cómo Administrarlas</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Cómo Administrarlas</h4>
             <p className="text-xs leading-relaxed">Usted puede desactivar todas las cookies de manera global configurando la privacidad de su navegador de internet, o personalizar las cookies del sitio web desde el enlace <strong>Configurar cookies</strong> en el footer.</p>
           </div>
         </div>
@@ -271,19 +271,19 @@ export default function Footer() {
       return (
         <div id="cookies-content-en" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. What are cookies?</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. What are cookies?</h4>
             <p className="text-xs leading-relaxed">Cookies and local storage (localStorage) are small text files stored by websites on your browser to remember information about your visits and preferences.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Technical & Essential Cookies</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Technical & Essential Cookies</h4>
             <p className="text-xs leading-relaxed">We use purely technical local storage to save your language selection (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-red-500 font-mono text-[10px]">lfcc-portfolio-lang</code>) and visual theme, ensuring your user experience is consistent and seamless.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Performance Cookies</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Performance Cookies</h4>
             <p className="text-xs leading-relaxed">These allow anonymous statistical tracking of user traffic and most visited sections in order to optimize the technical performance of our portfolio.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. How to Manage Them</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. How to Manage Them</h4>
             <p className="text-xs leading-relaxed">You can deactivate all cookies globally by configuring your internet browser's privacy settings, or customize your preferences directly on this site via the <strong>Configure cookies</strong> link in the footer.</p>
           </div>
         </div>
@@ -296,19 +296,19 @@ export default function Footer() {
       return (
         <div id="data-content-es" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. Cumplimiento Legal (Ley 1581 de 2012)</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. Cumplimiento Legal (Ley 1581 de 2012)</h4>
             <p className="text-xs leading-relaxed">De acuerdo con las regulaciones de Habeas Data y la Ley de Protección de Datos Personales en Colombia (Ley 1581 de 2012), informamos que cualquier dato suministrado voluntariamente será manejado con el máximo nivel de confidencialidad.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Finalidad de la Recopilación</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Finalidad de la Recopilación</h4>
             <p className="text-xs leading-relaxed">La información capturada a través de canales directos de contacto (WhatsApp, correo) tiene el único propósito de estructurar propuestas comerciales de servicios tecnológicos, agendar consultorías o responder inquietudes técnicas.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Canales de Ejercicio de Derechos</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Canales de Ejercicio de Derechos</h4>
             <p className="text-xs leading-relaxed">Usted puede consultar de manera gratuita sus datos personales almacenados, actualizarlos, rectificarlos o solicitar la supresión de estos enviando una comunicación mediante el formulario de contacto o el enlace directo de correo electrónico.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Medidas de Seguridad</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Medidas de Seguridad</h4>
             <p className="text-xs leading-relaxed">Contamos con estrictos estándares de seguridad digital, cifrado SSL/TLS, de tal forma que se imposibilite la alteración, pérdida o acceso no autorizado de terceros a la información suministrada.</p>
           </div>
         </div>
@@ -317,19 +317,19 @@ export default function Footer() {
       return (
         <div id="data-content-en" className="space-y-4">
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">1. Legal Compliance (Law 1581 of 2012)</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">1. Legal Compliance (Law 1581 of 2012)</h4>
             <p className="text-xs leading-relaxed">In accordance with Habeas Data regulations and the Personal Data Protection Act in Colombia (Law 1581 of 2012), we inform you that any data voluntarily provided will be handled with the highest level of confidentiality.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">2. Purpose of Collection</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Purpose of Collection</h4>
             <p className="text-xs leading-relaxed">The information captured through direct contact channels (WhatsApp, email) serves the sole purpose of structuring business proposals for technology services, scheduling consultations, or answering technical questions.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">3. Channels to Exercise Your Rights</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Channels to Exercise Your Rights</h4>
             <p className="text-xs leading-relaxed">You can consult your stored personal data free of charge, update it, rectify it, or request its deletion by sending a communication through the contact form or direct email link.</p>
           </div>
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-emerald-600 dark:text-green-400">4. Security Measures</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Security Measures</h4>
             <p className="text-xs leading-relaxed">We employ strict digital security standards, SSL/TLS encryption, making it virtually impossible for unauthorized third parties to alter, lose, or access the provided information.</p>
           </div>
         </div>
@@ -338,7 +338,7 @@ export default function Footer() {
   };
 
   return (
-    <footer id="app-footer" className={`py-12 transition-all duration-500 border-t ${
+    <footer id="app-footer" className={`relative z-30 py-12 transition-all duration-500 border-t ${
       isDark 
         ? 'bg-[#05131f] border-green-500/10 text-gray-400' 
         : 'bg-slate-100 border-slate-200 text-slate-500'
@@ -385,7 +385,7 @@ export default function Footer() {
                   className={`p-2.5 rounded-full card-glass transition-all duration-300 hover:-translate-y-0.5 ${
                     isDark
                       ? 'bg-[#0c253a]/40 text-gray-400 hover:text-green-400'
-                      : 'bg-white text-slate-600 hover:text-emerald-600 hover:shadow-sm'
+                      : 'bg-white text-slate-600 hover:text-blue-600 hover:shadow-sm'
                   }`}
                   aria-label={link.name}
                 >
@@ -411,7 +411,7 @@ export default function Footer() {
               id="footer-link-terms"
               onClick={() => setActiveModal('terms')}
               className={`hover:underline cursor-pointer transition-colors ${
-                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-emerald-600 text-slate-600'
+                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-blue-600 text-slate-600'
               }`}
             >
               {language === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions'}
@@ -421,7 +421,7 @@ export default function Footer() {
               id="footer-link-privacy"
               onClick={() => setActiveModal('privacy')}
               className={`hover:underline cursor-pointer transition-colors ${
-                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-emerald-600 text-slate-600'
+                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-blue-600 text-slate-600'
               }`}
             >
               {language === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}
@@ -431,7 +431,7 @@ export default function Footer() {
               id="footer-link-cookies"
               onClick={() => setActiveModal('cookies')}
               className={`hover:underline cursor-pointer transition-colors ${
-                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-emerald-600 text-slate-600'
+                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-blue-600 text-slate-600'
               }`}
             >
               {language === 'es' ? 'Política de Cookies' : 'Cookie Policy'}
@@ -441,7 +441,7 @@ export default function Footer() {
               id="footer-link-data"
               onClick={() => setActiveModal('data')}
               className={`hover:underline cursor-pointer transition-colors ${
-                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-emerald-600 text-slate-600'
+                isDark ? 'hover:text-green-400 text-gray-400' : 'hover:text-blue-600 text-slate-600'
               }`}
             >
               {language === 'es' ? 'Tratamiento de Datos' : 'Data Treatment'}
@@ -455,7 +455,7 @@ export default function Footer() {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
                 isDark 
                   ? 'bg-green-500/5 border border-green-500/10 text-green-400 hover:bg-green-500/10' 
-                  : 'bg-emerald-50 border border-emerald-100 text-emerald-600 hover:bg-emerald-100/50'
+                  : 'bg-blue-50 border border-blue-100 text-blue-600 hover:bg-blue-100/50'
               }`}
             >
               <Sliders id="cookie-config-icon" className="w-3.5 h-3.5" />
@@ -476,8 +476,8 @@ export default function Footer() {
           <div id="footer-credits" className="text-center sm:text-right">
             <span>
               {t('footer-developed')}{' '}
-              <span className={`font-bold hover:underline cursor-pointer transition-colors ${
-                isDark ? 'text-green-400' : 'text-emerald-600'
+              <span className={`font-black tracking-wide cursor-pointer transition-colors ${
+                isDark ? 'text-green-400' : 'text-blue-600'
               }`} onClick={handleScrollToTop}>
                 Luis F. Coste C.
               </span>
@@ -512,11 +512,11 @@ export default function Footer() {
               } rounded-t-2xl`}
             >
               <div id="modal-title-wrapper" className="flex items-center gap-2.5">
-                {activeModal === 'terms' && <Lock id="modal-title-icon" className="w-5 h-5 text-emerald-600 dark:text-green-400" />}
-                {activeModal === 'privacy' && <Shield id="modal-title-icon" className="w-5 h-5 text-emerald-600 dark:text-green-400" />}
-                {activeModal === 'cookies' && <Info id="modal-title-icon" className="w-5 h-5 text-emerald-600 dark:text-green-400" />}
-                {activeModal === 'data' && <Info id="modal-title-icon" className="w-5 h-5 text-emerald-600 dark:text-green-400" />}
-                {activeModal === 'cookie-config' && <Sliders id="modal-title-icon" className="w-5 h-5 text-emerald-600 dark:text-green-400" />}
+                {activeModal === 'terms' && <Lock id="modal-title-icon" className="w-5 h-5 text-blue-600 dark:text-green-400" />}
+                {activeModal === 'privacy' && <Shield id="modal-title-icon" className="w-5 h-5 text-blue-600 dark:text-green-400" />}
+                {activeModal === 'cookies' && <Info id="modal-title-icon" className="w-5 h-5 text-blue-600 dark:text-green-400" />}
+                {activeModal === 'data' && <Info id="modal-title-icon" className="w-5 h-5 text-blue-600 dark:text-green-400" />}
+                {activeModal === 'cookie-config' && <Sliders id="modal-title-icon" className="w-5 h-5 text-blue-600 dark:text-green-400" />}
                 
                 <h3 id="modal-title-text" className="font-extrabold text-base tracking-wide uppercase text-slate-900 dark:text-white">
                   {activeModal === 'terms' && (language === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions')}
@@ -562,7 +562,9 @@ export default function Footer() {
                           <span className="font-bold text-sm text-slate-900 dark:text-white">
                             {language === 'es' ? 'Cookies Esenciales' : 'Essential Cookies'}
                           </span>
-                          <span className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:bg-green-500/10 dark:text-green-400">
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                            isDark ? 'bg-green-500/10 text-green-400' : 'bg-blue-500/10 text-blue-600'
+                          }`}>
                             {language === 'es' ? 'Obligatorio' : 'Required'}
                           </span>
                         </div>
@@ -573,7 +575,9 @@ export default function Footer() {
                         </p>
                       </div>
                       <div className="flex-shrink-0 flex items-center justify-center">
-                        <div className="w-10 h-6 bg-emerald-600 dark:bg-green-500 rounded-full flex items-center p-1 cursor-not-allowed opacity-80">
+                        <div className={`w-10 h-6 rounded-full flex items-center p-1 cursor-not-allowed opacity-80 ${
+                          isDark ? 'bg-green-500' : 'bg-blue-600'
+                        }`}>
                           <div className="w-4 h-4 bg-white rounded-full transform translate-x-4"></div>
                         </div>
                       </div>
@@ -597,7 +601,9 @@ export default function Footer() {
                         <button 
                           onClick={() => setCookieSettings(prev => ({ ...prev, analytical: !prev.analytical }))}
                           className={`relative w-10 h-6 transition-colors duration-300 rounded-full flex items-center p-1 focus:outline-none ${
-                            cookieSettings.analytical ? 'bg-emerald-600 dark:bg-green-500' : 'bg-slate-300 dark:bg-slate-700'
+                            cookieSettings.analytical 
+                              ? isDark ? 'bg-green-500' : 'bg-blue-600'
+                              : isDark ? 'bg-slate-700' : 'bg-slate-300'
                           }`}
                         >
                           <div className={`w-4 h-4 bg-white rounded-full transition-transform duration-300 transform ${
@@ -625,7 +631,9 @@ export default function Footer() {
                         <button 
                           onClick={() => setCookieSettings(prev => ({ ...prev, marketing: !prev.marketing }))}
                           className={`relative w-10 h-6 transition-colors duration-300 rounded-full flex items-center p-1 focus:outline-none ${
-                            cookieSettings.marketing ? 'bg-emerald-600 dark:bg-green-500' : 'bg-slate-300 dark:bg-slate-700'
+                            cookieSettings.marketing 
+                              ? isDark ? 'bg-green-500' : 'bg-blue-600'
+                              : isDark ? 'bg-slate-700' : 'bg-slate-300'
                           }`}
                         >
                           <div className={`w-4 h-4 bg-white rounded-full transition-transform duration-300 transform ${
@@ -637,7 +645,11 @@ export default function Footer() {
                   </div>
 
                   {saveSuccess && (
-                    <div id="cookie-save-success-alert" className="flex items-center gap-2 p-3 bg-green-500/10 dark:bg-green-500/15 border border-green-500/20 text-emerald-600 dark:text-green-400 rounded-xl text-xs font-bold animate-[pulse_1s_infinite]">
+                    <div id="cookie-save-success-alert" className={`flex items-center gap-2 p-3 border rounded-xl text-xs font-bold animate-[pulse_1s_infinite] ${
+                      isDark 
+                        ? 'bg-green-500/10 border-green-500/20 text-green-400' 
+                        : 'bg-blue-500/10 border-blue-500/20 text-blue-600'
+                    }`}>
                       <Check className="w-4 h-4" />
                       <span>
                         {language === 'es' 
@@ -674,7 +686,7 @@ export default function Footer() {
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold tracking-wide uppercase shadow-md transition-all duration-300 active:scale-95 ${
                       isDark 
                         ? 'bg-green-500 hover:bg-green-400 text-[#05131f] hover:shadow-green-500/20' 
-                        : 'bg-emerald-600 hover:bg-emerald-500 text-white hover:shadow-emerald-600/25'
+                        : 'bg-blue-600 hover:bg-blue-500 text-white hover:shadow-blue-600/25'
                     }`}
                   >
                     <Check className="w-3.5 h-3.5" />
@@ -717,7 +729,7 @@ export default function Footer() {
               <div 
                 id="cookie-banner-icon-bg"
                 className={`p-2.5 rounded-xl border shrink-0 ${
-                  isDark ? 'bg-green-500/10 border-green-500/20 text-green-400' : 'bg-emerald-50 border-emerald-100 text-emerald-600'
+                  isDark ? 'bg-green-500/10 border-green-500/20 text-green-400' : 'bg-blue-50 border-blue-100 text-blue-600'
                 }`}
               >
                 <Shield className="w-5 h-5" />
@@ -728,8 +740,12 @@ export default function Footer() {
                     {language === 'es' ? 'Preferencia de Cookies' : 'Cookie Preferences'}
                   </h4>
                   <span id="cookie-ping-container" className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                      isDark ? 'bg-emerald-400' : 'bg-blue-400'
+                    }`}></span>
+                    <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                      isDark ? 'bg-emerald-500' : 'bg-blue-500'
+                    }`}></span>
                   </span>
                 </div>
                 <p id="cookie-banner-text" className={`text-xs leading-relaxed ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
@@ -747,7 +763,7 @@ export default function Footer() {
                 className={`flex-1 px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition-all duration-300 active:scale-95 shadow-sm cursor-pointer ${
                   isDark 
                     ? 'bg-green-500 hover:bg-green-400 text-[#05131f] hover:shadow-green-500/20' 
-                    : 'bg-emerald-600 hover:bg-emerald-500 text-white hover:shadow-emerald-600/25'
+                    : 'bg-blue-600 hover:bg-blue-500 text-white hover:shadow-blue-600/25'
                 }`}
               >
                 {language === 'es' ? 'Aceptar todas' : 'Accept all'}

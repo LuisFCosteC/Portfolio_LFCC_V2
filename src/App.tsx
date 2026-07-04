@@ -10,6 +10,7 @@ import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import ParticleCanvas from './components/ParticleCanvas';
 import FloatingButtons from './components/FloatingButtons';
+import SchedulingModal from './components/SchedulingModal';
 
 function PortfolioAppContent() {
   const { theme } = useTheme();
@@ -55,6 +56,9 @@ function PortfolioAppContent() {
 
       {/* Floating Action Buttons (WhatsApp & Gmail) */}
       <FloatingButtons />
+
+      {/* Global Scheduling Modal */}
+      <SchedulingModal />
 
       {/* App Footer */}
       <Footer />
