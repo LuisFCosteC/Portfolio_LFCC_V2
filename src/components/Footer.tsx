@@ -356,9 +356,14 @@ export default function Footer() {
               id="footer-logo"
               href="#home"
               onClick={handleScrollToTop}
-              className="text-2xl font-black text-gradient-green tracking-wider"
+              className="flex items-center justify-center sm:justify-start gap-2 text-2xl font-black text-gradient-green tracking-wider"
             >
-              LFCC
+              <img
+                src="/images/LC_Logo.jpg"
+                alt="LC Logo"
+                className="w-8 h-8 rounded-lg object-cover"
+              />
+              <span>LFCC</span>
             </a>
             <p className={`text-xs font-semibold uppercase tracking-widest mt-1 ${
               isDark ? 'text-gray-500' : 'text-slate-400'
@@ -469,7 +474,7 @@ export default function Footer() {
           
           {/* Copyright */}
           <div id="footer-copyright" className="text-center sm:text-left">
-            <span>© {currentYear} LFCC. {t('footer-rights')}</span>
+            <span>© {currentYear} LFCC &amp; <a href="https://2code.com.co/" target="_blank" rel="noopener noreferrer" className="hover:underline font-bold text-gradient-green">2Code</a>. {t('footer-rights')}</span>
           </div>
 
           {/* Author Credits */}

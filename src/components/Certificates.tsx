@@ -313,10 +313,10 @@ export default function Certificates() {
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              <div className="p-4 sm:p-8 flex flex-col gap-6">
+              <div className="p-2 sm:p-8 flex flex-col gap-4 sm:gap-6">
                 
                 {/* Visual Certificate Board Mockup with Slide Transition */}
-                <div className="relative overflow-hidden w-full h-[510px] sm:h-[460px] md:h-[450px]">
+                <div className="relative overflow-hidden w-full h-[410px] xs:h-[460px] md:h-[450px]">
                   <AnimatePresence mode="wait" initial={false} custom={direction}>
                     <motion.div
                       key={selectedCert.id}

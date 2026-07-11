@@ -423,7 +423,7 @@ export default function SchedulingModal() {
                     </div>
 
                     {/* Content Body */}
-                    <div className="flex-1 overflow-y-auto p-6 scrollbar-none">
+                    <div className="flex-1 overflow-y-auto p-4 sm:p-6 scrollbar-none">
                         
                         {/* STEP 1: LEAD FORM */}
                         {step === 1 && (

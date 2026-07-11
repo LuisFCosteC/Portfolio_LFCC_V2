@@ -1095,11 +1095,11 @@ export default function AiChatSection() {
                                         </div>
                                     )}
 
-                                    {/* 2-Column Calendar Content */}
-                                    <div className="flex-1 overflow-hidden p-4 sm:p-5 flex gap-4 min-h-0">
+                                    {/* Responsive Calendar Content */}
+                                    <div className="flex-1 overflow-y-auto sm:overflow-hidden p-4 sm:p-5 flex flex-col sm:flex-row gap-4 min-h-0">
                                         {/* Left Panel - Days */}
-                                        <div className="w-[110px] sm:w-[170px] shrink-0 flex flex-col gap-2 overflow-y-auto pr-1 scrollbar-thin">
-                                            <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 select-none ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                        <div className="w-full sm:w-[170px] shrink-0 flex flex-row sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto pb-2 sm:pb-0 pr-0 sm:pr-1 scrollbar-none sm:scrollbar-thin">
+                                            <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 select-none shrink-0 self-center sm:self-start sm:block ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                                 {language === 'es' ? 'Días' : 'Days'}
                                             </span>
                                             {weekdays.map((date) => {
@@ -1117,7 +1117,7 @@ export default function AiChatSection() {
                                                             setSelectedDate(date);
                                                             setSelectedTime(null);
                                                         }}
-                                                        className={`flex flex-col sm:flex-row items-center sm:justify-start gap-1 sm:gap-3 px-3 py-2.5 rounded-xl border transition-all text-left cursor-pointer ${isSel
+                                                        className={`flex flex-col sm:flex-row items-center sm:justify-start gap-1 sm:gap-3 px-3 py-2 sm:py-2.5 rounded-xl border transition-all text-left shrink-0 cursor-pointer ${isSel
                                                                 ? isDark
                                                                     ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold shadow-md shadow-emerald-950/20'
                                                                     : 'bg-blue-500/15 border-blue-500 text-blue-600 font-bold shadow-md shadow-blue-500/10'
@@ -1137,10 +1137,10 @@ export default function AiChatSection() {
                                         </div>
 
                                         {/* Divider */}
-                                        <div className={`w-[1px] shrink-0 self-stretch ${isDark ? 'bg-slate-800/85' : 'bg-slate-200'}`} />
+                                        <div className={`h-[1px] w-full sm:h-auto sm:w-[1px] shrink-0 self-stretch ${isDark ? 'bg-slate-800/85' : 'bg-slate-200'}`} />
 
                                         {/* Right Panel - Hours */}
-                                        <div className="flex-1 flex flex-col gap-2 overflow-hidden">
+                                        <div className="flex-1 flex flex-col gap-2 overflow-hidden min-h-[220px] sm:min-h-0">
                                             <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 select-none ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                                 {language === 'es' ? 'Horas Disponibles' : 'Available Hours'}
                                             </span>

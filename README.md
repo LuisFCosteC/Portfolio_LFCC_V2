@@ -145,6 +145,8 @@ Para evitar fallos de compilación y congelamiento de variables de entorno está
 *   **Comprobación de Estado (`GET /api/health`)**: Determina el estado del asistente en el header del chat (`SYSTEM: ACTIVE` / `SYSTEM: OFFLINE`).
 *   **Chat Conversacional (`POST /api/chat`)**: Envía el payload con el nombre del lead, correo, mensaje actual e historial de conversación para interactuar de forma fluida.
 *   **Finalización de Sesión (`POST /api/terminate`)**: Se dispara al hacer clic en "Finalizar Conversación", por inactividad de 3 minutos o al cerrar la pestaña/navegador (`beforeunload` con `keepalive: true`). Esto genera el resumen técnico enviado a Telegram y destruye la caché de sesión en RAM.
+*   **Agendamiento de Citas (`POST /api/schedule-meeting`)**: Envía los datos del lead y el bloque de fecha/hora seleccionado en el frontend para agendar la cita en Google Calendar y disparar el Meet/Email.
+*   **Bloques Ocupados (`GET /api/occupied-slots`)**: Consulta dinámicamente los bloques ocupados del calendario de Google en las próximas 3 semanas para deshabilitarlos en la cuadrícula de reserva del frontend.
 
 ### 3. Flujo de Privacidad y Sanitización de Datos (Proxy PII)
 1.  **Captura Segura**: El frontend captura el lead de forma segura y envía los datos reales únicamente al backend.
@@ -169,3 +171,32 @@ Para evitar fallos de compilación y congelamiento de variables de entorno está
 2.  **Prevención de Saltos de Contenido (Layout Thrashing)**: Las dimensiones se manejan mediante alturas de viewport responsivas (`vh`), evitando alteraciones indeseadas de interfaz al abrir menús o modales.
 
 ---
+
+## 💻 Ejecución en Entorno Local
+
+Si deseas clonar o ejecutar este proyecto en tu máquina local, sigue estos sencillos pasos:
+
+1.  **Instalar dependencias**:
+    ```bash
+    npm install
+    ```
+
+2.  **Iniciar el servidor de desarrollo**:
+    ```bash
+    npm run dev
+    ```
+    > El servidor se levantará en el puerto `3000` y será accesible desde tu red local (si lo necesitas).
+
+3.  **Compilar para producción**:
+    ```bash
+    npm run build
+    ```
+
+4.  **Probar la versión de producción localmente**:
+    ```bash
+    npm run preview
+    ```
+
+---
+
+**Nota adicional**: Como el script `dev` incluye `--host=0.0.0.0`, podrás acceder a la aplicación desde otros dispositivos de tu misma red usando tu IP local. Si solo quieres acceso local, puedes eliminar esa opción del `package.json`.
