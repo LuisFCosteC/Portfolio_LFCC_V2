@@ -808,20 +808,24 @@ export default function AiChatSection() {
                 text: msg.text
             }));
 
-            fetch(getApiUrl('/api/terminate'), {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: activeLead.email,
-                    name: activeLead.name,
-                    phone: activeLead.phone,
-                    description: activeLead.description,
-                    history: historyPayload
-                }),
-                keepalive: true
-            }).catch(err => console.error("Unload terminate error:", err));
+            try {
+                fetch(getApiUrl('/api/terminate'), {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: activeLead.email,
+                        name: activeLead.name,
+                        phone: activeLead.phone,
+                        description: activeLead.description,
+                        history: historyPayload
+                    }),
+                    keepalive: true
+                }).catch(err => console.error("Unload terminate error:", err));
+            } catch (err) {
+                console.error("Unload terminate error:", err);
+            }
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);

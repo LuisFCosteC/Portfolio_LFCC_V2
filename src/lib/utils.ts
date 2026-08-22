@@ -1,12 +1,16 @@
-// Base URL for the FastAPI backend. Configure VITE_API_BASE_URL in the
-// frontend's Vercel project once the API's Vercel domain is known; falls
-// back to a guessed production domain and to localhost during dev.
+// Base URL for the FastAPI backend. Requires VITE_API_BASE_URL to be set in
+// the frontend's Vercel project. No hardcoded production fallback: an unclaimed
+// *.vercel.app subdomain here would be a subdomain-takeover risk for lead PII.
 export function getApiUrl(endpoint: string): string {
   const envBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim();
   const isLocalHost = typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-  const baseUrl = envBase || (isLocalHost ? 'http://localhost:8000' : 'https://lfcc-portafolio-api.vercel.app');
+  const baseUrl = envBase || (isLocalHost ? 'http://localhost:8000' : '');
+
+  if (!baseUrl) {
+    throw new Error('VITE_API_BASE_URL is not configured in this deployment.');
+  }
 
   const cleanBase = baseUrl.replace(/\/+$/, '');
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
