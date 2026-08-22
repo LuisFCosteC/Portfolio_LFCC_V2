@@ -384,6 +384,15 @@ export default function AiChatSection() {
 
     const [isApiConnected, setIsApiConnected] = useState(false);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const chatInputRef = useRef<HTMLInputElement>(null);
+
+    // Devuelve el foco al input apenas el bot termina de responder, para que el
+    // usuario pueda seguir escribiendo sin tener que hacer clic de nuevo en el campo.
+    useEffect(() => {
+        if (!isTyping && !showCalendarMode) {
+            chatInputRef.current?.focus();
+        }
+    }, [isTyping, showCalendarMode]);
 
     // Check API connection on load
     useEffect(() => {
@@ -1198,6 +1207,7 @@ export default function AiChatSection() {
                                         </button>
 
                                         <input
+                                            ref={chatInputRef}
                                             type="text"
                                             value={inputVal}
                                             onChange={(e) => setInputVal(e.target.value)}

@@ -124,12 +124,13 @@ La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**,
 
 - **Gatekeeper de Captura (Leads):** Formulario previo para registrar Nombre, Correo e Idea de Proyecto antes de habilitar el chat.
 - **Anonimización PII en Tiempo Real:** El backend sanitiza nombres y correos reemplazándolos por identificadores genéricos antes de consultar el modelo de IA.
-- **Agendamiento Inteligente por Chat & Calendario Visual (`SchedulingModal.tsx`):**
+- **Agendamiento y Reagendamiento Inteligente (`SchedulingModal.tsx` & Gemini Function Calling):**
   - Permite agendar videollamadas de 30 minutos de forma interactiva seleccionando días y horas hábiles en un selector visual de bloques disponibles.
-  - O mediante **Gemini Function Calling**, donde el asistente en el chat detecta el interés, propone el horario en hora local de Colombia (America/Bogota) y agenda la cita directamente en Google Calendar con generación automática de Google Meet.
+  - Soporte conversacional para consultar el estado de la cita (`get_my_scheduled_meeting`), agendar (`schedule_meeting`) y reagendar (`reschedule_meeting`) cancelando automáticamente el evento anterior en Google Calendar.
+- **Experiencia de Usuario Fluida (UX):** Auto-enfoque inteligente del campo de texto (`chatInputRef`) al finalizar cada turno de respuesta de la IA, permitiendo una interacción ágil sin clics redundantes.
 - **Parser de Markdown Personalizado:** Formatea respuestas con bloques de código resaltados, listas anidadas, viñetas y texto enriquecido.
 - **Conexión Dinámica de Backend (`getApiUrl`):** Detecta dinámicamente el entorno de ejecución (`VITE_API_BASE_URL` apuntando a Vercel Serverless Function en producción o `localhost:8000` en desarrollo).
-- **Notificaciones y Auditoría Automáticas:** Al finalizar o agendar, el backend notifica de inmediato al bot de Telegram y confirma la cita por correo electrónico vía SMTP TLS.
+- **Notificaciones y Auditoría Automáticas:** Al finalizar, agendar o reagendar, el backend notifica de inmediato al bot de Telegram y confirma la cita por correo electrónico vía SMTP TLS.
 
 ---
 
