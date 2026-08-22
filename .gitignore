@@ -7,3 +7,6 @@ coverage/
 .env*
 !.env.example
 README local.md
+
+# Datos de leads: nunca debe versionarse (el repo es publico y esto es PII)
+leads.json
