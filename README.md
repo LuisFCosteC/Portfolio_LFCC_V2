@@ -118,15 +118,18 @@ Luis Coste respalda su conocimiento con **14 certificaciones internacionales** v
 
 ---
 
-## 🤖 Consultor Técnico Virtual con IA
+## 🤖 Consultor Técnico Virtual con IA & Sistema de Agendamiento
 
-La aplicación cuenta con un **Asistente Conversacional Inteligente (`AiChatSection.tsx`)** guiado por la API de **Google Gemini** a través de un proxy en **FastAPI** (desplegado en Render):
+La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**, un asistente técnico guiado por la API de **Google Gemini** a través de un proxy Serverless en **FastAPI** (desplegado en **Vercel**):
 
 - **Gatekeeper de Captura (Leads):** Formulario previo para registrar Nombre, Correo e Idea de Proyecto antes de habilitar el chat.
 - **Anonimización PII en Tiempo Real:** El backend sanitiza nombres y correos reemplazándolos por identificadores genéricos antes de consultar el modelo de IA.
+- **Agendamiento Inteligente por Chat & Calendario Visual (`SchedulingModal.tsx`):**
+  - Permite agendar videollamadas de 30 minutos de forma interactiva seleccionando días y horas hábiles en un selector visual de bloques disponibles.
+  - O mediante **Gemini Function Calling**, donde el asistente en el chat detecta el interés, propone el horario en hora local de Colombia (America/Bogota) y agenda la cita directamente en Google Calendar con generación automática de Google Meet.
 - **Parser de Markdown Personalizado:** Formatea respuestas con bloques de código resaltados, listas anidadas, viñetas y texto enriquecido.
-- **Conexión Dinámica de Backend (`getApiUrl`):** Detecta automáticamente si la app corre en Vercel (`lfcc.vercel.app`) para conectar con Render o en desarrollo local (`localhost:8000`).
-- **Notificaciones Automáticas:** Al finalizar la sesión, el backend genera un resumen ejecutivo enviado al bot privado de Telegram de Luis Coste.
+- **Conexión Dinámica de Backend (`getApiUrl`):** Detecta dinámicamente el entorno de ejecución (`VITE_API_BASE_URL` apuntando a Vercel Serverless Function en producción o `localhost:8000` en desarrollo).
+- **Notificaciones y Auditoría Automáticas:** Al finalizar o agendar, el backend notifica de inmediato al bot de Telegram y confirma la cita por correo electrónico vía SMTP TLS.
 
 ---
 
@@ -155,8 +158,10 @@ El portafolio incluye una infraestructura completa de cumplimiento legal accesib
 | **Proyectos** | [Projects.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Projects.tsx) | Galería filtrable con transiciones fluidas (`AnimatePresence`) y modales adaptativos con scroll táctil inercial. |
 | **Certificados** | [Certificates.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Certificates.tsx) | Carrusel 3D con tarjetas volteables (*Flip Card*), sellos holográficos y modal de previsualización. |
 | **Contacto** | [ContactForm.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ContactForm.tsx) | Formulario con validación en tiempo real y generador dinámico de mensajes para WhatsApp con códigos de discado internacional. |
+| **Modal Agendamiento** | [SchedulingModal.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/SchedulingModal.tsx) | Modal interactivo para selección visual de fecha y slots de 30 minutos conectados con Google Calendar. |
+| **Asistente IA** | [AiChatSection.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AiChatSection.tsx) | Consultor técnico virtual interactivo con soporte de streaming/markdown y agendamiento por lenguaje natural. |
 | **Footer & Legales** | [Footer.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Footer.tsx) | Modales de políticas legales, banner de cookies y enlaces a redes sociales oficiales. |
-| **Atajos Flotantes** | [FloatingButtons.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/FloatingButtons.tsx) | Botones de acceso rápido a WhatsApp y Gmail con mensajes predefinidos. |
+| **Atajos Flotantes** | [FloatingButtons.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/FloatingButtons.tsx) | Botones de acceso rápido a WhatsApp, Gmail y Agendamiento de citas con disparadores sincronizados. |
 
 ---
 
@@ -181,8 +186,9 @@ lfcc-portafolio/
 │   │   ├── Projects.tsx         # Galería de casos de estudio
 │   │   ├── Certificates.tsx     # Carrusel de certificaciones 3D
 │   │   ├── ContactForm.tsx      # Formulario para WhatsApp
+│   │   ├── SchedulingModal.tsx  # Modal de agendamiento de reuniones con Calendar
 │   │   ├── Footer.tsx           # Pie de página, cookies y políticas
-│   │   ├── FloatingButtons.tsx  # Atajos directos de contacto
+│   │   ├── FloatingButtons.tsx  # Atajos directos de contacto y agendamiento
 │   │   ├── AiChatSection.tsx    # Consultor virtual con Gemini AI
 │   │   ├── CVButton.tsx         # Botón de descarga de CV
 │   │   └── ParticleCanvas.tsx   # Canvas dinámico de constelaciones
