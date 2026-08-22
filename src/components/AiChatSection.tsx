@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Send, Bot, User, Sparkles, ClipboardList, AlertCircle, LogOut, X, Calendar, Loader2 } from 'lucide-react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useTheme } from '../context/ThemeContext';
+import { getApiUrl } from '../lib/utils';
 
 interface Message {
     id: string;
@@ -10,24 +11,6 @@ interface Message {
     text: string;
     timestamp: Date;
 }
-const getApiUrl = (endpoint: string) => {
-    let baseUrl = '';
-
-    // 1. Detectamos si el usuario está navegando en internet (Vercel)
-    if (typeof window !== 'undefined' && window.location.hostname === 'lfcc.vercel.app') {
-        // Forzamos directamente tu URL de producción en Render sin depender de .env
-        baseUrl = 'https://portfolio-lfcc-v2-api.onrender.com';
-    } else {
-        // 2. Si está en localhost (tu computadora), usa el puerto local por defecto
-        baseUrl = 'http://localhost:8000';
-    }
-
-    // Limpieza estándar de slashes diagonales
-    const cleanBase = baseUrl.replace(/\/+$/, '');
-    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-
-    return `${cleanBase}${cleanEndpoint}`;
-};
 
 // Lightweight Markdown Parser to render beautiful API responses
 function parseMarkdownToReact(text: string, isDark: boolean) {

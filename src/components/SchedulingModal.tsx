@@ -3,18 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Calendar, AlertCircle, CheckCircle2, Clock, Sparkles, User, Mail, Copy, ArrowLeft } from 'lucide-react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useTheme } from '../context/ThemeContext';
-
-const getApiUrl = (endpoint: string) => {
-    let baseUrl = '';
-    if (typeof window !== 'undefined' && window.location.hostname === 'lfcc.vercel.app') {
-        baseUrl = 'https://portfolio-lfcc-v2-api.onrender.com';
-    } else {
-        baseUrl = 'http://localhost:8000';
-    }
-    const cleanBase = baseUrl.replace(/\/+$/, '');
-    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-    return `${cleanBase}${cleanEndpoint}`;
-};
+import { getApiUrl } from '../lib/utils';
 
 const COUNTRIES = [
     { code: 'CO', name: 'Colombia', dial: '+57', flag: '🇨🇴' },
