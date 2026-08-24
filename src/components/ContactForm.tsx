@@ -232,20 +232,20 @@ ${details}`;
                 }`}>
                   {t('contact-phone')}
                 </label>
-                <div className={`flex rounded-xl overflow-hidden border transition-all duration-200 focus-within:ring-1 ${
+                <div className={`flex flex-col sm:flex-row rounded-xl overflow-hidden border transition-all duration-200 focus-within:ring-1 ${
                   isDark
                     ? 'bg-[#051926]/80 border-green-500/10 focus-within:border-green-400 focus-within:ring-green-400 text-gray-200'
                     : 'bg-slate-50 border-blue-500/15 focus-within:border-blue-600 focus-within:ring-blue-600 text-slate-800'
                 }`}>
-                  <div className={`relative shrink-0 flex items-center border-r transition-all ${
+                  <div className={`relative shrink-0 flex items-center border-b sm:border-b-0 sm:border-r transition-all ${
                     isDark ? 'border-green-500/10' : 'border-blue-500/15'
                   }`}>
                     <select
                       value={selectedCountryCode}
                       onChange={(e) => setSelectedCountryCode(e.target.value)}
-                      className={`pl-3.5 pr-8 py-3 text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${
-                        isDark 
-                          ? 'text-gray-200 bg-[#051926]' 
+                      className={`w-full sm:w-auto pl-3.5 pr-8 py-3 text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${
+                        isDark
+                          ? 'text-gray-200 bg-[#051926]'
                           : 'text-slate-800 bg-slate-50'
                       }`}
                       style={{ minWidth: '95px' }}

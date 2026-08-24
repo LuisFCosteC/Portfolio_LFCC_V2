@@ -454,18 +454,18 @@ export default function SchedulingModal() {
                                     <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                         {currentLabels.phoneLabel} <span className="text-red-500">*</span>
                                     </label>
-                                    <div className={`flex rounded-xl overflow-hidden border transition-all duration-200 ${
+                                    <div className={`flex flex-col sm:flex-row rounded-xl overflow-hidden border transition-all duration-200 ${
                                         isDark
                                             ? 'bg-slate-950/40 border-slate-800 focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10 shadow-sm'
                                             : 'bg-slate-50/50 border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 shadow-sm'
                                     }`}>
-                                        <div className={`relative shrink-0 flex items-center border-r transition-all ${
+                                        <div className={`relative shrink-0 flex items-center border-b sm:border-b-0 sm:border-r transition-all ${
                                             isDark ? 'border-slate-800' : 'border-slate-200'
                                         }`}>
                                             <select
                                                 value={selectedCountryCode}
                                                 onChange={(e) => setSelectedCountryCode(e.target.value)}
-                                                className={`pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${
+                                                className={`w-full sm:w-auto pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${
                                                     isDark ? 'text-white bg-[#030914]' : 'text-slate-800 bg-white'
                                                 }`}
                                                 style={{ minWidth: '95px' }}

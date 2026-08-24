@@ -1,18 +1,18 @@
 # 🚀 Portafolio Web Interactivo de Ingeniería & Desarrollo Full-Stack
 ### **Luis Fernando Coste Contreras (LFCC)**
 
-![React 18](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![React 19](https://img.shields.io/badge/React-19.0.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-20-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Gemini AI](https://img.shields.io/badge/Gemini_AI-API-8E75FF?style=for-the-badge&logo=googlegemini&logoColor=white)
 
-Este repositorio contiene la plataforma web personal e interactiva de **Luis Fernando Coste Contreras (LFCC)**, un espacio digital de alto rendimiento diseñado y desarrollado bajo arquitectura **Single Page Application (SPA)** con **React 18**, **TypeScript**, **Tailwind CSS**, **Framer Motion** (`motion/react`) e integración con **Inteligencia Artificial (Gemini API / FastAPI)**.
+Este repositorio contiene la plataforma web personal e interactiva de **Luis Fernando Coste Contreras (LFCC)**, un espacio digital de alto rendimiento diseñado y desarrollado bajo arquitectura **Single Page Application (SPA)** con **React 19**, **TypeScript**, **Tailwind CSS v4**, **Motion** (`motion/react`) e integración con **Inteligencia Artificial (Google Gemini API / FastAPI)**.
 
-La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glassmorphism**, un motor de partículas estelares en tiempo real en HTML5 Canvas, internacionalización nativa en dos idiomas (**Español** e **Inglés**), un consultor de software con IA y un gestor completo de privacidad y cumplimiento legal.
+La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glassmorphism**, un motor de partículas estelares en tiempo real en HTML5 Canvas, internacionalización nativa en dos idiomas (**Español** e **Inglés**), un consultor técnico virtual con IA ("Robotino"), sistema de agendamiento de videollamadas con Google Calendar/Meet y un gestor completo de privacidad y cumplimiento legal.
 
 ---
 
@@ -23,7 +23,7 @@ La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glass
 - [🛠️ Stack Tecnológico Completo](#️-stack-tecnológico-completo)
 - [🚀 Catálogo de Proyectos y Casos de Estudio](#-catálogo-de-proyectos-y-casos-de-estudio)
 - [📜 Certificaciones y Credenciales Académicas](#-certificaciones-y-credenciales-académicas)
-- [🤖 Consultor Técnico Virtual con IA](#-consultor-técnico-virtual-con-ia)
+- [🤖 Consultor Técnico Virtual con IA & Agendamiento](#-consultor-técnico-virtual-con-ia--agendamiento)
 - [⚖️ Políticas Legales, Privacidad y Cookies](#️-políticas-legales-privacidad-y-cookies)
 - [🌟 Componentes e Infraestructura Frontend](#-componentes-e-infraestructura-frontend)
 - [📁 Estructura del Proyecto](#-estructura-del-proyecto)
@@ -37,20 +37,20 @@ La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glass
 ### **Luis Fernando Coste Contreras**
 **Desarrollador de Software Full-Stack & Arquitecto de Soluciones Digitales**
 
-Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean Code*) y la construcción de sistemas escalables de alta disponibilidad. Combina la rigurosidad lógica de la arquitectura Backend (diseño de APIs RESTful robustas, optimización de bases de datos relacionales y no relacionales, e integración de comunicaciones en tiempo real) con la versatilidad interactiva del Frontend moderno.
+Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean Code*) y la construcción de sistemas escalables de alta disponibilidad. Combina la rigurosidad lógica de la arquitectura Backend (diseño de APIs RESTful robustas, optimización de bases de datos relacionales y distribuidas, e integración de comunicaciones en tiempo real) con la versatilidad interactiva del Frontend moderno.
 
 > *"Mi perspectiva integral del desarrollo me permite coordinar cada fase del ciclo de vida del software con precisión técnica, traduciendo requerimientos complejos de negocio en soluciones digitales estables, seguras y de alto rendimiento."*
 
 * **Filosofía:** Separación de conceptos (*Decoupled / SoC*), tipado estricto, desarrollo guiado por rendimiento y aprendizaje continuo.
 * **Sede Principal:** Colombia 🇨🇴
-* **Marca Corporativa:** Fundador & Lider de Desarrollo en **2Code** ([2code.com.co](https://2code.com.co/)).
+* **Marca Corporativa:** Fundador & Líder de Desarrollo en **2Code** ([2code.com.co](https://2code.com.co/)).
 
 ---
 
 ## 🌐 Enlaces Oficiales y Contacto
 
 - 💼 **LinkedIn:** [linkedin.com/in/luisfcostec](https://linkedin.com/in/luisfcostec)
-- 🐙 **GitHub:** [github.com/luisfcostec](https://github.com/luisfcostec)
+- 🐙 **GitHub:** [github.com/LuisFCosteC](https://github.com/LuisFCosteC)
 - 📧 **Correo Electrónico:** [luisfcostec@gmail.com](mailto:luisfcostec@gmail.com)
 - 💬 **WhatsApp Directo:** [+57 304 204 2752](https://wa.me/+573042042752)
 - 🎮 **Discord:** [luisfcostec](https://discord.com/users/luisfcostec)
@@ -64,20 +64,20 @@ Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean
 El dominio técnico de Luis Coste abarca tres categorías principales presentadas de forma interactiva en la plataforma:
 
 ### 1. 🎨 Frontend
-- **Frameworks & Librerías:** React 18, Next.js (App Router, SSR, SSG), Angular.
-- **Lenguajes & Estilos:** TypeScript, JavaScript (ES6+), HTML5 Semántico, CSS3 Moderno, Tailwind CSS, Bootstrap, shadcn/ui.
-- **Empaquetadores & Animaciones:** Vite, Framer Motion (`motion/react`), Lucide Icons, Embla Carousel.
+- **Frameworks & Librerías:** React 19, Next.js (App Router, SSR, SSG), Angular.
+- **Lenguajes & Estilos:** TypeScript 5.8, JavaScript (ES6+), HTML5 Semántico, CSS3 Moderno, Tailwind CSS v4, Bootstrap, shadcn/ui.
+- **Empaquetadores & Animaciones:** Vite 6, Motion (`motion/react` 12), Lucide Icons, Embla Carousel.
 
 ### 2. ⚙️ Backend & Bases de Datos
 - **Lenguajes de Programación:** Python, Java, C#, Node.js, JavaScript.
 - **Frameworks Backend:** FastAPI, Express.js, ASP.NET Core, .NET.
 - **Comunicación & Tiempo Real:** WebSockets (`socket.io`), APIs RESTful, Middleware CORS, JSON Web Tokens.
-- **Bases de Datos & ORMs:** MySQL, Microsoft SQL Server, PostgreSQL, LibSQL / SQLite, Entity Framework Core, Prisma.
+- **Bases de Datos & ORMs:** MySQL, Microsoft SQL Server, PostgreSQL, Turso (libSQL) / SQLite, Upstash Redis, Entity Framework Core, Prisma.
 
 ### 3. 🛠️ Herramientas, Entornos e IA
 - **Control de Versiones & DevOps:** Git, GitHub, Git Bash, Docker, Vercel, Render.
 - **Pruebas & Herramientas:** Postman, Swagger / OpenAPI, Figma.
-- **Integración de Inteligencia Artificial:** Gemini API (Google), Genkit AI, Claude AI, Google AI Studio, Antigravity.
+- **Integración de Inteligencia Artificial:** Google Gemini API, Genkit AI, Claude AI, Google AI Studio, Antigravity.
 
 ---
 
@@ -99,7 +99,7 @@ El portafolio incluye 7 proyectos destacados desarrollados con estándares profe
 
 ## 📜 Certificaciones y Credenciales Académicas
 
-Luis Coste respalda su conocimiento con **14 certificaciones internacionales** verificables, desplegadas en la web mediante un carrusel 3D con credenciales interactivas:
+Luis Coste respalda su conocimiento con **14 certificaciones internacionales** verificables, desplegadas en la web mediante un carrusel 3D con tarjetas giratorias e interactivas:
 
 1. 📱 **Introducción al desarrollo de apps móviles para Android** — *Meta (Coursera)* | May 2025 | [Verificar](https://coursera.org/share/0ecfa4c415c7b22a3a6ef16c2ff10987)
 2. ⚡ **Fundamentos de JavaScript 1** — *Cisco Networking Academy* | Ene 2024 | [Verificar](https://www.credly.com/badges/c7cc4845-32fa-43da-a558-ab7425f429a1/public_url)
@@ -118,19 +118,19 @@ Luis Coste respalda su conocimiento con **14 certificaciones internacionales** v
 
 ---
 
-## 🤖 Consultor Técnico Virtual con IA & Sistema de Agendamiento
+## 🤖 Consultor Técnico Virtual con IA & Agendamiento
 
-La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**, un asistente técnico guiado por la API de **Google Gemini** a través de un proxy Serverless en **FastAPI** (desplegado en **Vercel**):
+La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**, un asistente técnico guiado por la API de **Google Gemini** a través de un backend Serverless en **FastAPI** (desplegado en **Vercel**):
 
 - **Gatekeeper de Captura (Leads):** Formulario previo para registrar Nombre, Correo e Idea de Proyecto antes de habilitar el chat.
-- **Anonimización PII en Tiempo Real:** El backend sanitiza nombres y correos reemplazándolos por identificadores genéricos antes de consultar el modelo de IA.
+- **Anonimización PII en Tiempo Real:** El backend sanitiza nombres y correos reemplazándolos por tokens genéricos (`[REDACTED_NAME]`, `[REDACTED_EMAIL]`) antes de consultar el modelo de IA.
 - **Agendamiento y Reagendamiento Inteligente (`SchedulingModal.tsx` & Gemini Function Calling):**
   - Permite agendar videollamadas de 30 minutos de forma interactiva seleccionando días y horas hábiles en un selector visual de bloques disponibles.
-  - Soporte conversacional para consultar el estado de la cita (`get_my_scheduled_meeting`), agendar (`schedule_meeting`) y reagendar (`reschedule_meeting`) cancelando automáticamente el evento anterior en Google Calendar.
+  - Soporte conversacional para consultar el estado de la cita (`get_my_scheduled_meeting`), agendar (`schedule_meeting`) y reagendar (`reschedule_meeting`) cancelando automáticamente el evento anterior en Google Calendar sin dejar duplicados.
 - **Experiencia de Usuario Fluida (UX):** Auto-enfoque inteligente del campo de texto (`chatInputRef`) al finalizar cada turno de respuesta de la IA, permitiendo una interacción ágil sin clics redundantes.
 - **Parser de Markdown Personalizado:** Formatea respuestas con bloques de código resaltados, listas anidadas, viñetas y texto enriquecido.
-- **Conexión Dinámica de Backend (`getApiUrl`):** Detecta dinámicamente el entorno de ejecución (`VITE_API_BASE_URL` apuntando a Vercel Serverless Function en producción o `localhost:8000` en desarrollo).
-- **Notificaciones y Auditoría Automáticas:** Al finalizar, agendar o reagendar, el backend notifica de inmediato al bot de Telegram y confirma la cita por correo electrónico vía SMTP TLS.
+- **Conexión Dinámica de Backend (`getApiUrl`):** Detecta dinámicamente el entorno de ejecución (`VITE_API_BASE_URL` apuntando a la Serverless Function en producción o `localhost:8000` en desarrollo local).
+- **Notificaciones y Auditoría Automáticas:** Al finalizar o agendar, el backend notifica de inmediato al bot de Telegram y confirma la cita por correo electrónico vía SMTP TLS.
 
 ---
 
@@ -139,29 +139,29 @@ La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**,
 El portafolio incluye una infraestructura completa de cumplimiento legal accesible desde el pie de página (`Footer.tsx`):
 
 1. 🛡️ **Tratamiento de Datos Personales (Ley 1581 de 2012 - Colombia):** Regula la recolección confidencial de datos personales para la formulación de propuestas comerciales y el ejercicio de derechos ARCO (Acceso, Rectificación, Cancelación y Oposición).
-2. 🔒 **Política de Privacidad:** Establece que no se almacenan datos permanentes sin consentimiento y garantiza la seguridad de mensajes por WhatsApp y correo.
+2. 🔒 **Política de Privacidad:** Detalla que los datos personales se cifran en reposo con AES-GCM/Fernet, no se comparten con terceros ni con proveedores de IA en texto plano y no se almacenan permanentemente sin consentimiento.
 3. 🍪 **Política de Cookies & Consola de Configuración:**
    - **Cookies Esenciales:** Persisten tema (Claro/Oscuro) e idioma (`lfcc-portfolio-lang`). Obligatorias.
-   - **Cookies Analíticas & Marketing:** Configurables por el usuario desde el modal interactivo o el banner inferior.
-4. 📄 **Términos y Condiciones:** Protege la propiedad intelectual de los desarrollos, códigos e imágenes exhibidas.
+   - **Cookies Analíticas & Marketing:** Configurables por el usuario desde el banner interactivo superior/inferior o desde el panel de preferencias.
+4. 📄 **Términos y Condiciones:** Protege la propiedad intelectual de los desarrollos, códigos y marcas exhibidas.
 
 ---
 
 ## 🌟 Componentes e Infraestructura Frontend
 
-| Componente | Archivo | Descripción Téćnica |
+| Componente | Archivo | Descripción Técnica |
 |---|---|---|
 | **Canvas Celestial** | [ParticleCanvas.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ParticleCanvas.tsx) | Motor de render en HTML5 Canvas con constelaciones titilantes y meteoros fugaces. Reduce en 70% los cálculos en dispositivos móviles para sostener **60 FPS**. |
 | **Navegación** | [Navigation.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Navigation.tsx) | Menú responsive con telón translúcido (`backdrop-blur-md bg-[#01060c]/96`), selector de idioma (ES/EN) e interruptor de Tema. |
-| **Hero** | [Hero.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Hero.tsx) | Bienvenida principal con blobs de luz orbitantes y animaciones escalonadas de Framer Motion. |
+| **Hero** | [Hero.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Hero.tsx) | Bienvenida principal con blobs de luz orbitantes y animaciones escalonadas de Motion. |
 | **Sobre Mí** | [AboutMe.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AboutMe.tsx) | Biografía narrativa integrada con un carrusel interactivo de imágenes profesionales (`embla-carousel-react`). |
 | **Tecnologías** | [Technologies.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Technologies.tsx) | Cuadrícula interactiva clasificada por categorías (Frontend, Backend, Herramientas) con iluminación dinámica hover. |
-| **Proyectos** | [Projects.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Projects.tsx) | Galería filtrable con transiciones fluidas (`AnimatePresence`) y modales adaptativos con scroll táctil inercial. |
-| **Certificados** | [Certificates.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Certificates.tsx) | Carrusel 3D con tarjetas volteables (*Flip Card*), sellos holográficos y modal de previsualización. |
-| **Contacto** | [ContactForm.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ContactForm.tsx) | Formulario con validación en tiempo real y generador dinámico de mensajes para WhatsApp con códigos de discado internacional. |
-| **Modal Agendamiento** | [SchedulingModal.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/SchedulingModal.tsx) | Modal interactivo para selección visual de fecha y slots de 30 minutos conectados con Google Calendar. |
-| **Asistente IA** | [AiChatSection.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AiChatSection.tsx) | Consultor técnico virtual interactivo con soporte de streaming/markdown y agendamiento por lenguaje natural. |
-| **Footer & Legales** | [Footer.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Footer.tsx) | Modales de políticas legales, banner de cookies y enlaces a redes sociales oficiales. |
+| **Proyectos** | [Projects.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Projects.tsx) | Galería filtrable con transiciones fluidas (`AnimatePresence`) y modales adaptativos con videos y especificaciones completas. |
+| **Certificados** | [Certificates.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Certificates.tsx) | Carrusel 3D con tarjetas volteables (*Flip Card*), sellos holográficos y modal interactivo de previsualización. |
+| **Contacto** | [ContactForm.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ContactForm.tsx) | Formulario con validación en tiempo real, selector adaptativo de indicativo de país y generador directo de mensajes para WhatsApp. |
+| **Modal Agendamiento** | [SchedulingModal.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/SchedulingModal.tsx) | Modal interactivo para selección visual de fecha y slots de 30 minutos conectados con Google Calendar y Google Meet. |
+| **Asistente IA** | [AiChatSection.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AiChatSection.tsx) | Consultor técnico virtual interactivo con soporte de streaming/markdown, auto-enfoque tras respuesta y agendamiento por lenguaje natural. |
+| **Footer & Legales** | [Footer.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Footer.tsx) | Modales de políticas legales (Ley 1581), banner de consentimiento de cookies y enlaces a redes sociales oficiales. |
 | **Atajos Flotantes** | [FloatingButtons.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/FloatingButtons.tsx) | Botones de acceso rápido a WhatsApp, Gmail y Agendamiento de citas con disparadores sincronizados. |
 
 ---
@@ -176,19 +176,19 @@ lfcc-portafolio/
 │   └── videos/                  # Demostraciones en video de proyectos
 ├── src/
 │   ├── App.tsx                  # Componente raíz y orquestación de secciones
-│   ├── main.tsx                 # Punto de entrada de React 18
-│   ├── index.css                # Estilos globales y variables Tailwind (Crystal Glassmorphism)
+│   ├── main.tsx                 # Punto de entrada de React 19
+│   ├── index.css                # Estilos globales y variables Tailwind v4 (Crystal Glassmorphism)
 │   ├── types.ts                 # Declaraciones y tipos globales TypeScript
 │   ├── components/              # Componentes de UI modulares y reactivos
 │   │   ├── Navigation.tsx       # Barra de navegación e i18n
 │   │   ├── Hero.tsx             # Sección de presentación principal
-│   │   ├── AboutMe.tsx          # Historia personal y carrusel
+│   │   ├── AboutMe.tsx          # Historia personal y carrusel de fotos
 │   │   ├── Technologies.tsx     # Stack de habilidades técnicas
-│   │   ├── Projects.tsx         # Galería de casos de estudio
+│   │   ├── Projects.tsx         # Galería de casos de estudio y videos
 │   │   ├── Certificates.tsx     # Carrusel de certificaciones 3D
-│   │   ├── ContactForm.tsx      # Formulario para WhatsApp
+│   │   ├── ContactForm.tsx      # Formulario para WhatsApp con indicativos
 │   │   ├── SchedulingModal.tsx  # Modal de agendamiento de reuniones con Calendar
-│   │   ├── Footer.tsx           # Pie de página, cookies y políticas
+│   │   ├── Footer.tsx           # Pie de página, cookies y políticas legales
 │   │   ├── FloatingButtons.tsx  # Atajos directos de contacto y agendamiento
 │   │   ├── AiChatSection.tsx    # Consultor virtual con Gemini AI
 │   │   ├── CVButton.tsx         # Botón de descarga de CV
@@ -204,10 +204,12 @@ lfcc-portafolio/
 │   │   ├── certificates.ts      # Base de datos de certificados
 │   │   ├── technologies.ts      # Base de datos de tecnologías
 │   │   └── social-links.ts      # Enlaces a redes profesionales
+│   ├── lib/                     # Utilidades
+│   │   └── utils.ts             # Funciones auxiliares de clases CSS (cn)
 │   └── hooks/                   # Hooks personalizados
 │       └── use-reveal-on-scroll.ts # Animaciones al hacer scroll
 ├── package.json                 # Dependencias y scripts del proyecto
-├── vite.config.ts               # Configuración de empaquetado Vite
+├── vite.config.ts               # Configuración de empaquetado Vite 6
 └── README.md                    # Documentación técnica oficial del proyecto
 ```
 
@@ -215,10 +217,11 @@ lfcc-portafolio/
 
 ## ⚡ Estrategias de Optimización y UX
 
-1. **Aceleración Hardware GPU:** Animaciones ejecutadas sobre transformaciones CSS (`transform` y `opacity`) procesadas por GPU.
-2. **Mobile First Rendering:** Canvas optimizado eliminando sombras gaussianas y reduciendo 70% de partículas en smartphones.
+1. **Aceleración por Hardware GPU:** Animaciones ejecutadas sobre transformaciones CSS (`transform` y `opacity`) optimizadas para GPU.
+2. **Mobile-First Rendering:** Canvas optimizado eliminando sombras gaussianas pesadas y reduciendo 70% de partículas en smartphones para sostener **60 FPS**.
 3. **Persistencia de Preferencias:** Preferencias de cookies, idioma y tema almacenadas en `localStorage`.
-4. **Diseño Adaptativo (Responsive):** Ajustes de viewport (`vh`) en modales para evitar alteraciones de interfaz en dispositivos táctiles.
+4. **Diseño Adaptativo (Responsive):** Ajustes de viewport (`vh`) en modales para evitar alteraciones de interfaz al desplegar teclados virtuales en dispositivos táctiles.
+5. **Auto-Enfoque Inteligente:** Foco inmediato en el input del chat de IA al concluir la generación de respuestas para dinamizar la conversación.
 
 ---
 
@@ -228,8 +231,8 @@ Para ejecutar este proyecto localmente en tu máquina:
 
 1. **Clonar el repositorio e instalar dependencias:**
    ```bash
-   git clone https://github.com/luisfcostec/lfcc-portafolio.git
-   cd lfcc-portafolio
+   git clone https://github.com/LuisFCosteC/Portfolio_LFCC_V2.git
+   cd Portfolio_LFCC_V2
    npm install
    ```
 
@@ -239,12 +242,17 @@ Para ejecutar este proyecto localmente en tu máquina:
    ```
    > Accede desde tu navegador en `http://localhost:3000` (o desde tu red local mediante `--host=0.0.0.0`).
 
-3. **Compilar para producción:**
+3. **Verificar tipado con TypeScript:**
+   ```bash
+   npm run lint
+   ```
+
+4. **Compilar para producción:**
    ```bash
    npm run build
    ```
 
-4. **Probar build de producción:**
+5. **Probar build de producción:**
    ```bash
    npm run preview
    ```

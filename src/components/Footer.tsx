@@ -756,7 +756,7 @@ export default function Footer() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className={`fixed bottom-6 right-6 left-6 md:left-auto md:max-w-md z-50 p-5 rounded-2xl border backdrop-blur-xl shadow-2xl transition-all duration-300 ${
+            className={`fixed top-28 left-6 right-6 md:top-auto md:bottom-6 md:mx-auto md:max-w-md z-50 p-5 rounded-2xl border backdrop-blur-xl shadow-2xl transition-all duration-300 ${
               isDark 
                 ? 'bg-[#030d16]/95 border-green-500/20 text-gray-100 shadow-green-950/40 shadow-[0_15px_50px_rgba(0,0,0,0.8)]' 
                 : 'bg-white/95 border-slate-200 text-slate-800 shadow-slate-300/40 shadow-[0_15px_50px_rgba(0,0,0,0.15)]'
