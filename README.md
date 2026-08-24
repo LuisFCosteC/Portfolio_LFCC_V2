@@ -21,6 +21,7 @@ La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glass
 - [👨‍💻 Perfil Profesional](#-perfil-profesional)
 - [🌐 Enlaces Oficiales y Contacto](#-enlaces-oficiales-y-contacto)
 - [🛠️ Stack Tecnológico Completo](#️-stack-tecnológico-completo)
+- [📈 Gráficas del Stack y Patrón de Uso](#-gráficas-del-stack-y-patrón-de-uso)
 - [📊 Diagramas de Flujo del Sistema](#-diagramas-de-flujo-del-sistema)
 - [🗺️ Diagramas de Flujo y Experiencia de Usuario](#️-diagramas-de-flujo-y-experiencia-de-usuario)
 - [🚀 Catálogo de Proyectos y Casos de Estudio](#-catálogo-de-proyectos-y-casos-de-estudio)
@@ -82,6 +83,41 @@ El dominio técnico de Luis Coste abarca tres categorías principales presentada
 - **Videoconferencias:** Zoom API (Server-to-Server OAuth), Google Calendar API v3.
 - **Pruebas & Herramientas:** Postman, Swagger / OpenAPI, Figma.
 - **Integración de Inteligencia Artificial:** Google Gemini API, Genkit AI, Claude AI, Google AI Studio, Antigravity.
+
+---
+
+## 📈 Gráficas del Stack y Patrón de Uso
+
+### 1. Distribución del Stack Tecnológico
+
+```mermaid
+pie showData
+    title Composición del Stack por Categoría (piezas tecnológicas)
+    "Backend & Bases de Datos" : 20
+    "Herramientas, DevOps & IA" : 16
+    "Frontend" : 14
+```
+
+### 2. Patrón de Uso Típico de un Visitante (Diagrama de Estados)
+
+```mermaid
+stateDiagram-v2
+    [*] --> Landing
+    Landing --> Explorando: Scroll / Navegación
+    Explorando --> VistaProyectos: Clic en Proyectos
+    VistaProyectos --> ModalProyecto: Ver Demo / Video
+    ModalProyecto --> VistaProyectos: Cerrar
+    Explorando --> VistaCertificados: Clic en Certificados
+    Explorando --> ChatIA: Abrir Robotino
+    ChatIA --> LeadCapturado: Completa formulario gatekeeper
+    LeadCapturado --> Conversando: Chatea con Gemini
+    Conversando --> Agendando: Solicita reunión por chat
+    Explorando --> Agendando: Clic en "Agendar Cita"
+    Agendando --> ReunionConfirmada: Selecciona horario disponible
+    ReunionConfirmada --> [*]
+    Explorando --> FormularioContacto: Llena Contáctame
+    FormularioContacto --> [*]
+```
 
 ---
 
