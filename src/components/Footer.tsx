@@ -271,11 +271,11 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Cookies Técnicas y Esenciales</h4>
-            <p className="text-xs leading-relaxed">Utilizamos almacenamiento local puramente técnico para guardar su selección de idioma (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-red-500 font-mono text-[10px]">lfcc-portfolio-lang</code>) y su preferencia de tema oscuro/claro, de modo que su experiencia de usuario sea consistente y fluida.</p>
+            <p className="text-xs leading-relaxed">Utilizamos almacenamiento local puramente técnico para guardar su selección de idioma y su preferencia de tema oscuro/claro, de modo que su experiencia de usuario sea consistente y fluida.</p>
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Datos del Asistente de IA</h4>
-            <p className="text-xs leading-relaxed">Si conversa con nuestro asistente de IA, guardamos localmente en su navegador (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-red-500 font-mono text-[10px]">lfcc-portfolio-active-lead</code>) el nombre, correo y teléfono que usted proporciona, para no pedírselos de nuevo en su próxima visita desde el mismo navegador. Esta misma información también se almacena de forma cifrada en nuestros servidores — ver la <strong>Política de Privacidad</strong> para más detalles.</p>
+            <p className="text-xs leading-relaxed">Si conversa con nuestro asistente de IA, guardamos localmente en su navegador el nombre, correo y teléfono que usted proporciona, para no pedírselos de nuevo en su próxima visita desde el mismo navegador. Esta misma información también se almacena de forma cifrada en nuestros servidores — ver la <strong>Política de Privacidad</strong> para más detalles.</p>
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Cookies de Rendimiento</h4>
@@ -296,11 +296,11 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Technical & Essential Cookies</h4>
-            <p className="text-xs leading-relaxed">We use purely technical local storage to save your language selection (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-red-500 font-mono text-[10px]">lfcc-portfolio-lang</code>) and visual theme, ensuring your user experience is consistent and seamless.</p>
+            <p className="text-xs leading-relaxed">We use purely technical local storage to save your language selection and visual theme, ensuring your user experience is consistent and seamless.</p>
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. AI Assistant Data</h4>
-            <p className="text-xs leading-relaxed">If you chat with our AI assistant, we locally store in your browser (<code className="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-red-500 font-mono text-[10px]">lfcc-portfolio-active-lead</code>) the name, email, and phone number you provide, so we don't have to ask again on your next visit from the same browser. This same information is also stored encrypted on our servers — see the <strong>Privacy Policy</strong> for details.</p>
+            <p className="text-xs leading-relaxed">If you chat with our AI assistant, we locally store in your browser the name, email, and phone number you provide, so we don't have to ask again on your next visit from the same browser. This same information is also stored encrypted on our servers — see the <strong>Privacy Policy</strong> for details.</p>
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">4. Performance Cookies</h4>
