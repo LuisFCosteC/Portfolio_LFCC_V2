@@ -217,7 +217,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Uso de la Información</h4>
-            <p className="text-xs leading-relaxed">Usamos estos datos para identificarlo durante la conversación, notificar a Luis F. Coste C. de su interés (por Telegram y correo), agendar y confirmar videollamadas en Google Calendar (generando un enlace de Google Meet) y enviarle un correo de confirmación. Antes de que el contenido de sus mensajes sea procesado por el motor de IA, su nombre y correo se anonimizan automáticamente.</p>
+            <p className="text-xs leading-relaxed">Usamos estos datos para identificarlo durante la conversación, notificar a Luis F. Coste C. de su interés (por Telegram y correo), agendar y confirmar videollamadas en Google Calendar (generando un enlace de Zoom) y enviarle un correo de confirmación. Antes de que el contenido de sus mensajes sea procesado por el motor de IA, su nombre y correo se anonimizan automáticamente.</p>
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Terceros y Encargados del Tratamiento</h4>
@@ -242,7 +242,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">2. Use of Information</h4>
-            <p className="text-xs leading-relaxed">We use this data to identify you during the conversation, notify Luis F. Coste C. of your interest (via Telegram and email), schedule and confirm video calls on Google Calendar (generating a Google Meet link), and send you a confirmation email. Before your message content is processed by the AI engine, your name and email are automatically anonymized.</p>
+            <p className="text-xs leading-relaxed">We use this data to identify you during the conversation, notify Luis F. Coste C. of your interest (via Telegram and email), schedule and confirm video calls on Google Calendar (generating a Zoom link), and send you a confirmation email. Before your message content is processed by the AI engine, your name and email are automatically anonymized.</p>
           </div>
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider mb-1 text-blue-600 dark:text-green-400">3. Third Parties & Data Processors</h4>

@@ -90,9 +90,24 @@ export default function Hero() {
                 {t('hero-name')}
               </h1>
 
-              <h2 id="hero-sub-heading" className="text-3xl sm:text-4xl font-black text-gradient-green w-fit">
+              <h2 id="hero-sub-heading" className="text-2xl sm:text-3xl lg:text-4xl font-black text-gradient-green leading-tight max-w-xl">
                 {t('hero-title')}
               </h2>
+
+              <a
+                id="hero-ceo-badge"
+                href="https://2code.com.co/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold w-fit tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 ${
+                  isDark
+                    ? 'bg-white/5 border border-white/10 text-gray-100 hover:border-green-400/60 hover:text-green-400'
+                    : 'bg-white/80 border border-slate-200/80 text-slate-700 hover:border-blue-400/80 hover:text-blue-600'
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5" />
+                {t('hero-ceo-badge')}
+              </a>
 
               <p id="hero-paragraph" className={`text-base sm:text-lg leading-relaxed max-w-xl transition-colors duration-500 ${isDark ? 'text-gray-100 font-medium' : 'text-slate-700'}`}>
                 {t('hero-desc')}

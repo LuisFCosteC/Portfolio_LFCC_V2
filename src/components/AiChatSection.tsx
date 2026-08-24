@@ -671,8 +671,8 @@ export default function AiChatSection() {
             setSelectedDate(null);
             setSelectedTime(null);
 
-            // Extract Google Meet link
-            const meetLink = data.meet_link || data.google_meet || data.link || 'https://meet.google.com';
+            // Extract Zoom meeting link
+            const meetLink = data.meet_link || data.zoom_link || data.link || '';
 
             // Print confirmation message
             const dayName = getDayName(selectedDate, language);
@@ -680,8 +680,8 @@ export default function AiChatSection() {
             const displayDateStr = `${dayName} ${dd} ${monthName} ${yyyy}`;
 
             const confirmText = language === 'es'
-                ? `¡Reunión agendada con éxito! 🎉 Nos reuniremos el **${displayDateStr}** a las **${timeSlot}**. Aquí tienes el enlace de Google Meet para unirte: ${meetLink}`
-                : `Meeting scheduled successfully! 🎉 We will meet on **${displayDateStr}** at **${timeSlot}**. Here is the Google Meet link to join: ${meetLink}`;
+                ? `¡Reunión agendada con éxito! 🎉 Nos reuniremos el **${displayDateStr}** a las **${timeSlot}**. Aquí tienes el enlace de Zoom para unirte: ${meetLink}`
+                : `Meeting scheduled successfully! 🎉 We will meet on **${displayDateStr}** at **${timeSlot}**. Here is the Zoom link to join: ${meetLink}`;
 
             setMessages((prev) => [...prev, {
                 id: `msg-${Date.now()}-bot-confirm`,

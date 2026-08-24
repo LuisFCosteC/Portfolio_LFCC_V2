@@ -106,7 +106,7 @@ const labels = {
         schedule: 'Confirmar Reunión',
         copied: '¡Copiado!',
         copy: 'Copiar Enlace',
-        successText: 'Nos reuniremos el {date} a las {time}. Aquí tienes tu enlace de Google Meet:',
+        successText: 'Nos reuniremos el {date} a las {time}. Aquí tienes tu enlace de Zoom:',
         close: 'Cerrar',
         requiredError: 'Por favor completa todos los campos requeridos.',
         emailError: 'Por favor introduce un correo válido.',
@@ -127,7 +127,7 @@ const labels = {
         schedule: 'Confirm Meeting',
         copied: 'Copied!',
         copy: 'Copy Link',
-        successText: 'We will meet on {date} at {time}. Here is your Google Meet link:',
+        successText: 'We will meet on {date} at {time}. Here is your Zoom link:',
         close: 'Close',
         requiredError: 'Please fill out all required fields.',
         emailError: 'Please enter a valid email address.',
@@ -343,7 +343,7 @@ export default function SchedulingModal() {
             }
 
             const data = await response.json();
-            const link = data.meet_link || data.google_meet || data.link || 'https://meet.google.com';
+            const link = data.meet_link || data.zoom_link || data.link || '';
 
             setMeetLink(link);
             setSelectedTime(timeSlot);

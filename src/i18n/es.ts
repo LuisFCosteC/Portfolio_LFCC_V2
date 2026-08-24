@@ -13,7 +13,8 @@ export const es = {
   // Hero
   'hero-greeting': '¡Hola! Un placer conocerte, soy',
   'hero-name': 'Luis Fernando Coste Contreras',
-  'hero-title': 'Desarrollador de Software',
+  'hero-title': 'Desarrollador de Software a la Medida y Creador de Software',
+  'hero-ceo-badge': 'CEO de 2Code',
   'hero-desc': 'Apasionado por el diseño de arquitecturas eficientes, el código limpio y la construcción de sistemas escalables de alta disponibilidad. Combino la lógica del backend con experiencias refinadas en el frontend para dar vida a soluciones integrales.',
 
   // About Me

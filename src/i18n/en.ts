@@ -13,7 +13,8 @@ export const en = {
   // Hero
   'hero-greeting': "Hi! Pleased to meet you, I'm",
   'hero-name': 'Luis Fernando Coste Contreras',
-  'hero-title': 'Software Developer',
+  'hero-title': 'Custom Software Developer & Software Creator',
+  'hero-ceo-badge': 'CEO of 2Code',
   'hero-desc': 'Passionate about designing efficient architectures, clean code, and building highly available, scalable systems. I combine backend logic with refined frontend experiences to build comprehensive digital solutions.',
 
   // About Me

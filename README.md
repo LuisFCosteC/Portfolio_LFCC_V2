@@ -7,12 +7,12 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Zoom API](https://img.shields.io/badge/Zoom-Server--to--Server_OAuth-2D8CFF?style=for-the-badge&logo=zoom&logoColor=white)
 ![Gemini AI](https://img.shields.io/badge/Gemini_AI-API-8E75FF?style=for-the-badge&logo=googlegemini&logoColor=white)
 
 Este repositorio contiene la plataforma web personal e interactiva de **Luis Fernando Coste Contreras (LFCC)**, un espacio digital de alto rendimiento diseñado y desarrollado bajo arquitectura **Single Page Application (SPA)** con **React 19**, **TypeScript**, **Tailwind CSS v4**, **Motion** (`motion/react`) e integración con **Inteligencia Artificial (Google Gemini API / FastAPI)**.
 
-La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glassmorphism**, un motor de partículas estelares en tiempo real en HTML5 Canvas, internacionalización nativa en dos idiomas (**Español** e **Inglés**), un consultor técnico virtual con IA ("Robotino"), sistema de agendamiento de videollamadas con Google Calendar/Meet y un gestor completo de privacidad y cumplimiento legal.
+La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glassmorphism**, un motor de partículas estelares en tiempo real en HTML5 Canvas (60 FPS en desktop y móvil), internacionalización nativa en dos idiomas (**Español** e **Inglés**), un consultor técnico virtual con IA (**Robotino**), sistema de agendamiento de videollamadas con **Zoom** y **Google Calendar**, y un gestor completo de privacidad y cumplimiento legal.
 
 ---
 
@@ -21,6 +21,8 @@ La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glass
 - [👨‍💻 Perfil Profesional](#-perfil-profesional)
 - [🌐 Enlaces Oficiales y Contacto](#-enlaces-oficiales-y-contacto)
 - [🛠️ Stack Tecnológico Completo](#️-stack-tecnológico-completo)
+- [📊 Diagramas de Flujo del Sistema](#-diagramas-de-flujo-del-sistema)
+- [🗺️ Diagramas de Flujo y Experiencia de Usuario](#️-diagramas-de-flujo-y-experiencia-de-usuario)
 - [🚀 Catálogo de Proyectos y Casos de Estudio](#-catálogo-de-proyectos-y-casos-de-estudio)
 - [📜 Certificaciones y Credenciales Académicas](#-certificaciones-y-credenciales-académicas)
 - [🤖 Consultor Técnico Virtual con IA & Agendamiento](#-consultor-técnico-virtual-con-ia--agendamiento)
@@ -35,7 +37,7 @@ La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glass
 ## 👨‍💻 Perfil Profesional
 
 ### **Luis Fernando Coste Contreras**
-**Desarrollador de Software Full-Stack & Arquitecto de Soluciones Digitales**
+**Desarrollador de Software a la Medida, Creador de Software & Arquitecto Full-Stack**
 
 Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean Code*) y la construcción de sistemas escalables de alta disponibilidad. Combina la rigurosidad lógica de la arquitectura Backend (diseño de APIs RESTful robustas, optimización de bases de datos relacionales y distribuidas, e integración de comunicaciones en tiempo real) con la versatilidad interactiva del Frontend moderno.
 
@@ -43,7 +45,7 @@ Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean
 
 * **Filosofía:** Separación de conceptos (*Decoupled / SoC*), tipado estricto, desarrollo guiado por rendimiento y aprendizaje continuo.
 * **Sede Principal:** Colombia 🇨🇴
-* **Marca Corporativa:** Fundador & Líder de Desarrollo en **2Code** ([2code.com.co](https://2code.com.co/)).
+* **Marca Corporativa:** Fundador & CEO en **2Code** ([2code.com.co](https://2code.com.co/)).
 
 ---
 
@@ -51,6 +53,7 @@ Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean
 
 - 💼 **LinkedIn:** [linkedin.com/in/luisfcostec](https://linkedin.com/in/luisfcostec)
 - 🐙 **GitHub:** [github.com/LuisFCosteC](https://github.com/LuisFCosteC)
+- 🏢 **Empresa:** [2code.com.co](https://2code.com.co/)
 - 📧 **Correo Electrónico:** [luisfcostec@gmail.com](mailto:luisfcostec@gmail.com)
 - 💬 **WhatsApp Directo:** [+57 304 204 2752](https://wa.me/+573042042752)
 - 🎮 **Discord:** [luisfcostec](https://discord.com/users/luisfcostec)
@@ -74,10 +77,137 @@ El dominio técnico de Luis Coste abarca tres categorías principales presentada
 - **Comunicación & Tiempo Real:** WebSockets (`socket.io`), APIs RESTful, Middleware CORS, JSON Web Tokens.
 - **Bases de Datos & ORMs:** MySQL, Microsoft SQL Server, PostgreSQL, Turso (libSQL) / SQLite, Upstash Redis, Entity Framework Core, Prisma.
 
-### 3. 🛠️ Herramientas, Entornos e IA
+### 3. 🛠️ Herramientas, Entornos, Videollamadas e IA
 - **Control de Versiones & DevOps:** Git, GitHub, Git Bash, Docker, Vercel, Render.
+- **Videoconferencias:** Zoom API (Server-to-Server OAuth), Google Calendar API v3.
 - **Pruebas & Herramientas:** Postman, Swagger / OpenAPI, Figma.
 - **Integración de Inteligencia Artificial:** Google Gemini API, Genkit AI, Claude AI, Google AI Studio, Antigravity.
+
+---
+
+## 📊 Diagramas de Flujo del Sistema
+
+### 1. Arquitectura General y Flujo de Estados del Frontend
+
+```mermaid
+flowchart TD
+    A[Usuario ingresa al Portafolio] --> B[Inicializar App React 19 & ThemeContext]
+    B --> C[Cargar preferencias: Idioma ES/EN y Tema Dark/Light desde LocalStorage]
+    B --> D[Iniciar bucle de animación HTML5 ParticleCanvas 60 FPS]
+    
+    C --> E[Renderizar Secciones del Portafolio]
+    E --> F[Navigation Bar]
+    E --> G[Hero Section & CEO 2Code Badge]
+    E --> H[About Me & Carrusel de Fotos]
+    E --> I[Technologies Grid]
+    E --> J[Projects Showcase con Videos]
+    E --> K[3D Flip-Card Certificates]
+    E --> L[Contact Form WhatsApp con Discado]
+    E --> M[Footer & Políticas Legales]
+
+    E --> N{Interacción Especial}
+    N -->|Clic en Botón Flotante / Chat| O[AiChatSection - Robotino]
+    N -->|Clic en Agendar Cita| P[SchedulingModal]
+
+    O --> Q{¿Lead Registrado?}
+    Q -->|No| R[Mostrar Formulario Gatekeeper]
+    R -->|Registrar Nombre/Correo/Proyecto| S[Desbloquear Chat & Guardar Sesión]
+    Q -->|Sí| T[Intercambio de Mensajes con Gemini API]
+    T --> U[Auto-enfoque en Input tras Respuesta]
+
+    P --> V[Consultar Slots Ocupados GET /api/occupied-slots]
+    V --> W[Seleccionar Día y Hora Hábil en Calendario Visual]
+    W --> X[Enviar POST /api/schedule-meeting]
+    X --> Y[Mostrar Enlace de Zoom y Enviar Confirmación]
+```
+
+---
+
+## 🗺️ Diagramas de Flujo y Experiencia de Usuario
+
+### 1. Flujo de Navegación y Descubrimiento de Contenido (User Journey)
+
+```mermaid
+flowchart LR
+    subgraph Entrada["1. Descubrimiento"]
+        U1[Visitante llega a la Web] --> U2[Visualiza Hero & Titulación CEO 2Code]
+        U2 --> U3[Ajusta Tema Claro/Oscuro e Idioma ES/EN]
+    end
+
+    subgraph Evaluacion["2. Exploración Técnica"]
+        U3 --> U4[Revisa Trayectoria & Carrusel 'Sobre Mí']
+        U4 --> U5[Explora Habilidades en Cuadrícula Tecnológica]
+        U5 --> U6[Inspecciona Proyectos con Demos & Videos]
+        U6 --> U7[Gira Certificaciones 3D y Comprueba Credenciales]
+    end
+
+    subgraph Conversion["3. Contacto & Conversión"]
+        U7 --> U8{Canal de Contacto}
+        U8 -->|Rápido| U9[Formulario Directo a WhatsApp]
+        U8 -->|Consultoría Virtual| U10[Chat Interactivo con Robotino IA]
+        U8 -->|Reunión Directa| U11[Agendar Videollamada Zoom en Modal]
+        U8 -->|Curriculum| U12[Descargar CV en PDF]
+    end
+```
+
+### 2. Flujo de Interacción con el Asistente IA ("Robotino")
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Usuario
+    participant ChatUI as AiChatSection (React)
+    participant Backend as FastAPI Serverless (/api/chat)
+    participant IA as Google Gemini (Function Calling)
+    participant Zoom as Zoom & Calendar Engine
+    participant Telegram as Telegram Bot / Email
+
+    Usuario->>ChatUI: Clic en Asistente Virtual IA
+    alt Usuario no registrado
+        ChatUI->>Usuario: Solicita Nombre, Correo y Propósito
+        Usuario->>ChatUI: Completa datos de Lead
+    end
+    Usuario->>ChatUI: Escribe mensaje técnico / "¿Cuándo nos reunimos?"
+    ChatUI->>Backend: POST /api/chat (Mensaje + Historial)
+    Backend->>Backend: Sanitiza y anonimiza PII ([REDACTED_NAME], [REDACTED_EMAIL])
+    Backend->>IA: Prompt anonimizado con Tools registradas
+    
+    alt Gemini decide invocar Tool (Agendamiento/Reagendamiento)
+        IA-->>Backend: Function Call: schedule_meeting(slot_datetime)
+        Backend->>Zoom: Crear Sala Zoom + Google Calendar Event
+        Zoom-->>Backend: Zoom Link generado
+        Backend-->>IA: Tool Result (Éxito + Enlace)
+        IA-->>Backend: Respuesta final contextualizada
+    else Consulta Técnica Directa
+        IA-->>Backend: Respuesta técnica elaborada
+    end
+
+    Backend-->>ChatUI: Retorna respuesta en Markdown + Enlace
+    ChatUI->>Usuario: Renderiza Markdown enriquecido con código resaltado
+    ChatUI->>ChatUI: Auto-enfoca automáticamente el campo de texto (UX)
+    Backend-)Telegram: Notifica resumen y lead en tiempo real
+```
+
+### 3. Flujo del Modal de Agendamiento Visual (`SchedulingModal.tsx`)
+
+```mermaid
+flowchart TD
+    A[Usuario presiona 'Agendar Cita'] --> B[Se abre SchedulingModal.tsx]
+    B --> C[Fetch GET /api/occupied-slots]
+    C --> D[Renderizar Selector de Fecha: Próximas 3 semanas hábiles]
+    D --> E[Usuario selecciona un día hábil Lunes-Viernes]
+    E --> F[Filtrar y mostrar slots de 30 min libres entre 08:00 y 19:30 UTC-5]
+    F --> G[Usuario selecciona horario y digita Nombre, Correo y Teléfono]
+    G --> H[Validación de campos en tiempo real]
+    H -->|Campos inválidos| I[Mostrar alerta descriptiva]
+    H -->|Campos correctos| J[POST /api/schedule-meeting]
+    
+    J --> K{Respuesta del Backend}
+    K -->|SLOT_OCCUPIED| L[Mostrar mensaje de colisión y refrescar slots]
+    K -->|ERROR / REDIS LIMIT| M[Mostrar mensaje de reintento]
+    K -->|ÉXITO| N[Mostrar Enlace de Zoom generado y botón 'Copiar']
+    N --> O[Despachar correos de confirmación a Lead y a Luis Coste]
+```
 
 ---
 
@@ -126,7 +256,7 @@ La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**,
 - **Anonimización PII en Tiempo Real:** El backend sanitiza nombres y correos reemplazándolos por tokens genéricos (`[REDACTED_NAME]`, `[REDACTED_EMAIL]`) antes de consultar el modelo de IA.
 - **Agendamiento y Reagendamiento Inteligente (`SchedulingModal.tsx` & Gemini Function Calling):**
   - Permite agendar videollamadas de 30 minutos de forma interactiva seleccionando días y horas hábiles en un selector visual de bloques disponibles.
-  - Soporte conversacional para consultar el estado de la cita (`get_my_scheduled_meeting`), agendar (`schedule_meeting`) y reagendar (`reschedule_meeting`) cancelando automáticamente el evento anterior en Google Calendar sin dejar duplicados.
+  - Soporte conversacional para consultar el estado de la cita (`get_my_scheduled_meeting`), agendar (`schedule_meeting`) y reagendar (`reschedule_meeting`) cancelando automáticamente el evento anterior en Google Calendar y Zoom sin dejar duplicados.
 - **Experiencia de Usuario Fluida (UX):** Auto-enfoque inteligente del campo de texto (`chatInputRef`) al finalizar cada turno de respuesta de la IA, permitiendo una interacción ágil sin clics redundantes.
 - **Parser de Markdown Personalizado:** Formatea respuestas con bloques de código resaltados, listas anidadas, viñetas y texto enriquecido.
 - **Conexión Dinámica de Backend (`getApiUrl`):** Detecta dinámicamente el entorno de ejecución (`VITE_API_BASE_URL` apuntando a la Serverless Function en producción o `localhost:8000` en desarrollo local).
@@ -153,13 +283,13 @@ El portafolio incluye una infraestructura completa de cumplimiento legal accesib
 |---|---|---|
 | **Canvas Celestial** | [ParticleCanvas.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ParticleCanvas.tsx) | Motor de render en HTML5 Canvas con constelaciones titilantes y meteoros fugaces. Reduce en 70% los cálculos en dispositivos móviles para sostener **60 FPS**. |
 | **Navegación** | [Navigation.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Navigation.tsx) | Menú responsive con telón translúcido (`backdrop-blur-md bg-[#01060c]/96`), selector de idioma (ES/EN) e interruptor de Tema. |
-| **Hero** | [Hero.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Hero.tsx) | Bienvenida principal con blobs de luz orbitantes y animaciones escalonadas de Motion. |
+| **Hero** | [Hero.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Hero.tsx) | Bienvenida principal con blobs de luz orbitantes, titulación de CEO de 2Code y animaciones escalonadas de Motion. |
 | **Sobre Mí** | [AboutMe.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AboutMe.tsx) | Biografía narrativa integrada con un carrusel interactivo de imágenes profesionales (`embla-carousel-react`). |
 | **Tecnologías** | [Technologies.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Technologies.tsx) | Cuadrícula interactiva clasificada por categorías (Frontend, Backend, Herramientas) con iluminación dinámica hover. |
 | **Proyectos** | [Projects.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Projects.tsx) | Galería filtrable con transiciones fluidas (`AnimatePresence`) y modales adaptativos con videos y especificaciones completas. |
 | **Certificados** | [Certificates.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Certificates.tsx) | Carrusel 3D con tarjetas volteables (*Flip Card*), sellos holográficos y modal interactivo de previsualización. |
 | **Contacto** | [ContactForm.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ContactForm.tsx) | Formulario con validación en tiempo real, selector adaptativo de indicativo de país y generador directo de mensajes para WhatsApp. |
-| **Modal Agendamiento** | [SchedulingModal.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/SchedulingModal.tsx) | Modal interactivo para selección visual de fecha y slots de 30 minutos conectados con Google Calendar y Google Meet. |
+| **Modal Agendamiento** | [SchedulingModal.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/SchedulingModal.tsx) | Modal interactivo para selección visual de fecha y slots de 30 minutos conectados con Google Calendar y Zoom. |
 | **Asistente IA** | [AiChatSection.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AiChatSection.tsx) | Consultor técnico virtual interactivo con soporte de streaming/markdown, auto-enfoque tras respuesta y agendamiento por lenguaje natural. |
 | **Footer & Legales** | [Footer.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Footer.tsx) | Modales de políticas legales (Ley 1581), banner de consentimiento de cookies y enlaces a redes sociales oficiales. |
 | **Atajos Flotantes** | [FloatingButtons.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/FloatingButtons.tsx) | Botones de acceso rápido a WhatsApp, Gmail y Agendamiento de citas con disparadores sincronizados. |
@@ -187,7 +317,7 @@ lfcc-portafolio/
 │   │   ├── Projects.tsx         # Galería de casos de estudio y videos
 │   │   ├── Certificates.tsx     # Carrusel de certificaciones 3D
 │   │   ├── ContactForm.tsx      # Formulario para WhatsApp con indicativos
-│   │   ├── SchedulingModal.tsx  # Modal de agendamiento de reuniones con Calendar
+│   │   ├── SchedulingModal.tsx  # Modal de agendamiento de reuniones con Calendar y Zoom
 │   │   ├── Footer.tsx           # Pie de página, cookies y políticas legales
 │   │   ├── FloatingButtons.tsx  # Atajos directos de contacto y agendamiento
 │   │   ├── AiChatSection.tsx    # Consultor virtual con Gemini AI
