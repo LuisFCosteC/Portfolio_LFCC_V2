@@ -1,10 +1,90 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/images/LC_Icono.ico" />
-    <title>LFCC - Desarrollador de Software</title>
+
+    <!--
+      NOTA: el dominio de todas las etiquetas de abajo (canonical, og:url,
+      og:image, twitter:image, JSON-LD) es TEMPORAL -- el portafolio vive por
+      ahora en https://www.2code.com.co/ mientras 2Code no tiene su propio
+      hosting definitivo. Cuando eso cambie, buscar y reemplazar
+      "https://www.2code.com.co" por el dominio final en este archivo.
+    -->
+
+    <!-- Metadatos Principales -->
+    <title>Luis Fernando Coste | Desarrollador de Software & CEO de 2Code</title>
+    <meta name="description" content="Desarrollador de software especializado en arquitecturas escalables, sistemas en tiempo real, APIs REST y frontend moderno. CEO de 2Code. Agenda tu consulta técnica." />
+    <meta name="keywords" content="Luis Fernando Coste, Luis Coste, 2Code, desarrollador de software, desarrollo de software a la medida, desarrollador full stack, React, Next.js, FastAPI, Python, .NET Core, arquitectura de software" />
+    <meta name="author" content="Luis Fernando Coste Contreras" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.2code.com.co/" />
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.2code.com.co/" />
+    <meta property="og:title" content="Luis Fernando Coste | Desarrollador de Software & CEO de 2Code" />
+    <meta property="og:description" content="Diseño de arquitecturas eficientes, backend robusto y soluciones full-stack corporativas. Conoce mis proyectos y servicios en 2Code." />
+    <meta property="og:image" content="https://www.2code.com.co/images/Imagen_1.png" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Luis Fernando Coste" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Luis Fernando Coste | Desarrollador de Software & CEO de 2Code" />
+    <meta name="twitter:description" content="Soluciones de software corporativo a la medida, arquitecturas escalables y consultoría tecnológica." />
+    <meta name="twitter:image" content="https://www.2code.com.co/images/Imagen_1.png" />
+
+    <!-- Datos Estructurados (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.2code.com.co/#person",
+          "name": "Luis Fernando Coste Contreras",
+          "alternateName": "LFCC",
+          "jobTitle": "Desarrollador de Software & CEO",
+          "worksFor": { "@id": "https://www.2code.com.co/#organization" },
+          "url": "https://www.2code.com.co/",
+          "image": "https://www.2code.com.co/images/Imagen_1.png",
+          "email": "mailto:luisfcostec@gmail.com",
+          "sameAs": [
+            "https://linkedin.com/in/luisfcostec",
+            "https://github.com/LuisFCosteC"
+          ],
+          "knowsAbout": [
+            "Software Architecture",
+            "Full-Stack Development",
+            "FastAPI",
+            "Python",
+            "React",
+            "Next.js",
+            ".NET Core",
+            "WebSockets"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://www.2code.com.co/#organization",
+          "name": "2Code",
+          "url": "https://www.2code.com.co/",
+          "founder": { "@id": "https://www.2code.com.co/#person" },
+          "description": "Firma de consultoría tecnológica especializada en el diseño y desarrollo de arquitecturas de software a la medida y sistemas de alto rendimiento."
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.2code.com.co/#website",
+          "name": "Luis Fernando Coste | Portafolio",
+          "url": "https://www.2code.com.co/",
+          "publisher": { "@id": "https://www.2code.com.co/#person" },
+          "inLanguage": "es"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
