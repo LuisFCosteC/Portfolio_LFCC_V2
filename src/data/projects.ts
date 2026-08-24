@@ -20,7 +20,7 @@ export const projects: Project[] = [
     image: '/images/Proyecto_7.png',
     techs: ['nextjs', 'typescript', 'react', 'tailwindcss', 'shadcn', 'nodejs'],
     github: 'https://github.com/LuisFCosteC',
-    demo: 'https://2code.com.co/',
+    demo: 'https://www.2code.com.co/',
     videoUrl: '/videos/Proyecto_7.mp4',
     roleKey: 'proj-role-7',
     featuresKey: 'proj-features-7',

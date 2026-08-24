@@ -96,7 +96,7 @@ export default function Hero() {
 
               <a
                 id="hero-ceo-badge"
-                href="https://2code.com.co/"
+                href="https://www.2code.com.co/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold w-fit tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 ${
