@@ -51,7 +51,7 @@ const USFlag = () => (
 
 const languagesInfo = [
   { code: 'es' as const, label: 'ES', name: 'Español', flag: <ColombiaFlag /> },
-  { code: 'en-US' as const, label: 'US', name: 'Inglés Americano', flag: <USFlag /> }
+  { code: 'en' as const, label: 'US', name: 'Inglés Americano', flag: <USFlag /> }
 ];
 
 export default function Navigation() {
