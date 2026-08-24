@@ -155,7 +155,7 @@ export default function Hero() {
                   <img
                     id="hero-profile-img"
                     src="/images/Imagen_1.png"
-                    alt="Luis F. Coste C. Profile"
+                    alt="Luis Fernando Coste Contreras, Desarrollador de Software y CEO de 2Code"
                     referrerPolicy="no-referrer"
                     className="w-72 h-72 sm:w-[22rem] sm:h-[22rem] md:w-[25rem] md:h-[25rem] lg:w-[29rem] lg:h-[29rem] object-cover rounded-[1.75rem] transition-all duration-500 group-hover:scale-[1.02]"
                   />

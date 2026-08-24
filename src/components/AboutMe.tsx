@@ -182,6 +182,10 @@ export default function AboutMe() {
             <p id="about-narrative-p2" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
               {t('about-text-2')}
             </p>
+
+            <p id="about-narrative-p3" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
+              {t('about-text-3')}
+            </p>
           </div>
 
         </div>

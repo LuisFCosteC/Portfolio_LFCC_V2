@@ -22,6 +22,7 @@ export const en = {
   'about-subtitle': 'Who am I?',
   'about-text-1': 'I am a Software Developer focused on building efficient, highly scalable, and easy-to-maintain systems. My comprehensive perspective on development allows me to coordinate each phase of the software lifecycle with technical precision, translating business requirements into stable and secure digital solutions.',
   'about-text-2': 'My experience spans both the logical rigor of backend architecture (designing robust REST APIs, optimizing databases, and managing real-time data flows) and interactive versatility on the frontend. I am driven by technical curiosity, clean code, and continuous learning, backed by multiple certifications and an absolute commitment to technical excellence.',
+  'about-text-3': "I currently lead 2Code, my custom software development consulting firm, where I help businesses digitize their operations with robust, scalable, high-performance architectures.",
 
   // Technologies
   'tech-title': 'Core Technical Stack',

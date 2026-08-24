@@ -506,7 +506,7 @@ export default function Footer() {
           
           {/* Copyright */}
           <div id="footer-copyright" className="text-center sm:text-left">
-            <span>© {currentYear} LFCC &amp; <a href="https://2code.com.co/" target="_blank" rel="noopener noreferrer" className="hover:underline font-bold text-gradient-green">2Code</a>. {t('footer-rights')}</span>
+            <span>© {currentYear} LFCC &amp; <a href="https://www.2code.com.co/" target="_blank" rel="noopener noreferrer" className="hover:underline font-bold text-gradient-green">2Code</a>. {t('footer-rights')}</span>
           </div>
 
           {/* Author Credits */}

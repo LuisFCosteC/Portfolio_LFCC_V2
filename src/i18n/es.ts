@@ -22,6 +22,7 @@ export const es = {
   'about-subtitle': '¿Quién soy?',
   'about-text-1': 'Soy un Desarrollador de Software enfocado en construir sistemas eficientes, altamente escalables y de fácil mantenimiento. Mi perspectiva integral del desarrollo me permite coordinar cada fase del ciclo de vida del software con precisión técnica, traduciendo requerimientos de negocio en soluciones digitales estables y seguras.',
   'about-text-2': 'Mi experiencia abarca tanto la rigurosidad lógica de la arquitectura del backend (diseñando APIs REST robustas, optimizando bases de datos y controlando flujos de datos en tiempo real) como la versatilidad interactiva en el frontend. Me impulsa la curiosidad técnica, el clean code y el aprendizaje continuo, respaldando mi trayectoria con múltiples certificaciones y un compromiso absoluto con la excelencia técnica.',
+  'about-text-3': 'Actualmente lidero 2Code, mi firma de consultoría en desarrollo de software a la medida, donde ayudo a empresas a digitalizar sus operaciones con arquitecturas robustas, escalables y de alto rendimiento.',
 
   // Technologies
   'tech-title': 'Tecnologías que domino',
