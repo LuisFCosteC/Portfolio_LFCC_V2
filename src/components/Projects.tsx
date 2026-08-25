@@ -316,7 +316,7 @@ export default function Projects() {
                       isDark ? 'bg-[#041624] text-green-400/70 border border-green-500/5' : 'bg-slate-200/50 text-slate-500 border border-slate-300/20'
                     }`}>
                       {project.id === 6 
-                        ? 'ecokraf.vercel.app' 
+                        ? 'www.ecokraf.com.co' 
                         : project.id === 5
                         ? 'ventas-corp.local'
                         : project.id === 4

@@ -32,7 +32,7 @@ export const projects: Project[] = [
     image: '/images/Proyecto_6.png',
     techs: ['nextjs', 'typescript', 'react', 'tailwindcss', 'shadcn', 'genkit'],
     github: null,
-    demo: 'https://ecokraf.vercel.app/',
+    demo: 'https://www.ecokraf.com.co/',
     videoUrl: '/videos/Proyecto_6.mp4',
     roleKey: 'proj-role-6',
     featuresKey: 'proj-features-6',
