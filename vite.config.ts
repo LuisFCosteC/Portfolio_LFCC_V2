@@ -23,5 +23,19 @@ export default defineConfig(({ mode }) => {
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
+    build: {
+      // Vendor chunking: separa librerías de terceros pesadas (motion, iconos, carrusel)
+      // del bundle principal para reducir el tamaño del chunk único y mejorar el cacheo.
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            motion: ['motion'],
+            icons: ['lucide-react'],
+            carousel: ['embla-carousel-react'],
+          },
+        },
+      },
+    },
   };
 });

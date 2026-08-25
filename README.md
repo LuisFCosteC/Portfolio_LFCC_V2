@@ -388,6 +388,7 @@ lfcc-portafolio/
 3. **Persistencia de Preferencias:** Preferencias de cookies, idioma y tema almacenadas en `localStorage`.
 4. **Diseño Adaptativo (Responsive):** Ajustes de viewport (`vh`) en modales para evitar alteraciones de interfaz al desplegar teclados virtuales en dispositivos táctiles.
 5. **Auto-Enfoque Inteligente:** Foco inmediato en el input del chat de IA al concluir la generación de respuestas para dinamizar la conversación.
+6. **Vendor Chunking en Vite:** `vite.config.ts` separa mediante `manualChunks` las librerías de terceros pesadas (`motion`, `lucide-react`, `embla-carousel-react`, `react`/`react-dom`) del bundle principal de la aplicación. Esto reduce el chunk único de JS y mejora el cacheo del navegador entre despliegues, disminuyendo el tiempo de primera carga.
 
 ---
 
