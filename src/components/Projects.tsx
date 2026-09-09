@@ -336,6 +336,10 @@ export default function Projects() {
                     <img
                       src={project.image}
                       alt={t(project.titleKey as any)}
+                      width={600}
+                      height={375}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
                     />
@@ -394,6 +398,9 @@ export default function Projects() {
                           <img
                             src={iconData.url}
                             alt={iconData.name}
+                            width={16}
+                            height={16}
+                            loading="lazy"
                             className="w-4 h-4"
                             referrerPolicy="no-referrer"
                           />
@@ -417,6 +424,7 @@ export default function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${t('projects-code')}: ${t(project.titleKey as any)}`}
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-bold transition-all duration-300 shadow-sm ${
                           isDark
                             ? 'border-green-500/20 text-green-400 hover:bg-green-500/10 hover:border-green-400'
@@ -430,6 +438,7 @@ export default function Projects() {
                       <button
                         id={`project-code-btn-disabled-${project.id}`}
                         disabled
+                        aria-label={`${t('projects-code')}: ${t(project.titleKey as any)}`}
                         className={`flex-grow flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-bold cursor-not-allowed opacity-40 ${
                           isDark
                             ? 'border-green-500/10 bg-[#0c253a] text-gray-300 font-bold'
@@ -448,6 +457,7 @@ export default function Projects() {
                         href={project.demo!}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${t('projects-demo')}: ${t(project.titleKey as any)}`}
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold hover:brightness-110 active:scale-95 transition-all duration-300 shadow-md ${
                           isDark
                             ? 'bg-gradient-to-r from-green-500 to-green-600 text-[#051A2F] shadow-green-500/10 hover:shadow-green-500/20'

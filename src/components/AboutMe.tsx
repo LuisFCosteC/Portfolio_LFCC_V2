@@ -20,10 +20,10 @@ export default function AboutMe() {
   const [isHovered, setIsHovered] = useState(false);
 
   const carouselImages = [
-    { src: '/images/Imagen_Carrusel_1.jpeg', alt: 'Workspace Setup' },
-    { src: '/images/Imagen_Carrusel_2.jpeg', alt: 'System Architecture' },
-    { src: '/images/Imagen_Carrusel_3.jpeg', alt: 'Agile Board' },
-    { src: '/images/Imagen_Carrusel_4.jpeg', alt: 'Clean Coding Code' },
+    { src: '/images/Imagen_Carrusel_1.webp', alt: 'Workspace Setup' },
+    { src: '/images/Imagen_Carrusel_2.webp', alt: 'System Architecture' },
+    { src: '/images/Imagen_Carrusel_3.webp', alt: 'Agile Board' },
+    { src: '/images/Imagen_Carrusel_4.webp', alt: 'Clean Coding Code' },
   ];
 
   // Carousel functions
@@ -107,6 +107,10 @@ export default function AboutMe() {
                       <img
                         src={image.src}
                         alt={image.alt}
+                        width={800}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       />

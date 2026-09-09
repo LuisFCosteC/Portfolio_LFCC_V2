@@ -395,9 +395,9 @@ export default function SchedulingModal() {
                     }`}>
                         <div className="flex items-center gap-2">
                             <Calendar className={`w-5 h-5 ${isDark ? 'text-emerald-400' : 'text-blue-600'}`} />
-                            <h4 className={`text-sm sm:text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                            <h3 className={`text-sm sm:text-base font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
                                 {step === 1 ? currentLabels.titleStep1 : step === 2 ? currentLabels.titleStep2 : currentLabels.titleStep3}
-                            </h4>
+                            </h3>
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
@@ -463,6 +463,8 @@ export default function SchedulingModal() {
                                             isDark ? 'border-slate-800' : 'border-slate-200'
                                         }`}>
                                             <select
+                                                id="scheduling-country-code"
+                                                aria-label={language === 'es' ? 'Código telefónico de país' : 'Country phone code'}
                                                 value={selectedCountryCode}
                                                 onChange={(e) => setSelectedCountryCode(e.target.value)}
                                                 className={`w-full sm:w-auto pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${

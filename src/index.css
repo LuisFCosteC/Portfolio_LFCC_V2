@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -86,7 +85,8 @@ html.dark .text-gradient-green {
 
 /* Perfect Glassmorphism "Crystal" Utility Classes for 2026 */
 .card-glass {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
 }
 
 html.dark .card-glass {
@@ -127,7 +127,8 @@ html.light .card-glass:hover {
 
 /* Deep Crystal High Specular glass for focus areas */
 .crystal-panel {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
 }
 
 html.dark .crystal-panel {

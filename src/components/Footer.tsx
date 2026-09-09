@@ -391,14 +391,16 @@ export default function Footer() {
               className="flex items-center justify-center sm:justify-start gap-2 text-2xl font-black text-gradient-green tracking-wider"
             >
               <img
-                src="/images/LC_Logo.jpg"
+                src="/images/LC_Logo.webp"
                 alt="LC Logo"
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-lg object-cover"
               />
               <span>LFCC</span>
             </a>
             <p className={`text-xs font-semibold uppercase tracking-widest mt-1 ${
-              isDark ? 'text-gray-500' : 'text-slate-400'
+              isDark ? 'text-gray-300' : 'text-slate-600'
             }`}>
               {t('hero-title')}
             </p>
@@ -407,7 +409,7 @@ export default function Footer() {
           {/* Social Links Row */}
           <div id="footer-social-wrapper" className="flex flex-col items-center sm:items-end gap-3">
             <span id="footer-social-label" className={`text-xs font-bold uppercase tracking-widest ${
-              isDark ? 'text-gray-500' : 'text-slate-400'
+              isDark ? 'text-gray-300' : 'text-slate-600'
             }`}>
               {t('footer-contact')}
             </span>
@@ -440,7 +442,7 @@ export default function Footer() {
         }`}>
           <div id="footer-policies-links-wrapper" className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2">
             <span id="footer-policies-label" className={`text-xs font-bold uppercase tracking-widest ${
-              isDark ? 'text-gray-500' : 'text-slate-400'
+              isDark ? 'text-gray-300' : 'text-slate-600'
             }`}>
               {language === 'es' ? 'Políticas:' : 'Policies:'}
             </span>
@@ -773,9 +775,9 @@ export default function Footer() {
               </div>
               <div id="cookie-banner-text-col" className="flex-1 min-w-0">
                 <div id="cookie-banner-title-flex" className="flex items-center gap-2 mb-1.5">
-                  <h4 id="cookie-banner-title" className="text-sm font-bold tracking-tight">
+                  <h3 id="cookie-banner-title" className="text-sm font-bold tracking-tight">
                     {language === 'es' ? 'Preferencia de Cookies' : 'Cookie Preferences'}
-                  </h4>
+                  </h3>
                   <span id="cookie-ping-container" className="flex h-2 w-2 relative">
                     <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
                       isDark ? 'bg-emerald-400' : 'bg-blue-400'

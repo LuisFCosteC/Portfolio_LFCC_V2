@@ -937,9 +937,9 @@ export default function AiChatSection() {
                                 )}
                             </div>
                             <div>
-                                <h4 className={`text-sm font-bold leading-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                <h3 className={`text-sm font-bold leading-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
                                     {language === 'es' ? 'Asistente de Luis' : 'Luis\'s Assistant'}
-                                </h4>
+                                </h3>
                                 <p className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
                                     <span className={`w-1.5 h-1.5 rounded-full ${isApiConnected
                                         ? isDark ? 'bg-green-500' : 'bg-blue-500'
@@ -1294,6 +1294,8 @@ export default function AiChatSection() {
                                             <div className={`relative shrink-0 flex items-center border-r transition-all ${isDark ? 'border-slate-800' : 'border-slate-200'
                                                 }`}>
                                                 <select
+                                                    id="ai-country-code-select"
+                                                    aria-label={language === 'es' ? 'Seleccionar código de país' : 'Select country code'}
                                                     value={selectedCountryCode}
                                                     onChange={(e) => setSelectedCountryCode(e.target.value)}
                                                     className={`pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${isDark

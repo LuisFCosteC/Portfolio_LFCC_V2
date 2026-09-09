@@ -241,6 +241,8 @@ ${details}`;
                     isDark ? 'border-green-500/10' : 'border-blue-500/15'
                   }`}>
                     <select
+                      id="select-country-code"
+                      aria-label={language === 'es' ? 'Código telefónico de país' : 'Country phone code'}
                       value={selectedCountryCode}
                       onChange={(e) => setSelectedCountryCode(e.target.value)}
                       className={`w-full sm:w-auto pl-3.5 pr-8 py-3 text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${
@@ -443,9 +445,9 @@ ${details}`;
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-sm font-bold uppercase tracking-wider">
+                  <h3 className="text-sm font-bold uppercase tracking-wider">
                     {language === 'es' ? 'Atención' : 'Attention'}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-slate-400 leading-relaxed font-semibold">
                     {alertMessage}
                   </p>

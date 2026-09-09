@@ -36,23 +36,26 @@ function PortfolioAppContent() {
       {/* Navigation Header */}
       <Navigation />
 
-      {/* Hero Intro */}
-      <Hero />
+      {/* Main Content Landmark */}
+      <main id="main-content" tabIndex={-1} className="relative z-10 focus:outline-none">
+        {/* Hero Intro */}
+        <Hero />
 
-      {/* Narrative & Technologies */}
-      <AboutMe />
+        {/* Narrative & Technologies */}
+        <AboutMe />
 
-      {/* Grid Projects */}
-      <Projects />
+        {/* Grid Projects */}
+        <Projects />
 
-      {/* Certifications Accordion */}
-      <Certificates />
+        {/* Certifications Accordion */}
+        <Certificates />
 
-      {/* AI Assistant Chat Section */}
-      <AiChatSection />
+        {/* AI Assistant Chat Section */}
+        <AiChatSection />
 
-      {/* Project inquiry / WhatsApp submit Form */}
-      <ContactForm />
+        {/* Project inquiry / WhatsApp submit Form */}
+        <ContactForm />
+      </main>
 
       {/* Floating Action Buttons (WhatsApp & Gmail) */}
       <FloatingButtons />

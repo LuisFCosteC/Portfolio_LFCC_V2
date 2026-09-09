@@ -148,8 +148,10 @@ export default function Navigation() {
             className="flex items-center gap-2"
           >
             <img
-              src="/images/LC_Logo.jpg"
+              src="/images/LC_Logo.webp"
               alt="LC Logo"
+              width={32}
+              height={32}
               className="w-8 h-8 rounded-lg object-cover"
             />
             <span className="text-2xl font-black tracking-wider text-gradient-green hover:brightness-110 transition-all">

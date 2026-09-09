@@ -154,8 +154,12 @@ export default function Hero() {
                 }`}>
                   <img
                     id="hero-profile-img"
-                    src="/images/Imagen_1.png"
+                    src="/images/Imagen_1.webp"
                     alt="Luis Fernando Coste Contreras, Desarrollador de Software y CEO de 2Code"
+                    width={464}
+                    height={464}
+                    fetchPriority="high"
+                    decoding="sync"
                     referrerPolicy="no-referrer"
                     className="w-72 h-72 sm:w-[22rem] sm:h-[22rem] md:w-[25rem] md:h-[25rem] lg:w-[29rem] lg:h-[29rem] object-cover rounded-[1.75rem] transition-all duration-500 group-hover:scale-[1.02]"
                   />
