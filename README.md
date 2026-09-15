@@ -38,7 +38,7 @@ La plataforma ofrece una experiencia inmersiva bajo la estética **Crystal Glass
 ## 👨‍💻 Perfil Profesional
 
 ### **Luis Fernando Coste Contreras**
-**Desarrollador de Software a la Medida, Creador de Software & Arquitecto Full-Stack**
+**Creador y Desarrollador de Software a la Medida & Arquitecto Full-Stack**
 
 Apasionado por el diseño de arquitecturas eficientes, el código limpio (*Clean Code*) y la construcción de sistemas escalables de alta disponibilidad. Combina la rigurosidad lógica de la arquitectura Backend (diseño de APIs RESTful robustas, optimización de bases de datos relacionales y distribuidas, e integración de comunicaciones en tiempo real) con la versatilidad interactiva del Frontend moderno.
 
