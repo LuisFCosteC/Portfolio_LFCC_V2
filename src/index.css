@@ -125,6 +125,47 @@ html.light .card-glass:hover {
     0 12px 40px -12px rgba(37, 99, 235, 0.2);
 }
 
+/* Navbar glass: más opaco y con borde/brillo marcados que el resto de paneles,
+   para que no se confunda con el contenido que pasa por detrás al hacer scroll */
+.nav-glass {
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, padding 0.5s ease;
+}
+html.dark .nav-glass {
+  background: rgba(3, 12, 22, 0.82);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 28px rgba(74, 222, 128, 0.12),
+    0 18px 40px -12px rgba(0, 0, 0, 0.85);
+}
+html.light .nav-glass {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 24px rgba(59, 130, 246, 0.12),
+    0 18px 40px -14px rgba(15, 23, 42, 0.25);
+}
+
+/* Respaldo para navegadores sin backdrop-filter: fondo casi sólido para mantener la legibilidad */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  html.dark .nav-glass,
+  html.dark .crystal-panel,
+  html.dark .card-glass {
+    background: rgba(4, 14, 26, 0.96);
+  }
+  html.light .nav-glass,
+  html.light .crystal-panel,
+  html.light .card-glass {
+    background: rgba(255, 255, 255, 0.97);
+  }
+}
+
 /* Deep Crystal High Specular glass for focus areas */
 .crystal-panel {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease;

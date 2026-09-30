@@ -14,6 +14,13 @@ interface Message {
     requestContact?: boolean;
 }
 
+// Formatea el presupuesto como moneda colombiana mientras se escribe: "1000000" -> "$1.000.000"
+function formatBudget(value: string): string {
+    const digits = value.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 15);
+    if (!digits) return '';
+    return `$${digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+}
+
 interface Lead {
     name: string;
     email: string;
@@ -535,7 +542,10 @@ export default function AiChatSection() {
             });
 
             if (!response.ok) {
-                throw new Error(`Server returned HTTP ${response.status}`);
+                // 503/429: Gemini saturado o cuota agotada; el mensaje de error lo indica
+                const error = new Error(`Server returned HTTP ${response.status}`) as Error & { busy?: boolean };
+                error.busy = response.status === 503 || response.status === 429;
+                throw error;
             }
 
             const data = await response.json();
@@ -563,9 +573,14 @@ export default function AiChatSection() {
             }
         } catch (error) {
             console.error("Error calling API chat endpoint:", error);
-            const botResponse = language === 'es'
-                ? "No pudimos conectarnos con el Asistente de Luis"
-                : "We couldn't connect to Luis's Assistant";
+            const isBusy = Boolean((error as { busy?: boolean })?.busy);
+            const botResponse = isBusy
+                ? (language === 'es'
+                    ? "Estoy recibiendo muchas consultas en este momento. Por favor envía tu mensaje de nuevo en unos segundos."
+                    : "I'm receiving a lot of requests right now. Please send your message again in a few seconds.")
+                : (language === 'es'
+                    ? "No pudimos conectarnos con el Asistente de Luis"
+                    : "We couldn't connect to Luis's Assistant");
 
             setMessages((prev) => [...prev, {
                 id: `msg-${Date.now()}-bot`,
@@ -671,6 +686,10 @@ export default function AiChatSection() {
 
         if (!name || !phone || !email || !budget) {
             setContactError(language === 'es' ? 'Por favor completa todos los campos.' : 'Please fill out all fields.');
+            return;
+        }
+        if (!/[1-9]/.test(budget)) {
+            setContactError(language === 'es' ? 'Por favor indica un presupuesto mayor a $0.' : 'Please enter a budget greater than $0.');
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -1014,7 +1033,7 @@ export default function AiChatSection() {
                                                         { id: 'lead-name', label: language === 'es' ? 'Nombre completo' : 'Full name', type: 'text', value: contactName, set: setContactName, placeholder: language === 'es' ? 'Tu nombre y apellido' : 'Your full name', autoComplete: 'name' },
                                                         { id: 'lead-phone', label: language === 'es' ? 'Número de contacto' : 'Contact number', type: 'tel', value: contactPhone, set: setContactPhone, placeholder: '+57 300 123 4567', autoComplete: 'tel' },
                                                         { id: 'lead-email', label: language === 'es' ? 'Correo electrónico' : 'Email', type: 'email', value: contactEmail, set: setContactEmail, placeholder: language === 'es' ? 'tucorreo@ejemplo.com' : 'you@example.com', autoComplete: 'email' },
-                                                        { id: 'lead-budget', label: language === 'es' ? 'Presupuesto para el proyecto' : 'Project budget', type: 'text', value: contactBudget, set: setContactBudget, placeholder: language === 'es' ? 'Ej: 5.000.000 COP' : 'e.g. USD 2,000', autoComplete: 'off' },
+                                                        { id: 'lead-budget', label: language === 'es' ? 'Presupuesto para el proyecto' : 'Project budget', type: 'text', value: contactBudget, set: (value: string) => setContactBudget(formatBudget(value)), placeholder: '$5.000.000', autoComplete: 'off', inputMode: 'numeric' as const },
                                                     ].map((field) => (
                                                         <div key={field.id} className="space-y-1">
                                                             <label htmlFor={field.id} className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -1027,6 +1046,7 @@ export default function AiChatSection() {
                                                                 onChange={(e) => field.set(e.target.value)}
                                                                 placeholder={field.placeholder}
                                                                 autoComplete={field.autoComplete}
+                                                                inputMode={field.inputMode}
                                                                 maxLength={120}
                                                                 className={`w-full px-3 py-2 text-xs rounded-lg outline-none border transition-all ${isDark
                                                                     ? 'bg-slate-900/70 border-slate-800 focus:border-emerald-500/50 text-white placeholder:text-slate-600'

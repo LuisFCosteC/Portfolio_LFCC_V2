@@ -122,7 +122,7 @@ export default function Navigation() {
   return (
     <nav
       id="main-navigation"
-      className={`fixed left-4 right-4 z-40 transition-all duration-500 md:left-6 md:right-6 top-4 md:top-6 crystal-panel rounded-2xl shadow-2xl ${isScrolled
+      className={`fixed left-4 right-4 z-40 transition-all duration-500 md:left-6 md:right-6 top-4 md:top-6 nav-glass rounded-2xl ${isScrolled
           ? 'py-2.5'
           : 'py-3.5'
         }`}
