@@ -139,14 +139,14 @@ ${details}`;
       id="contact"
       key={`contact-${language}`}
       ref={containerRef}
-      className="py-24 bg-transparent"
+      className="py-10 bg-transparent"
     >
       <div id="contact-container" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div
           id="contact-header"
-          className={`flex flex-col gap-2 mb-16 text-center transition-all duration-1000 transform ${
+          className={`flex flex-col gap-1.5 mb-6 text-center transition-all duration-1000 transform ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
@@ -156,7 +156,7 @@ ${details}`;
             <MessageSquareText className="w-4 h-4" />
             {t('nav-contact')}
           </span>
-          <h2 id="contact-title-h2" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
+          <h2 id="contact-title-h2" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
             {t('contact-title')}
           </h2>
           <p id="contact-subtitle-p" className={`text-base max-w-md mx-auto mt-1 transition-colors duration-500 ${
@@ -172,14 +172,14 @@ ${details}`;
         {/* Contact Form Wrapper */}
         <div
           id="contact-form-wrapper"
-          className={`p-8 sm:p-10 rounded-3xl crystal-panel shadow-2xl transition-all duration-1000 delay-200 transform ${
+          className={`p-5 sm:p-6 rounded-3xl crystal-panel shadow-2xl transition-all duration-1000 delay-200 transform ${
             isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
         >
-          <form id="portfolio-contact-form" onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <form id="portfolio-contact-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
             
             {/* 2-Column Grid for fields */}
-            <div id="form-grid" className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="form-grid" className="grid grid-cols-1 md:grid-cols-2 gap-4">
               
               {/* Full Name */}
               <div id="field-name-container" className="flex flex-col gap-2">
@@ -349,7 +349,7 @@ ${details}`;
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
                   placeholder={t('contact-details-ph')}
-                  rows={5}
+                  rows={3}
                   required
                   className={`w-full px-4 py-3 rounded-xl border transition-all text-base font-semibold placeholder-slate-400 resize-y focus:outline-none focus:ring-1 ${
                     isDark
@@ -362,7 +362,7 @@ ${details}`;
             </div>
 
             {/* Action Buttons Grid */}
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {/* Submit Button */}
               <button
                 id="submit-contact-form"

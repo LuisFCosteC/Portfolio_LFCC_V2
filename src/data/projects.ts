@@ -14,6 +14,18 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 8,
+    titleKey: 'proj-title-8',
+    descKey: 'proj-desc-8',
+    image: '/images/Proyecto_8.webp',
+    techs: ['react', 'typescript', 'fastapi', 'python', 'gemini', 'tailwindcss', 'sqlite'],
+    github: 'https://github.com/LuisFCosteC',
+    demo: 'https://akinoai.com/',
+    videoUrl: '/videos/Proyecto_8.mp4',
+    roleKey: 'proj-role-8',
+    featuresKey: 'proj-features-8',
+  },
+  {
     id: 7,
     titleKey: 'proj-title-7',
     descKey: 'proj-desc-7',

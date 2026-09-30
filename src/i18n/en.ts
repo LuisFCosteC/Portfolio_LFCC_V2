@@ -34,6 +34,12 @@ export const en = {
   'projects-title': 'Projects',
   'projects-code': 'Code',
   'projects-demo': 'Demo',
+  // Projects Carousel & View Controls
+  'projects-carousel-btn': 'Carousel',
+  'projects-grid-btn': 'View all projects',
+
+  'proj-title-8': 'AkinoAI - AI-Powered Personal & Collaborative Financial Ecosystem',
+  'proj-desc-8': 'AkinoAI is a comprehensive personal and shared finance web platform powered by Google Gemini Artificial Intelligence. Built with a premium Fintech aesthetic on a decoupled architecture (React, Vite, and TypeScript on frontend; FastAPI, Python, and Turso/libSQL on backend), it empowers individuals, couples, and teams to take full control of their finances through zero-based budgeting, smart voice-dictated expense tracking, credit card installment auditing, investment portfolio simulators, and a 24/7 conversational AI financial advisor.',
   'proj-title-7': 'Corporate Software Consulting & Development Platform - 2Code',
   'proj-desc-7': '2Code is a technological consulting firm specialized in the design and development of custom software architectures, advanced automations, and high-performance digital experiences. Built on a modern stack that optimizes speed and user interaction, it enables businesses to digitize their operations through robust database integrations and efficient asynchronous workflows.',
   'proj-title-6': 'EcoKraft Sustainability Hub & Industrial Platform',
@@ -56,6 +62,8 @@ export const en = {
   'proj-preview-title': 'Project Technical Specifications',
   'proj-view-preview': 'View project preview',
   'proj-video-expand': 'Enlarge Video',
+  'proj-role-8': 'Principal Software Architect & Lead Full-Stack Engineer',
+  'proj-features-8': '24/7 conversational financial assistant powered by Google Gemini Flash and Pro models with real-time portfolio context, Smart transaction logging with natural voice recognition and automatic parameter extraction, Advanced credit card management with installment amortization curves and billing cycle reminders, Collaborative shared finance modules for couples and groups with proportional expense splitting, SuperAdmin dashboard featuring real-time AI token telemetry and Turso edge database metrics',
   'proj-role-7': 'Lead Full-Stack Developer & Software Architect',
   'proj-features-7': 'Design and development of the corporate website architecture optimized for lead conversions, Integration of automated scheduling systems with real-time email notifications and calendars, Premium styling with crystal glassmorphism and fluid physics-based animations, Advanced SEO optimization achieving perfect performance scores on lighthouse audits, Implementation of accessible interactive interfaces under international accessibility standards',
   'proj-role-6': 'Next.js/React Full-Stack Developer',

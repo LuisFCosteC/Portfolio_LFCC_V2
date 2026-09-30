@@ -34,6 +34,12 @@ export const es = {
   'projects-title': 'Proyectos',
   'projects-code': 'Código',
   'projects-demo': 'Demo',
+  // Projects Carousel & View Controls
+  'projects-carousel-btn': 'Carrusel',
+  'projects-grid-btn': 'Ver todos los proyectos',
+
+  'proj-title-8': 'AkinoAI - Plataforma Fintech de Finanzas Personales e Inteligencia Artificial',
+  'proj-desc-8': 'AkinoAI es una plataforma web integral de gestión financiera personal y colaborativa potenciada por Inteligencia Artificial (Google Gemini). Diseñada bajo una estética Fintech Premium con arquitectura desacoplada y base de datos distribuida en Turso/libSQL, permite a personas individuales, parejas o equipos tomar el control total de su dinero mediante presupuestos base cero, seguimiento automatizado de gastos por dictado de voz, auditoría de tarjetas de crédito y cuotas, simuladores de inversión y asesoría financiera conversacional en tiempo real 24/7.',
   'proj-title-7': 'Plataforma Corporativa de Consultoría y Desarrollo de Software - 2Code',
   'proj-desc-7': '2Code es una firma de consultoría tecnológica especializada en el diseño y desarrollo de arquitecturas de software a la medida, automatizaciones avanzadas y experiencias digitales de alto rendimiento. Construida sobre un stack moderno que optimiza la carga y la interacción, facilita a empresas la digitalización de sus operaciones mediante integraciones robustas de bases de datos y flujos de trabajo asíncronos eficientes.',
   'proj-title-6': 'EcoKraft Solutions - Plataforma de Empaque Sostenible y Reciclaje',
@@ -56,6 +62,8 @@ export const es = {
   'proj-preview-title': 'Especificaciones Técnicas del Proyecto',
   'proj-view-preview': 'Ver vista previa del proyecto',
   'proj-video-expand': 'Agrandar Video',
+  'proj-role-8': 'Arquitecto de Software & Desarrollador Full-Stack Principal',
+  'proj-features-8': 'Asistente financiero conversacional 24/7 impulsado por modelos Google Gemini Flash y Pro con análisis contextual en tiempo real, Registro inteligente de ingresos y gastos con dictado por voz natural y extracción automatizada de transacciones, Módulo integral de tarjetas de crédito con amortización de compras a cuotas y alertas de corte de pago, Gestión de finanzas compartidas y división proporcional de gastos para parejas o grupos sin comprometer la privacidad, Panel de SuperAdmin con métricas de telemetría de tokens IA y consumo de base de datos Turso en el edge',
   'proj-role-7': 'Desarrollador Full-Stack e Ingeniero de Software Principal',
   'proj-features-7': 'Diseño y desarrollo de la arquitectura del sitio web corporativo optimizado para conversiones, Integración de sistemas de captación de leads y reservas automáticas con flujos de correos confirmados, Estilo premium con cristal glassmorphism y animaciones fluidas basadas en el rendimiento físico, Optimización SEO avanzada logrando puntajes perfectos en herramientas de auditoría y velocidad de carga, Implementación de interfaces interactivas accesibles bajo directrices internacionales y diseño responsive fluido',
   'proj-role-6': 'Desarrollador Full-Stack Next.js/React',

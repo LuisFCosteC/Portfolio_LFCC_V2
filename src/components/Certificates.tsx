@@ -115,14 +115,14 @@ export default function Certificates() {
       id="certificates"
       key={`certificates-${language}`}
       ref={containerRef}
-      className="py-24 bg-transparent"
+      className="py-10 bg-transparent"
     >
       <div id="certificates-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div
           id="certificates-header"
-          className={`flex flex-col gap-2 mb-16 text-center transition-all duration-1000 transform ${
+          className={`flex flex-col gap-1.5 mb-6 text-center transition-all duration-1000 transform ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
@@ -132,7 +132,7 @@ export default function Certificates() {
             <Award className="w-4 h-4" />
             {t('nav-certificates')}
           </span>
-          <h2 id="certificates-title-h2" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
+          <h2 id="certificates-title-h2" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
             {t('cert-title')}
           </h2>
           <p id="certificates-subtitle-p" className={`text-base max-w-md mx-auto mt-1 transition-colors duration-500 ${

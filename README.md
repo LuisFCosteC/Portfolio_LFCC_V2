@@ -109,9 +109,9 @@ stateDiagram-v2
     ModalProyecto --> VistaProyectos: Cerrar
     Explorando --> VistaCertificados: Clic en Certificados
     Explorando --> ChatIA: Abrir Robotino
-    ChatIA --> LeadCapturado: Completa formulario gatekeeper
-    LeadCapturado --> Conversando: Chatea con Gemini
-    Conversando --> Agendando: Solicita reunión por chat
+    ChatIA --> Conversando: Describe su proyecto (sin registro previo)
+    Conversando --> LeadCapturado: Cierre: formulario en el chat (nombre, contacto, correo, presupuesto)
+    LeadCapturado --> Agendando: Solicita reunión por chat
     Explorando --> Agendando: Clic en "Agendar Cita"
     Agendando --> ReunionConfirmada: Selecciona horario disponible
     ReunionConfirmada --> [*]
@@ -145,11 +145,11 @@ flowchart TD
     N -->|Clic en Botón Flotante / Chat| O[AiChatSection - Robotino]
     N -->|Clic en Agendar Cita| P[SchedulingModal]
 
-    O --> Q{¿Lead Registrado?}
-    Q -->|No| R[Mostrar Formulario Gatekeeper]
-    R -->|Registrar Nombre/Correo/Proyecto| S[Desbloquear Chat & Guardar Sesión]
-    Q -->|Sí| T[Intercambio de Mensajes con Gemini API]
-    T --> U[Auto-enfoque en Input tras Respuesta]
+    O --> T[Chat anónimo: levantamiento de requerimientos con Gemini]
+    T --> Q{¿request_contact = true?}
+    Q -->|No| T
+    Q -->|Sí| R[Formulario en el chat: nombre, contacto, correo y presupuesto]
+    R --> S[Lead guardado: habilita agendamiento por chat y resumen a Telegram]
 
     P --> V[Consultar Slots Ocupados GET /api/occupied-slots]
     V --> W[Seleccionar Día y Hora Hábil en Calendario Visual]
@@ -198,11 +198,15 @@ sequenceDiagram
     participant Zoom as Zoom & Calendar Engine
     participant Telegram as Telegram Bot / Email
 
-    Usuario->>ChatUI: Clic en Asistente Virtual IA
-    alt Usuario no registrado
-        ChatUI->>Usuario: Solicita Nombre, Correo y Propósito
-        Usuario->>ChatUI: Completa datos de Lead
+    Usuario->>ChatUI: Escribe directamente (sin registro previo)
+    loop Levantamiento de requerimientos
+        ChatUI->>Backend: POST /api/chat (Mensaje + Historial)
+        Backend->>IA: Prompt con base de conocimiento del portafolio
+        IA-->>ChatUI: 1-2 preguntas (problema, funcionalidades, plataforma, plazo...)
     end
+    IA-->>ChatUI: Resumen + request_contact = true
+    ChatUI->>Usuario: Formulario en el chat (nombre, contacto, correo, presupuesto)
+    Usuario->>ChatUI: Envía sus datos (no pasan por Gemini)
     Usuario->>ChatUI: Escribe mensaje técnico / "¿Cuándo nos reunimos?"
     ChatUI->>Backend: POST /api/chat (Mensaje + Historial)
     Backend->>Backend: Sanitiza y anonimiza PII ([REDACTED_NAME], [REDACTED_EMAIL])
@@ -220,8 +224,9 @@ sequenceDiagram
 
     Backend-->>ChatUI: Retorna respuesta en Markdown + Enlace
     ChatUI->>Usuario: Renderiza Markdown enriquecido con código resaltado
-    ChatUI->>ChatUI: Auto-enfoca automáticamente el campo de texto (UX)
-    Backend-)Telegram: Notifica resumen y lead en tiempo real
+    ChatUI->>ChatUI: Devuelve el foco al campo de texto (sin desplazar la página)
+    ChatUI->>Backend: POST /api/terminate al finalizar (botón, cierre de pestaña o 3 min inactivo)
+    Backend-)Telegram: Resumen ejecutivo del lead + presupuesto indicado
 ```
 
 ### 3. Flujo del Modal de Agendamiento Visual (`SchedulingModal.tsx`)
@@ -249,10 +254,11 @@ flowchart TD
 
 ## 🚀 Catálogo de Proyectos y Casos de Estudio
 
-El portafolio incluye 7 proyectos destacados desarrollados con estándares profesionales, cada uno documentado con rol, especificaciones técnicas, galerías y videos interactivos:
+El portafolio incluye 8 proyectos destacados desarrollados con estándares profesionales, cada uno documentado con rol, especificaciones técnicas, galerías y videos interactivos. Se presentan en un **carrusel** que avanza cada 15 segundos (se pausa al pasar el cursor) o en una **cuadrícula** con todos los proyectos, que vuelve sola al carrusel al salir de la sección:
 
 | # | Proyecto | Categoría / Stack | Descripción y Logros Técnicos | Enlaces |
 |---|---|---|---|---|
+| **8** | **AkinoAI - Fintech de Finanzas Personales con IA** | `React` `TypeScript` `FastAPI` `Python` `Gemini AI` `Tailwind CSS` `SQLite/Turso` | Gestión financiera personal y colaborativa: asistente financiero conversacional 24/7 con Gemini, registro de gastos por dictado de voz, tarjetas de crédito y cuotas, finanzas compartidas y panel de SuperAdmin con telemetría. | 🌐 [Demo](https://akinoai.com/) |
 | **7** | **Plataforma Corporativa 2Code** | `Next.js` `TypeScript` `React` `Tailwind CSS` `shadcn` `Node.js` | Firma de consultoría tecnológica especializada en arquitectura a la medida y automatización. Incluye captación de leads, sistema de agendamiento y SEO optimizado. | 🌐 [Demo](https://2code.com.co/) / 🐙 [GitHub](https://github.com/LuisFCosteC) |
 | **6** | **EcoKraft Solutions** | `Next.js 15` `TypeScript` `React` `Tailwind CSS` `Genkit AI` | Plataforma de empaque sostenible con estética industrial de lujo. Implementa arquitectura híbrida (SSR/SSG), automatización por IA en el servidor (Genkit) y componentes accesibles (WAI-ARIA). | 🌐 [Demo](https://www.ecokraf.com.co/) |
 | **5** | **Sistema ERP de Ventas e Inventario** | `Angular` `.NET Core` `SQL Server` | ERP empresarial desacoplado (SoC). Backend en capas (API, BLL, DAL, DTO) con Entity Framework Core. Frontend modular en Angular con Lazy Loading y gráficos interactivos. | 🐙 [GitHub](https://github.com/LuisFCosteC/Sales_Management_System) |
@@ -288,12 +294,14 @@ Luis Coste respalda su conocimiento con **14 certificaciones internacionales** v
 
 La aplicación cuenta con un ecosistema interactivo potenciado por **Robotino**, un asistente técnico guiado por la API de **Google Gemini** a través de un backend Serverless en **FastAPI** (desplegado en **Vercel**):
 
-- **Gatekeeper de Captura (Leads):** Formulario previo para registrar Nombre, Correo e Idea de Proyecto antes de habilitar el chat.
+- **Chat sin barreras:** cualquier visitante puede escribir de inmediato, sin formulario previo. Robotino conoce el perfil, stack y proyectos de Luis y solo responde con esa información.
+- **Levantamiento de requerimientos:** cuando el visitante quiere un software, Robotino le hace 1 o 2 preguntas por mensaje para entender el problema, las funcionalidades, los usuarios, la plataforma, el estilo, las integraciones y el plazo. Nunca da precios: la cotización la prepara Luis.
+- **Captura del lead al cierre:** al final resume los requerimientos y muestra un formulario dentro del chat para **nombre completo, número de contacto, correo y presupuesto**. Estos datos van directo al sistema y nunca se envían a Gemini.
 - **Anonimización PII en Tiempo Real:** El backend sanitiza nombres y correos reemplazándolos por tokens genéricos (`[REDACTED_NAME]`, `[REDACTED_EMAIL]`) antes de consultar el modelo de IA.
 - **Agendamiento y Reagendamiento Inteligente (`SchedulingModal.tsx` & Gemini Function Calling):**
   - Permite agendar videollamadas de 30 minutos de forma interactiva seleccionando días y horas hábiles en un selector visual de bloques disponibles.
-  - Soporte conversacional para consultar el estado de la cita (`get_my_scheduled_meeting`), agendar (`schedule_meeting`) y reagendar (`reschedule_meeting`) cancelando automáticamente el evento anterior en Google Calendar y Zoom sin dejar duplicados.
-- **Experiencia de Usuario Fluida (UX):** Auto-enfoque inteligente del campo de texto (`chatInputRef`) al finalizar cada turno de respuesta de la IA, permitiendo una interacción ágil sin clics redundantes.
+  - Con el lead capturado, soporte conversacional para consultar la cita (`check_existing_meeting`), agendar o reagendar (`schedule_meeting`, que reemplaza la cita anterior en Google Calendar y Zoom sin duplicados) y cancelar (`cancel_meeting`), siempre con confirmación explícita.
+- **Experiencia de Usuario Fluida (UX):** el foco vuelve al campo de texto cuando la IA termina de responder (con `preventScroll`, para que al refrescar la página no salte hasta el chat).
 - **Parser de Markdown Personalizado:** Formatea respuestas con bloques de código resaltados, listas anidadas, viñetas y texto enriquecido.
 - **Conexión Dinámica de Backend (`getApiUrl`):** Detecta dinámicamente el entorno de ejecución (`VITE_API_BASE_URL` apuntando a la Serverless Function en producción o `localhost:8000` en desarrollo local).
 - **Notificaciones y Auditoría Automáticas:** Al finalizar o agendar, el backend notifica de inmediato al bot de Telegram y confirma la cita por correo electrónico vía SMTP TLS.
@@ -322,7 +330,7 @@ El portafolio incluye una infraestructura completa de cumplimiento legal accesib
 | **Hero** | [Hero.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Hero.tsx) | Bienvenida principal con blobs de luz orbitantes, titulación de CEO de 2Code y animaciones escalonadas de Motion. |
 | **Sobre Mí** | [AboutMe.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/AboutMe.tsx) | Biografía narrativa integrada con un carrusel interactivo de imágenes profesionales (`embla-carousel-react`). |
 | **Tecnologías** | [Technologies.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Technologies.tsx) | Cuadrícula interactiva clasificada por categorías (Frontend, Backend, Herramientas) con iluminación dinámica hover. |
-| **Proyectos** | [Projects.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Projects.tsx) | Galería filtrable con transiciones fluidas (`AnimatePresence`) y modales adaptativos con videos y especificaciones completas. |
+| **Proyectos** | [Projects.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Projects.tsx) | Carrusel horizontal con autoavance de 15 s y pausa al pasar el cursor, vista de cuadrícula con todos los proyectos y modal (renderizado con `createPortal` sobre el navbar) con video y especificaciones completas. |
 | **Certificados** | [Certificates.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/Certificates.tsx) | Carrusel 3D con tarjetas volteables (*Flip Card*), sellos holográficos y modal interactivo de previsualización. |
 | **Contacto** | [ContactForm.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/ContactForm.tsx) | Formulario con validación en tiempo real, selector adaptativo de indicativo de país y generador directo de mensajes para WhatsApp. |
 | **Modal Agendamiento** | [SchedulingModal.tsx](file:///d:/PROGRAMACION/Next.js/lfcc-portafolio/src/components/SchedulingModal.tsx) | Modal interactivo para selección visual de fecha y slots de 30 minutos conectados con Google Calendar y Zoom. |
@@ -388,7 +396,9 @@ lfcc-portafolio/
 3. **Persistencia de Preferencias:** Preferencias de cookies, idioma y tema almacenadas en `localStorage`.
 4. **Diseño Adaptativo (Responsive):** Ajustes de viewport (`vh`) en modales para evitar alteraciones de interfaz al desplegar teclados virtuales en dispositivos táctiles.
 5. **Auto-Enfoque Inteligente:** Foco inmediato en el input del chat de IA al concluir la generación de respuestas para dinamizar la conversación.
-6. **Vendor Chunking en Vite:** `vite.config.ts` separa mediante `manualChunks` las librerías de terceros pesadas (`motion`, `lucide-react`, `embla-carousel-react`, `react`/`react-dom`) del bundle principal de la aplicación. Esto reduce el chunk único de JS y mejora el cacheo del navegador entre despliegues, disminuyendo el tiempo de primera carga.
+6. **Posición de scroll al refrescar:** `main.tsx` guarda la posición en `sessionStorage` y la restaura antes del primer pintado, así la página se queda donde estaba el visitante sin desplazamientos visibles.
+7. **Secciones a pantalla completa:** cada sección está dimensionada para verse completa bajo el navbar en pantallas de escritorio.
+8. **Vendor Chunking en Vite:** `vite.config.ts` separa mediante `manualChunks` las librerías de terceros pesadas (`motion`, `lucide-react`, `embla-carousel-react`, `react`/`react-dom`) del bundle principal de la aplicación. Esto reduce el chunk único de JS y mejora el cacheo del navegador entre despliegues, disminuyendo el tiempo de primera carga.
 
 ---
 

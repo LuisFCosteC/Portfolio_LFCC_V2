@@ -65,14 +65,14 @@ export default function AboutMe() {
       id="about"
       key={`about-${language}`}
       ref={sectionRef}
-      className="py-24 bg-transparent"
+      className="py-10 bg-transparent"
     >
       <div id="about-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <div
           id="about-header"
-          className={`flex flex-col gap-2 mb-16 text-center transition-all duration-1000 transform ${
+          className={`flex flex-col gap-2 mb-8 text-center transition-all duration-1000 transform ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
         >
@@ -80,14 +80,14 @@ export default function AboutMe() {
             <User className="w-4 h-4" />
             {t('nav-about')}
           </span>
-          <h2 id="about-title" className="text-4xl sm:text-6xl font-black text-gradient-green py-1">
+          <h2 id="about-title" className="text-4xl sm:text-5xl font-black text-gradient-green py-1">
             {t('about-title')}
           </h2>
           <div className={`w-20 h-1 rounded-full mx-auto mt-2 ${isDark ? 'bg-gradient-to-r from-green-500 to-green-400' : 'bg-gradient-to-r from-blue-600 to-indigo-500'}`} />
         </div>
 
         {/* Two-Column Grid */}
-        <div id="about-grid" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div id="about-grid" className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           {/* Left Column: Carousel */}
           <div
@@ -171,7 +171,7 @@ export default function AboutMe() {
           {/* Right Column: Narrative Biography */}
           <div
             id="about-narrative-col"
-            className={`lg:col-span-7 flex flex-col gap-6 transition-all duration-1000 delay-300 transform ${
+            className={`lg:col-span-7 flex flex-col gap-4 transition-all duration-1000 delay-300 transform ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             }`}
           >
@@ -179,15 +179,15 @@ export default function AboutMe() {
               {t('about-subtitle')}
             </h3>
             
-            <p id="about-narrative-p1" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
+            <p id="about-narrative-p1" className={`text-base lg:text-[17px] leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
               {t('about-text-1')}
             </p>
 
-            <p id="about-narrative-p2" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
+            <p id="about-narrative-p2" className={`text-base lg:text-[17px] leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
               {t('about-text-2')}
             </p>
 
-            <p id="about-narrative-p3" className={`text-lg leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
+            <p id="about-narrative-p3" className={`text-base lg:text-[17px] leading-relaxed transition-colors duration-500 ${isDark ? 'text-gray-100' : 'text-slate-700'}`}>
               {t('about-text-3')}
             </p>
           </div>

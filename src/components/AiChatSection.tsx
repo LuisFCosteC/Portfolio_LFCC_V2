@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, Bot, User, Sparkles, ClipboardList, AlertCircle, LogOut, X, Calendar, Loader2 } from 'lucide-react';
+import { Send, Bot, User, Sparkles, AlertCircle, LogOut, X, Calendar, Loader2 } from 'lucide-react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useTheme } from '../context/ThemeContext';
 import { getApiUrl } from '../lib/utils';
@@ -10,6 +10,16 @@ interface Message {
     sender: 'user' | 'bot';
     text: string;
     timestamp: Date;
+    // El bot cerro la conversacion y pide los datos: se muestra el formulario en el chat
+    requestContact?: boolean;
+}
+
+interface Lead {
+    name: string;
+    email: string;
+    phone?: string;
+    description: string;
+    budget?: string;
 }
 
 // Lightweight Markdown Parser to render beautiful API responses
@@ -180,72 +190,6 @@ function parseMarkdownToReact(text: string, isDark: boolean) {
     return elements;
 }
 
-const COUNTRIES = [
-    { code: 'CO', name: 'Colombia', dial: '+57', flag: '🇨🇴' },
-    { code: 'US', name: 'Estados Unidos', dial: '+1', flag: '🇺🇸' },
-    { code: 'ES', name: 'España', dial: '+34', flag: '🇪🇸' },
-    { code: 'MX', name: 'México', dial: '+52', flag: '🇲🇽' },
-    { code: 'AR', name: 'Argentina', dial: '+54', flag: '🇦🇷' },
-    { code: 'VE', name: 'Venezuela', dial: '+58', flag: '🇻🇪' },
-    { code: 'PE', name: 'Perú', dial: '+51', flag: '🇵🇪' },
-    { code: 'CL', name: 'Chile', dial: '+56', flag: '🇨🇱' },
-    { code: 'EC', name: 'Ecuador', dial: '+593', flag: '🇪🇨' },
-    { code: 'BO', name: 'Bolivia', dial: '+591', flag: '🇧🇴' },
-    { code: 'BR', name: 'Brasil', dial: '+55', flag: '🇧🇷' },
-    { code: 'UY', name: 'Uruguay', dial: '+598', flag: '🇺🇾' },
-    { code: 'PY', name: 'Paraguay', dial: '+595', flag: '🇵🇾' },
-    { code: 'PA', name: 'Panamá', dial: '+507', flag: '🇵🇦' },
-    { code: 'CR', name: 'Costa Rica', dial: '+506', flag: '🇨🇷' },
-    { code: 'GT', name: 'Guatemala', dial: '+502', flag: '🇬🇹' },
-    { code: 'HN', name: 'Honduras', dial: '+504', flag: '🇭🇳' },
-    { code: 'SV', name: 'El Salvador', dial: '+503', flag: '🇸🇻' },
-    { code: 'NI', name: 'Nicaragua', dial: '+505', flag: '🇳🇮' },
-    { code: 'DO', name: 'República Dominicana', dial: '+1', flag: '🇩🇴' },
-    { code: 'PR', name: 'Puerto Rico', dial: '+1', flag: '🇵🇷' },
-    { code: 'CA', name: 'Canadá', dial: '+1', flag: '🇨🇦' },
-    { code: 'GB', name: 'Reino Unido', dial: '+44', flag: '🇬🇧' },
-    { code: 'FR', name: 'Francia', dial: '+33', flag: '🇫🇷' },
-    { code: 'DE', name: 'Alemania', dial: '+49', flag: '🇩🇪' },
-    { code: 'IT', name: 'Italia', dial: '+39', flag: '🇮🇹' },
-    { code: 'PT', name: 'Portugal', dial: '+351', flag: '🇵🇹' },
-    { code: 'CN', name: 'China', dial: '+86', flag: '🇨🇳' },
-    { code: 'JP', name: 'Japón', dial: '+81', flag: '🇯🇵' },
-    { code: 'IN', name: 'India', dial: '+91', flag: '🇮🇳' },
-    { code: 'AU', name: 'Australia', dial: '+61', flag: '🇦🇺' },
-    { code: 'NZ', name: 'Nueva Zelanda', dial: '+64', flag: '🇳🇿' },
-    { code: 'CH', name: 'Suiza', dial: '+41', flag: '🇨🇭' },
-    { code: 'NL', name: 'Países Bajos', dial: '+31', flag: '🇳🇱' },
-    { code: 'BE', name: 'Bélgica', dial: '+32', flag: '🇧🇪' },
-    { code: 'SE', name: 'Suecia', dial: '+46', flag: '🇸🇪' },
-    { code: 'NO', name: 'Noruega', dial: '+47', flag: '🇳🇴' },
-    { code: 'DK', name: 'Dinamarca', dial: '+45', flag: '🇩🇰' },
-    { code: 'FI', name: 'Finlandia', dial: '+358', flag: '🇫🇮' },
-    { code: 'IE', name: 'Irlanda', dial: '+353', flag: '🇮🇪' },
-    { code: 'RU', name: 'Rusia', dial: '+7', flag: '🇷🇺' },
-    { code: 'ZA', name: 'Sudáfrica', dial: '+27', flag: '🇿🇦' },
-    { code: 'KR', name: 'Corea del Sur', dial: '+82', flag: '🇰🇷' },
-    { code: 'SG', name: 'Singapur', dial: '+65', flag: '🇸🇬' },
-    { code: 'IL', name: 'Israel', dial: '+972', flag: '🇮🇱' },
-    { code: 'TR', name: 'Turquía', dial: '+90', flag: '🇹🇷' },
-    { code: 'SA', name: 'Arabia Saudita', dial: '+966', flag: '🇸🇦' },
-    { code: 'UA', name: 'Ucrania', dial: '+380', flag: '🇺🇦' },
-    { code: 'PL', name: 'Polonia', dial: '+48', flag: '🇵🇱' },
-    { code: 'GR', name: 'Grecia', dial: '+30', flag: '🇬🇷' },
-    { code: 'RO', name: 'Rumania', dial: '+40', flag: '🇷🇴' },
-    { code: 'HU', name: 'Hungría', dial: '+36', flag: '🇭🇺' },
-    { code: 'CZ', name: 'Chequia', dial: '+420', flag: '🇨🇿' },
-    { code: 'AT', name: 'Austria', dial: '+43', flag: '🇦🇹' },
-    { code: 'TH', name: 'Tailandia', dial: '+66', flag: '🇹🇭' },
-    { code: 'MY', name: 'Malasia', dial: '+60', flag: '🇲🇾' },
-    { code: 'ID', name: 'Indonesia', dial: '+62', flag: '🇮🇩' },
-    { code: 'PH', name: 'Filipinas', dial: '+63', flag: '🇵🇭' },
-    { code: 'VN', name: 'Vietnam', dial: '+84', flag: '🇻🇳' },
-    { code: 'EG', name: 'Egipto', dial: '+20', flag: '🇪🇬' },
-    { code: 'MA', name: 'Marruecos', dial: '+212', flag: '🇲🇦' },
-    { code: 'NG', name: 'Nigeria', dial: '+234', flag: '🇳🇬' },
-    { code: 'KE', name: 'Kenia', dial: '+254', flag: '🇰🇪' }
-];
-
 const getDayName = (date: Date, lang: string) => {
     const daysEs = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     const daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -271,16 +215,27 @@ export default function AiChatSection() {
     const isDark = theme === 'dark';
 
     const [messages, setMessages] = useState<Message[]>([]);
+    const messagesRef = useRef<Message[]>([]);
+    messagesRef.current = messages;
     const [inputVal, setInputVal] = useState('');
     const [isTyping, setIsTyping] = useState(false);
 
-    // Form Fields for Lead Capture (Gatekeeper)
-    const [formName, setFormName] = useState('');
-    const [formEmail, setFormEmail] = useState('');
-    const [formPhone, setFormPhone] = useState('');
-    const [selectedCountryCode, setSelectedCountryCode] = useState('CO');
-    const [formDesc, setFormDesc] = useState('');
-    const [formError, setFormError] = useState('');
+    // Formulario de datos que el bot muestra al cierre de la conversacion. Los datos
+    // van directo al sistema y nunca se envian a Gemini.
+    const [contactName, setContactName] = useState('');
+    const [contactPhone, setContactPhone] = useState('');
+    const [contactEmail, setContactEmail] = useState('');
+    const [contactBudget, setContactBudget] = useState('');
+    const [contactError, setContactError] = useState('');
+
+    const buildWelcomeMessage = (): Message => ({
+        id: 'welcome-bot-msg',
+        sender: 'bot',
+        text: language === 'es'
+            ? '¡Hola! Soy el Asistente de Luis. Si tienes un proyecto en mente, cuéntame qué necesitas y te haré algunas preguntas para entenderlo bien. También puedo resolver dudas sobre su stack, proyectos previos o currículum. ¿En qué te puedo ayudar?'
+            : "Hi! I'm Luis's Assistant. If you have a project in mind, tell me what you need and I'll ask a few questions to understand it well. I can also answer questions about his stack, previous projects or resume. How can I help you?",
+        timestamp: new Date()
+    });
 
     // Calendar Scheduling States
     const [showCalendarMode, setShowCalendarMode] = useState(false);
@@ -374,7 +329,7 @@ export default function AiChatSection() {
         return false;
     });
 
-    const [activeLead, setActiveLead] = useState<{ name: string; email: string; phone?: string; description: string } | null>(() => {
+    const [activeLead, setActiveLead] = useState<Lead | null>(() => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('lfcc-portfolio-active-lead');
             return saved ? JSON.parse(saved) : null;
@@ -388,10 +343,14 @@ export default function AiChatSection() {
 
     // Devuelve el foco al input apenas el bot termina de responder, para que el
     // usuario pueda seguir escribiendo sin tener que hacer clic de nuevo en el campo.
+    // Solo se enfoca cuando isTyping pasa de true a false (nunca al montar) y con
+    // preventScroll: antes, al refrescar la pagina, el navegador saltaba hasta aqui.
+    const wasTypingRef = useRef(false);
     useEffect(() => {
-        if (!isTyping && !showCalendarMode) {
-            chatInputRef.current?.focus();
+        if (wasTypingRef.current && !isTyping && !showCalendarMode) {
+            chatInputRef.current?.focus({ preventScroll: true });
         }
+        wasTypingRef.current = isTyping;
     }, [isTyping, showCalendarMode]);
 
     // Check API connection on load
@@ -445,18 +404,9 @@ export default function AiChatSection() {
                 setIsLeadCaptured(true);
                 setShowCalendarMode(false);
             } else {
-                // Triggered from FloatingButtons or without detail
-                if (isLeadCaptured) {
-                    setShowCalendarMode(false);
-                } else {
-                    // Highlight or focus the first input of lead form
-                    setTimeout(() => {
-                        const firstInput = document.querySelector('input[placeholder="John Doe"]') as HTMLInputElement;
-                        if (firstInput) {
-                            firstInput.focus();
-                        }
-                    }, 500);
-                }
+                // Triggered from FloatingButtons or without detail: the global
+                // SchedulingModal collects contact details itself.
+                setShowCalendarMode(false);
             }
         };
 
@@ -464,7 +414,7 @@ export default function AiChatSection() {
         return () => {
             window.removeEventListener('open-calendar-scheduling', handleExternalScheduling);
         };
-    }, [isLeadCaptured, language]);
+    }, [language]);
 
     // Listen to open-ai-chat-only event (from Contact Form) to just register and enter chat without scheduling trigger
     useEffect(() => {
@@ -505,6 +455,9 @@ export default function AiChatSection() {
 
     // Initialize the conversation when a lead is active
     useEffect(() => {
+        // Si ya hay una conversacion en curso (p. ej. el visitante acaba de dejar sus
+        // datos en el formulario del chat), no se reemplaza su historial.
+        if (messagesRef.current.some((msg) => msg.sender === 'user')) return;
         if (isLeadCaptured && activeLead) {
             setMessages([
                 {
@@ -525,7 +478,8 @@ export default function AiChatSection() {
                 }
             ]);
         } else {
-            setMessages([]);
+            // Visitante anonimo: el chat queda habilitado sin formulario previo.
+            setMessages([buildWelcomeMessage()]);
         }
     }, [isLeadCaptured, activeLead, language]);
 
@@ -556,18 +510,18 @@ export default function AiChatSection() {
         setIsTyping(true);
 
         try {
-            if (!activeLead) {
-                throw new Error("No active lead details found");
-            }
-
-            const historyPayload = updatedMessages.slice(-6).map((msg) => ({
+            // El saludo local no se envia: Gemini espera que el historial inicie con el usuario.
+            // Se envian los ultimos 20 mensajes para que el levantamiento de requerimientos
+            // no pierda lo que el usuario conto al inicio.
+            const historyPayload = updatedMessages.filter((msg) => msg.id !== 'welcome-bot-msg').slice(-20).map((msg) => ({
                 role: msg.sender === 'user' ? 'user' : 'model',
                 text: msg.text
             }));
 
+            // name/email son opcionales en /api/chat: sin lead se conversa de forma anonima.
             const payload = {
-                name: activeLead.name,
-                email: activeLead.email,
+                name: activeLead?.name || null,
+                email: activeLead?.email || null,
                 message: textToSend,
                 history: historyPayload
             };
@@ -603,7 +557,8 @@ export default function AiChatSection() {
                     id: `msg-${Date.now()}-bot`,
                     sender: 'bot',
                     text: botReply,
-                    timestamp: new Date()
+                    timestamp: new Date(),
+                    requestContact: Boolean(data.request_contact) && !activeLead
                 }]);
             }
         } catch (error) {
@@ -705,49 +660,66 @@ export default function AiChatSection() {
         }
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleContactSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setFormError('');
+        setContactError('');
 
-        if (!formName.trim() || !formEmail.trim() || !formPhone.trim() || !formDesc.trim()) {
-            setFormError(language === 'es' ? 'Por favor completa todos los campos obligatorios.' : 'Please fill out all required fields.');
+        const name = contactName.trim();
+        const phone = contactPhone.trim();
+        const email = contactEmail.trim();
+        const budget = contactBudget.trim();
+
+        if (!name || !phone || !email || !budget) {
+            setContactError(language === 'es' ? 'Por favor completa todos los campos.' : 'Please fill out all fields.');
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setContactError(language === 'es' ? 'Por favor introduce un correo válido.' : 'Please enter a valid email address.');
+            return;
+        }
+        if (phone.replace(/\D/g, '').length < 7) {
+            setContactError(language === 'es' ? 'Por favor introduce un número de contacto válido.' : 'Please enter a valid contact number.');
             return;
         }
 
-        if (!/\S+@\S+\.\S+/.test(formEmail)) {
-            setFormError(language === 'es' ? 'Por favor introduce un correo válido.' : 'Please enter a valid email address.');
-            return;
-        }
-
-        const countryObj = COUNTRIES.find(c => c.code === selectedCountryCode);
-        const dialCode = countryObj ? countryObj.dial : '';
-        const fullPhone = `${dialCode} ${formPhone.trim()}`;
-
-        const newLead = {
-            name: formName,
-            email: formEmail,
-            phone: fullPhone,
-            description: formDesc,
+        const firstUserMessage = messages.find((msg) => msg.sender === 'user')?.text || '';
+        const newLead: Lead & { timestamp: string } = {
+            name,
+            email,
+            phone,
+            budget,
+            description: firstUserMessage.slice(0, 500),
             timestamp: new Date().toISOString()
         };
 
-        console.log("¡Nuevo Lead capturado por el Consultor IA!", newLead);
+        try {
+            localStorage.setItem('lfcc-portfolio-active-lead', JSON.stringify(newLead));
+            const existingLeads = JSON.parse(localStorage.getItem('lfcc-portfolio-leads') || '[]');
+            existingLeads.push(newLead);
+            localStorage.setItem('lfcc-portfolio-leads', JSON.stringify(existingLeads));
+        } catch (err) {
+            console.error('No se pudo guardar el lead localmente:', err);
+        }
 
-        // Save lead locally to simulate state persistence
-        localStorage.setItem('lfcc-portfolio-active-lead', JSON.stringify(newLead));
-
-        const existingLeads = JSON.parse(localStorage.getItem('lfcc-portfolio-leads') || '[]');
-        existingLeads.push(newLead);
-        localStorage.setItem('lfcc-portfolio-leads', JSON.stringify(existingLeads));
-
-        // Clear inputs and set states
+        const firstName = name.split(/\s+/)[0];
+        // El formulario se oculta y se agrega el agradecimiento sin reiniciar la conversacion
+        setMessages((prev) => [
+            ...prev.map((msg) => (msg.requestContact ? { ...msg, requestContact: false } : msg)),
+            {
+                id: `msg-${Date.now()}-bot-lead`,
+                sender: 'bot',
+                text: language === 'es'
+                    ? `¡Gracias, ${firstName}! Recibí tus datos y tu presupuesto. Luis revisará tu proyecto y te contactará pronto con una propuesta. Si quieres adelantar, también puedes agendar una videollamada de 30 minutos: pídemelo aquí o usa el botón **Agendar Reunión**.`
+                    : `Thank you, ${firstName}! I received your details and budget. Luis will review your project and contact you soon with a proposal. If you'd like, you can also schedule a 30-minute video call: just ask me here or use the **Schedule Meeting** button.`,
+                timestamp: new Date()
+            }
+        ]);
         setActiveLead(newLead);
         setIsLeadCaptured(true);
-        setFormName('');
-        setFormEmail('');
-        setFormPhone('');
-        setSelectedCountryCode('CO');
-        setFormDesc('');
+        setContactName('');
+        setContactPhone('');
+        setContactEmail('');
+        setContactBudget('');
     };
 
     const handleResetChat = async () => {
@@ -769,6 +741,7 @@ export default function AiChatSection() {
                         name: activeLead.name,
                         phone: activeLead.phone,
                         description: activeLead.description,
+                        budget: activeLead.budget || '',
                         history: historyPayload
                     })
                 }).catch(err => console.error("API Terminate error:", err));
@@ -780,13 +753,7 @@ export default function AiChatSection() {
         localStorage.removeItem('lfcc-portfolio-active-lead');
         setIsLeadCaptured(false);
         setActiveLead(null);
-        setMessages([]);
-        setFormName('');
-        setFormEmail('');
-        setFormPhone('');
-        setSelectedCountryCode('CO');
-        setFormDesc('');
-        setFormError('');
+        setMessages([buildWelcomeMessage()]);
     };
 
     // Inactivity and Unload event listeners
@@ -828,6 +795,7 @@ export default function AiChatSection() {
                         name: activeLead.name,
                         phone: activeLead.phone,
                         description: activeLead.description,
+                        budget: activeLead.budget || '',
                         history: historyPayload
                     }),
                     keepalive: true
@@ -848,6 +816,19 @@ export default function AiChatSection() {
         };
     }, [isLeadCaptured, activeLead, messages]);
 
+    // Listen to lead-captured from SchedulingModal
+    useEffect(() => {
+        const handleLeadCaptured = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            if (customEvent.detail) {
+                setActiveLead(customEvent.detail);
+                setIsLeadCaptured(true);
+            }
+        };
+        window.addEventListener('lead-captured', handleLeadCaptured);
+        return () => window.removeEventListener('lead-captured', handleLeadCaptured);
+    }, []);
+
     // Custom Event Listener for cross-component Scheduling Trigger
     useEffect(() => {
         const handleOpenCalendar = () => {
@@ -864,11 +845,11 @@ export default function AiChatSection() {
     }, []);
 
     return (
-        <section id="ai-assistant" className="py-20 relative z-10">
+        <section id="ai-assistant" className="py-10 relative z-10">
             <div className="max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Section Heading */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -888,7 +869,7 @@ export default function AiChatSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className={`text-3xl sm:text-4xl font-sans font-bold tracking-tight mb-4 ${isDark ? 'text-white' : 'text-slate-900'
+                        className={`text-3xl sm:text-4xl font-sans font-bold tracking-tight mb-2 ${isDark ? 'text-white' : 'text-slate-900'
                             }`}
                     >
                         {t('ai-title')}
@@ -911,7 +892,7 @@ export default function AiChatSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[580px] sm:h-[750px] md:h-[800px] transition-all duration-300 relative ${isDark
+                    className={`w-full rounded-2xl border overflow-hidden backdrop-blur-xl shadow-2xl flex flex-col h-[560px] sm:h-[calc(100vh-300px)] sm:min-h-[460px] sm:max-h-[720px] transition-all duration-300 relative ${isDark
                         ? 'bg-[#030914]/75 border-slate-800/80 shadow-emerald-950/20'
                         : 'bg-white/80 border-slate-200 shadow-slate-200/50'
                         }`}
@@ -953,7 +934,7 @@ export default function AiChatSection() {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            {isLeadCaptured && (
+                            {(isLeadCaptured || messages.length > 1) && (
                                 <button
                                     onClick={handleResetChat}
                                     className={`text-[10px] font-bold px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${isDark
@@ -980,8 +961,7 @@ export default function AiChatSection() {
                         </div>
                     </div>
 
-                    {isLeadCaptured ? (
-                        <>
+                    
                             {/* Messages Area */}
                             <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 min-h-0 scrollbar-thin">
                                 {messages.map((msg) => (
@@ -1014,6 +994,60 @@ export default function AiChatSection() {
                                                 }`}>
                                                 {parseMarkdownToReact(msg.text, isDark)}
                                             </div>
+
+                                            {/* Formulario de cierre: nombre, contacto, correo y presupuesto */}
+                                            {msg.requestContact && !activeLead && (
+                                                <form
+                                                    onSubmit={handleContactSubmit}
+                                                    className={`p-3.5 rounded-2xl border space-y-2.5 ${isDark
+                                                        ? 'bg-slate-950/60 border-emerald-500/25'
+                                                        : 'bg-white border-blue-200'
+                                                        }`}
+                                                >
+                                                    {contactError && (
+                                                        <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] flex items-center gap-1.5">
+                                                            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                                                            <span>{contactError}</span>
+                                                        </div>
+                                                    )}
+                                                    {[
+                                                        { id: 'lead-name', label: language === 'es' ? 'Nombre completo' : 'Full name', type: 'text', value: contactName, set: setContactName, placeholder: language === 'es' ? 'Tu nombre y apellido' : 'Your full name', autoComplete: 'name' },
+                                                        { id: 'lead-phone', label: language === 'es' ? 'Número de contacto' : 'Contact number', type: 'tel', value: contactPhone, set: setContactPhone, placeholder: '+57 300 123 4567', autoComplete: 'tel' },
+                                                        { id: 'lead-email', label: language === 'es' ? 'Correo electrónico' : 'Email', type: 'email', value: contactEmail, set: setContactEmail, placeholder: language === 'es' ? 'tucorreo@ejemplo.com' : 'you@example.com', autoComplete: 'email' },
+                                                        { id: 'lead-budget', label: language === 'es' ? 'Presupuesto para el proyecto' : 'Project budget', type: 'text', value: contactBudget, set: setContactBudget, placeholder: language === 'es' ? 'Ej: 5.000.000 COP' : 'e.g. USD 2,000', autoComplete: 'off' },
+                                                    ].map((field) => (
+                                                        <div key={field.id} className="space-y-1">
+                                                            <label htmlFor={field.id} className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                                {field.label} <span className="text-red-500">*</span>
+                                                            </label>
+                                                            <input
+                                                                id={field.id}
+                                                                type={field.type}
+                                                                value={field.value}
+                                                                onChange={(e) => field.set(e.target.value)}
+                                                                placeholder={field.placeholder}
+                                                                autoComplete={field.autoComplete}
+                                                                maxLength={120}
+                                                                className={`w-full px-3 py-2 text-xs rounded-lg outline-none border transition-all ${isDark
+                                                                    ? 'bg-slate-900/70 border-slate-800 focus:border-emerald-500/50 text-white placeholder:text-slate-600'
+                                                                    : 'bg-slate-50 border-slate-200 focus:border-blue-500 text-slate-800 placeholder:text-slate-400'
+                                                                    }`}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                    <button
+                                                        type="submit"
+                                                        className={`w-full py-2.5 rounded-lg text-xs font-bold cursor-pointer transition-all flex items-center justify-center gap-2 ${isDark
+                                                            ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400'
+                                                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                                                            }`}
+                                                    >
+                                                        <Send className="w-3.5 h-3.5" />
+                                                        <span>{language === 'es' ? 'Enviar datos a Luis' : 'Send details to Luis'}</span>
+                                                    </button>
+                                                </form>
+                                            )}
+
                                             <span className="text-[9px] text-slate-400 block px-1">
                                                 {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </span>
@@ -1196,7 +1230,7 @@ export default function AiChatSection() {
                                     <div className="flex items-center gap-2">
                                         <button
                                             type="button"
-                                            onClick={() => setShowCalendarMode(true)}
+                                            onClick={() => window.dispatchEvent(new CustomEvent('open-calendar-scheduling'))}
                                             className={`px-3.5 py-3 rounded-xl flex items-center gap-2 shrink-0 border transition-all select-none cursor-pointer text-xs sm:text-sm font-bold ${isDark
                                                     ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20'
                                                     : 'bg-blue-500/10 border-blue-500/20 text-blue-600 hover:bg-blue-500/20'
@@ -1233,146 +1267,7 @@ export default function AiChatSection() {
                                     </div>
                                 </div>
                             )}
-                        </>
-                    ) : (
-                        /* Beautiful Centered Gatekeeper Form */
-                        <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-8 overflow-y-auto scrollbar-none">
-                            <motion.div
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="w-full max-w-md mx-auto space-y-6"
-                            >
-                                <div className="text-center space-y-2">
-                                    <div className={`mx-auto w-12 h-12 rounded-2xl flex items-center justify-center border shadow-sm ${isDark
-                                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-emerald-950/20'
-                                        : 'bg-blue-500/10 border-blue-500/20 text-blue-600 shadow-blue-500/5'
-                                        }`}>
-                                        <ClipboardList className="w-6 h-6" />
-                                    </div>
-                                    <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                        {language === 'es' ? 'Identificación de Consultoría' : 'Consulting Registration'}
-                                    </h3>
-                                    <p className="text-xs text-slate-400 max-w-sm mx-auto">
-                                        {language === 'es'
-                                            ? 'Rellena tus datos iniciales para habilitar el chat con el Asistente Técnico y Consultor de Software de Luis Fernando.'
-                                            : 'Fill in your details to enable chat with Luis Fernando\'s Technical Assistant and Software Consultant.'}
-                                    </p>
-                                </div>
-
-                                <form onSubmit={handleFormSubmit} className="space-y-4">
-                                    {formError && (
-                                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
-                                            <AlertCircle className="w-4 h-4 shrink-0" />
-                                            <span>{formError}</span>
-                                        </div>
-                                    )}
-
-                                    <div className="space-y-1.5">
-                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            {language === 'es' ? 'Nombre Completo' : 'Full Name'} <span className="text-red-500">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formName}
-                                            onChange={(e) => setFormName(e.target.value)}
-                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all duration-200 ${isDark
-                                                ? 'bg-slate-950/40 border-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10 text-white placeholder:text-slate-600'
-                                                : 'bg-slate-50/50 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 text-slate-800 placeholder:text-slate-400'
-                                                }`}
-                                            placeholder="John Doe"
-                                        />
-                                    </div>
-
-                                    <div className="space-y-1.5">
-                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            {language === 'es' ? 'Teléfono de Contacto' : 'Contact Phone'} <span className="text-red-500">*</span>
-                                        </label>
-                                        <div className={`flex rounded-xl overflow-hidden border transition-all duration-200 ${isDark
-                                                ? 'bg-slate-950/40 border-slate-800 focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10 shadow-sm'
-                                                : 'bg-slate-50/50 border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 shadow-sm'
-                                            }`}>
-                                            <div className={`relative shrink-0 flex items-center border-r transition-all ${isDark ? 'border-slate-800' : 'border-slate-200'
-                                                }`}>
-                                                <select
-                                                    id="ai-country-code-select"
-                                                    aria-label={language === 'es' ? 'Seleccionar código de país' : 'Select country code'}
-                                                    value={selectedCountryCode}
-                                                    onChange={(e) => setSelectedCountryCode(e.target.value)}
-                                                    className={`pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-transparent outline-none cursor-pointer font-bold appearance-none ${isDark
-                                                            ? 'text-white bg-[#030914]'
-                                                            : 'text-slate-800 bg-white'
-                                                        }`}
-                                                    style={{ minWidth: '95px' }}
-                                                >
-                                                    {COUNTRIES.map((c) => (
-                                                        <option key={c.code} value={c.code} className={isDark ? 'bg-slate-950 text-white' : 'bg-white text-slate-800'}>
-                                                            {c.flag} {c.dial} ({c.name})
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <span className={`absolute right-2 pointer-events-none ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
-                                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <input
-                                                type="tel"
-                                                value={formPhone}
-                                                onChange={(e) => setFormPhone(e.target.value)}
-                                                className={`flex-1 px-3.5 py-2.5 text-xs sm:text-sm bg-transparent outline-none transition-all ${isDark ? 'text-white placeholder:text-slate-650' : 'text-slate-800 placeholder:text-slate-400'
-                                                    }`}
-                                                placeholder="300 123 4567"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-1.5">
-                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            {language === 'es' ? 'Correo Electrónico' : 'Email Address'} <span className="text-red-500">*</span>
-                                        </label>
-                                        <input
-                                            type="email"
-                                            value={formEmail}
-                                            onChange={(e) => setFormEmail(e.target.value)}
-                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border transition-all duration-200 ${isDark
-                                                ? 'bg-slate-950/40 border-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10 text-white placeholder:text-slate-600'
-                                                : 'bg-slate-50/50 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 text-slate-800 placeholder:text-slate-400'
-                                                }`}
-                                            placeholder="johndoe@example.com"
-                                        />
-                                    </div>
-
-                                    <div className="space-y-1.5">
-                                        <label className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            {language === 'es' ? 'Idea de Software / Necesidad Inicial' : 'Software Idea / Initial Need'} <span className="text-red-500">*</span>
-                                        </label>
-                                        <textarea
-                                            rows={3}
-                                            value={formDesc}
-                                            onChange={(e) => setFormDesc(e.target.value)}
-                                            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl outline-none border resize-none transition-all duration-200 ${isDark
-                                                ? 'bg-slate-950/40 border-slate-800 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10 text-white placeholder:text-slate-650'
-                                                : 'bg-slate-50/50 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 text-slate-800 placeholder:text-slate-400'
-                                                }`}
-                                            placeholder={language === 'es' ? 'Quiero desarrollar una aplicación web de comercio electrónico...' : 'I want to build an e-commerce web application...'}
-                                        />
-                                    </div>
-
-                                    <button
-                                        type="submit"
-                                        className={`w-full py-3 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all shadow-md flex items-center justify-center gap-2 ${isDark
-                                            ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-98'
-                                            : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-98'
-                                            }`}
-                                    >
-                                        <Bot className="w-4 h-4" />
-                                        <span>{language === 'es' ? 'Comenzar Consulta' : 'Start Consultation'}</span>
-                                    </button>
-                                </form>
-                            </motion.div>
-                        </div>
-                    )}
+                        
                 </motion.div>
 
             </div>

@@ -219,13 +219,20 @@ export default function SchedulingModal() {
             setMeetLink('');
             setSelectedTime(null);
 
-            // Pre-fill fields if passed from Contact Form
-            if (details.name || details.email || details.phone) {
-                setName(details.name || '');
-                setEmail(details.email || '');
-                // Try to parse out country code if pre-filled with code space phone
-                if (details.phone) {
-                    const phoneVal = details.phone.trim();
+            // Pre-fill fields if passed from Contact Form or localStorage
+            let savedLead = null;
+            try {
+                const raw = localStorage.getItem('lfcc-portfolio-active-lead');
+                if (raw) savedLead = JSON.parse(raw);
+            } catch (e) {}
+
+            const leadData = (details.name || details.email) ? details : savedLead;
+
+            if (leadData && (leadData.name || leadData.email || leadData.phone)) {
+                setName(leadData.name || '');
+                setEmail(leadData.email || '');
+                if (leadData.phone) {
+                    const phoneVal = leadData.phone.trim();
                     const matchedCountry = COUNTRIES.find(c => phoneVal.startsWith(c.dial));
                     if (matchedCountry) {
                         setSelectedCountryCode(matchedCountry.code);
@@ -236,12 +243,11 @@ export default function SchedulingModal() {
                 }
                 setStep(2); // Skip Form step and directly open slots!
             } else {
-                // Opened from Floating Button, clear previous fields
                 setName('');
                 setEmail('');
                 setPhone('');
                 setSelectedCountryCode('CO');
-                setStep(1);
+                setStep(1); // Step 1: Ask for contact details!
             }
 
             if (weekdays.length > 0) {
@@ -348,6 +354,21 @@ export default function SchedulingModal() {
             setMeetLink(link);
             setSelectedTime(timeSlot);
             setStep(3); // Success Screen!
+
+            try {
+                const newLead = {
+                    name: name.trim(),
+                    email: email.trim(),
+                    phone: fullPhone.trim(),
+                    description: `Reunión agendada para el ${formattedDatetime}`,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('lfcc-portfolio-active-lead', JSON.stringify(newLead));
+                const existingLeads = JSON.parse(localStorage.getItem('lfcc-portfolio-leads') || '[]');
+                existingLeads.push(newLead);
+                localStorage.setItem('lfcc-portfolio-leads', JSON.stringify(existingLeads));
+                window.dispatchEvent(new CustomEvent('lead-captured', { detail: newLead }));
+            } catch (e) {}
         } catch (error: any) {
             console.error("Error scheduling:", error);
             setSchedulingError(error.message || currentLabels.schedulingError);
