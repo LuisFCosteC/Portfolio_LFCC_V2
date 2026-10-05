@@ -60,6 +60,10 @@ const techIconMap: { [key: string]: { name: string; url: string } } = {
     name: 'Vite',
     url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg'
   },
+  lucide: {
+    name: 'Lucide',
+    url: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 2 18 2 18 6 6 6 6 2"/><polygon points="3 6 21 6 21 10 3 10 3 6"/><polygon points="6 10 18 10 18 14 6 14 6 10"/><polygon points="3 14 21 14 21 18 3 18 3 14"/><polygon points="6 18 18 18 18 22 6 22 6 18"/></svg>'
+  },
 };
 
 const AUTO_PLAY_MS = 15000; // 15 seconds
@@ -384,7 +388,7 @@ export default function Projects() {
                 ? 'pokedex-api.dev'
                 : project.id === 2
                 ? 'med-dashboard.local'
-                : 'rickandmorty-api.dev'}
+                : 'rick-and-morty-api-with-react.vercel.app'}
             </div>
             {/* Balanced spacing */}
             <div className="w-12 text-right">

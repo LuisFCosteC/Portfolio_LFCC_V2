@@ -52,8 +52,8 @@ export const en = {
   'proj-desc-3': 'This project represents a high-speed Backend-for-Frontend (BFF) service built in Python for concurrent network request processing. The architecture harnesses native asynchronous programming capabilities to dispatch multiple concurrent requests to external APIs without blocking the server\'s event loop. The platform includes strict runtime type-validation schemas to guard response integrity and an automated testing suite ensuring API resilience against failures or source payload variations.',
   'proj-title-2': 'Full-Stack Employee Management System',
   'proj-desc-2': 'This enterprise-grade solution integrates a client-server environment under a decoupled approach. The backend exposes a robust RESTful API over Node.js and Express to process CRUD operations, apply parsing middlewares, and actively mitigate code injection vulnerabilities. The frontend interacts as a high-fidelity Single Page Application (SPA) consuming these services asynchronously via Axios, guaranteeing secure, validated, real-time data persistence on a MySQL relational database.',
-  'proj-title-1': 'Rick & Morty Universe Explorer',
-  'proj-desc-1': 'This project consists of a high-performance, user-oriented web application designed for dynamic structured data consumption and rendering. The architecture focuses on efficient integration with the Rick and Morty API, abstracting HTTP request complexities through advanced asynchronous logic. The development core implements React for reactive state management and component modularity, ensuring an optimal interface lifecycle. The visual ecosystem is backed by modern semantic HTML5 and robust CSS3 styling, guaranteeing a fluid, scalable, and fully adaptive (responsive) experience.',
+  'proj-title-1': 'Rick & Morty Multiverse Explorer',
+  'proj-desc-1': 'Interactive and reactive web application built with React and Bootstrap to explore the Rick and Morty multiverse in real time by consuming its official REST API. Features instant search and dynamic filters by vital status (alive, dead, unknown), species, and gender; detailed specimen dossier modal with featured episodes; persistent favorites management in LocalStorage; random interdimensional character hopper; themed portal gun animation; immersive sound effects (Web Audio API), bilingual support (English/Spanish), and Light/Dark theme switching.',
 
   // Project Details Preview
   'proj-role-label': 'Project Role',
@@ -77,7 +77,7 @@ export const en = {
   'proj-role-2': 'Node/React Full-Stack Developer',
   'proj-features-2': 'Decoupled client-server architecture with strict CORS policy management, Full CRUD operations (Create, Read, Update, Delete) with two-layer data validation, Server-side exception handling to prevent main thread crashes on erroneous queries, Fluid reactive interface integrated with dynamic alerts for critical confirmation flows, Normalized relational persistence with SQL injection mitigation via character escaping',
   'proj-role-1': 'React Frontend Developer',
-  'proj-features-1': 'Robust asynchronous API integration with robust error handling and loading states, Efficiently managed global state using native React Hooks, Optimized pagination system for navigating large data sets, Instant character filtering with defensive logic against empty payloads, Fluid responsive layout optimized for multiple screen resolutions',
+  'proj-features-1': 'Optimized asynchronous consumption of the official Rick & Morty REST API with error handling and loading states, Advanced multi-criteria filtering (vital status, gender, species) and dynamic character search, Detailed specimen dossier modal with comprehensive statistics and featured episodes list, Persistent favorites system backed by LocalStorage and random dimensional character hopper, Full bilingual support (EN/ES) with Light/Dark theme selector and interactive sound effects',
 
   // Certificates
   'cert-title': 'Certificates',

@@ -504,22 +504,21 @@ export default function Footer() {
         </div>
 
         {/* Lower Row */}
-        <div id="footer-lower-row" className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs font-medium">
+        <div id="footer-lower-row" className="flex items-center justify-center pt-8 text-xs font-medium">
           
-          {/* Copyright */}
-          <div id="footer-copyright" className="text-center sm:text-left">
-            <span>© {currentYear} LFCC &amp; <a href="https://www.2code.com.co/" target="_blank" rel="noopener noreferrer" className="hover:underline font-bold text-gradient-green">2Code</a>. {t('footer-rights')}</span>
-          </div>
-
-          {/* Author Credits */}
-          <div id="footer-credits" className="text-center sm:text-right">
+          {/* Combined Copyright & Credits */}
+          <div id="footer-copyright" className="text-center">
             <span>
-              {t('footer-developed')}{' '}
-              <span className={`font-black tracking-wide cursor-pointer transition-colors ${
-                isDark ? 'text-green-400' : 'text-blue-600'
-              }`} onClick={handleScrollToTop}>
-                Luis F. Coste C.
+              © {currentYear}{' '}
+              <span 
+                className={`font-black tracking-wide cursor-pointer transition-colors ${
+                  isDark ? 'text-green-400 hover:text-green-300' : 'text-blue-600 hover:text-blue-500'
+                }`} 
+                onClick={handleScrollToTop}
+              >
+                LFCC - Luis F. Coste C.
               </span>
+              . {t('footer-rights')}
             </span>
           </div>
 
